@@ -120,6 +120,7 @@ img {
 .hero-media {
   overflow: hidden;
   transform: scale(1.02);
+  filter: saturate(1.18) contrast(1.12) brightness(0.96);
 }
 
 .hero-slide {
@@ -229,9 +230,9 @@ img {
 
 .hero-overlay {
   background:
-    linear-gradient(90deg, rgba(214, 214, 210, 0.1), rgba(214, 214, 210, 0.58) 64%, rgba(214, 214, 210, 0.82)),
-    linear-gradient(90deg, rgba(18, 26, 22, 0.86), rgba(24, 30, 25, 0.5) 46%, rgba(24, 30, 25, 0.08)),
-    linear-gradient(0deg, rgba(18, 19, 16, 0.62), transparent 40%);
+    linear-gradient(90deg, rgba(214, 214, 210, 0), rgba(214, 214, 210, 0.22) 66%, rgba(214, 214, 210, 0.42)),
+    linear-gradient(90deg, rgba(18, 26, 22, 0.82), rgba(24, 30, 25, 0.42) 46%, rgba(24, 30, 25, 0.04)),
+    linear-gradient(0deg, rgba(18, 19, 16, 0.58), transparent 42%);
 }
 
 .hero::before {
@@ -280,7 +281,7 @@ img {
   width: min(520px, 100%);
   padding: clamp(22px, 4vw, 42px);
   color: var(--neon);
-  background: rgba(214, 214, 210, 0.82);
+  background: rgba(214, 214, 210, 0.68);
   text-transform: uppercase;
 }
 
@@ -950,8 +951,8 @@ blockquote {
 
   .hero-overlay {
     background:
-      linear-gradient(180deg, rgba(18, 26, 22, 0.3), rgba(18, 26, 22, 0.72) 48%, rgba(18, 26, 22, 0.92)),
-      linear-gradient(90deg, rgba(18, 26, 22, 0.74), rgba(18, 26, 22, 0.2));
+      linear-gradient(180deg, rgba(18, 26, 22, 0.22), rgba(18, 26, 22, 0.62) 48%, rgba(18, 26, 22, 0.88)),
+      linear-gradient(90deg, rgba(18, 26, 22, 0.66), rgba(18, 26, 22, 0.14));
   }
 
   .hero-event {
@@ -980,7 +981,7 @@ blockquote {
     justify-self: start;
     width: min(300px, 100%);
     padding: 14px 16px;
-    background: rgba(214, 214, 210, 0.72);
+    background: rgba(214, 214, 210, 0.62);
   }
 
   .hero-date-card span {
