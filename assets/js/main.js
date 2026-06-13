@@ -30,6 +30,12 @@ const els = {
   player: document.querySelector("#sound-player"),
 };
 
+const mapContainer = document.querySelector("#map");
+const soundMapSection = document.querySelector("#sound-map");
+
+if (!mapContainer || soundMapSection?.hidden) {
+  window.frcsSoundMap = { disabled: true };
+} else {
 const map = new maplibregl.Map({
   container: "map",
   style: {
@@ -61,6 +67,7 @@ const map = new maplibregl.Map({
   minZoom: 10,
   maxZoom: 17,
   cooperativeGestures: true,
+  attributionControl: false,
 });
 
 window.frcsSoundMap = {
@@ -221,3 +228,4 @@ map.on("load", async () => {
     renderPanel(fallbackFeature);
   }
 });
+}

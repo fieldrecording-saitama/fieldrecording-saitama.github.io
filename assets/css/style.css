@@ -341,6 +341,17 @@ h3 {
   text-underline-offset: 4px;
 }
 
+.program-detail {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+  color: var(--ink-muted);
+}
+
+.program-detail p {
+  margin: 0;
+}
+
 .sound-section {
   padding-bottom: clamp(54px, 8vw, 96px);
 }
