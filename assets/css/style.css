@@ -33,6 +33,9 @@ body {
   background-size: 42px 42px;
   font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, system-ui, sans-serif;
   line-height: 1.8;
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-break: strict;
 }
 
 a {
@@ -42,6 +45,12 @@ a {
 img {
   display: block;
   max-width: 100%;
+}
+
+.text-keep {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
 }
 
 .site-header {
@@ -266,6 +275,8 @@ img {
   align-self: center;
   justify-self: end;
   display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: clamp(14px, 2vw, 24px);
   width: min(520px, 100%);
   padding: clamp(22px, 4vw, 42px);
   color: var(--neon);
@@ -274,6 +285,7 @@ img {
 }
 
 .hero-date-card span {
+  grid-column: 1 / -1;
   font-size: clamp(2.1rem, 4.4vw, 4.4rem);
   font-style: italic;
   font-weight: 900;
@@ -281,6 +293,7 @@ img {
 }
 
 .hero-date-card em {
+  grid-column: 1;
   margin-top: 30px;
   font-size: clamp(2rem, 4.8vw, 4.2rem);
   font-style: normal;
@@ -289,14 +302,17 @@ img {
 }
 
 .hero-date-card strong {
+  grid-column: 1;
   font-size: clamp(5.6rem, 12vw, 12rem);
   font-weight: 900;
   line-height: 0.86;
 }
 
 .hero-date-card b {
+  grid-column: 2;
+  grid-row: 2 / 4;
+  align-self: end;
   justify-self: end;
-  margin-top: -0.36em;
   writing-mode: vertical-rl;
   font-size: clamp(3.8rem, 8vw, 8rem);
   font-weight: 900;
@@ -326,8 +342,33 @@ img {
 h1,
 h2,
 h3,
-p {
-  overflow-wrap: anywhere;
+p,
+li,
+dt,
+dd,
+strong,
+time,
+blockquote {
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-break: strict;
+}
+
+:lang(ja) body,
+:lang(ja) h1,
+:lang(ja) h2,
+:lang(ja) h3,
+:lang(ja) p,
+:lang(ja) li,
+:lang(ja) dt,
+:lang(ja) dd,
+:lang(ja) strong,
+:lang(ja) time,
+:lang(ja) blockquote,
+:lang(ja) .button,
+:lang(ja) .mode-button,
+:lang(ja) .inline-apply {
+  word-break: auto-phrase;
 }
 
 h1 {
@@ -335,6 +376,7 @@ h1 {
   font-size: clamp(2.35rem, 6vw, 5.8rem);
   line-height: 1.12;
   letter-spacing: 0;
+  text-wrap: balance;
 }
 
 h2 {
@@ -342,12 +384,14 @@ h2 {
   font-size: clamp(1.8rem, 4vw, 3.25rem);
   line-height: 1.28;
   letter-spacing: 0;
+  text-wrap: balance;
 }
 
 h3 {
   margin: 0 0 8px;
   font-size: 1.04rem;
   line-height: 1.45;
+  text-wrap: pretty;
 }
 
 .hero-copy {
@@ -370,7 +414,7 @@ h3 {
   backdrop-filter: blur(10px);
 }
 
-.hero-event span {
+.hero-event > span {
   color: #f0b27e;
   font-size: 0.78rem;
   font-weight: 700;
@@ -415,6 +459,9 @@ h3 {
   font-weight: 700;
   line-height: 1.3;
   text-decoration: none;
+  overflow-wrap: normal;
+  text-align: center;
+  text-wrap: balance;
 }
 
 .button.primary {
@@ -479,9 +526,9 @@ h3 {
 
 .event-section {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
-  gap: clamp(30px, 6vw, 82px);
+  grid-template-columns: minmax(0, 920px);
   align-items: start;
+  justify-content: start;
   background: var(--white);
   border-block: 1px solid var(--line);
 }
@@ -555,23 +602,6 @@ h3 {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 26px;
-}
-
-.event-poster {
-  margin: 0;
-}
-
-.event-poster img {
-  width: 100%;
-  border: 1px solid var(--line);
-  background: var(--paper);
-  box-shadow: var(--shadow);
-}
-
-.event-poster figcaption {
-  margin-top: 10px;
-  color: var(--ink-muted);
-  font-size: 0.82rem;
 }
 
 .project-flow {
@@ -891,17 +921,67 @@ blockquote {
   }
 
   .hero {
-    min-height: 92svh;
-    padding: 112px 20px 54px;
+    min-height: 100svh;
+    align-content: end;
+    align-items: end;
+    gap: 18px;
+    padding: 104px 20px 34px;
   }
 
-  .hero::before,
-  .hero-date-card {
+  .hero::before {
     display: none;
   }
 
   .hero-ornaments {
     display: none;
+  }
+
+  .hero-overlay {
+    background:
+      linear-gradient(180deg, rgba(18, 26, 22, 0.3), rgba(18, 26, 22, 0.72) 48%, rgba(18, 26, 22, 0.92)),
+      linear-gradient(90deg, rgba(18, 26, 22, 0.74), rgba(18, 26, 22, 0.2));
+  }
+
+  .hero-event {
+    max-width: 100%;
+    margin-top: 10px;
+    padding: 10px 12px;
+  }
+
+  h1 {
+    margin: 12px 0 16px;
+    font-size: clamp(2.35rem, 12vw, 3.7rem);
+    line-height: 1.08;
+  }
+
+  .hero-copy {
+    font-size: 0.96rem;
+  }
+
+  .hero-date-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    justify-self: start;
+    width: min(300px, 100%);
+    padding: 14px 16px;
+    background: rgba(214, 214, 210, 0.72);
+  }
+
+  .hero-date-card span {
+    font-size: 1.28rem;
+    line-height: 1;
+  }
+
+  .hero-date-card em {
+    margin-top: 10px;
+    font-size: 1.18rem;
+  }
+
+  .hero-date-card strong {
+    font-size: 3.35rem;
+  }
+
+  .hero-date-card b {
+    font-size: 2.15rem;
   }
 
   .hero-actions,
@@ -910,12 +990,37 @@ blockquote {
     align-items: stretch;
   }
 
+  .hero-actions {
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .hero-actions.secondary {
+    display: none;
+  }
+
+  .hero-apply-note {
+    margin-top: 8px;
+    font-size: 0.76rem;
+  }
+
   .button {
     width: 100%;
   }
 
   .section {
     padding-inline: 20px;
+  }
+
+  .hero-copy,
+  .section-heading p,
+  .event-copy > p,
+  .navigators p,
+  .panel-body p,
+  blockquote,
+  .program-detail p {
+    line-height: 1.75;
+    text-wrap: pretty;
   }
 
   .project-flow,
