@@ -9,6 +9,8 @@
   --water: #8db3b6;
   --amber: #c26c3a;
   --red: #b44735;
+  --neon: #edff35;
+  --banner-gray: #d6d6d2;
   --white: #fffdf7;
   --shadow: 0 18px 60px rgba(35, 33, 27, 0.14);
 }
@@ -92,6 +94,8 @@ img {
   position: relative;
   min-height: 92svh;
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
+  gap: clamp(28px, 5vw, 72px);
   align-items: end;
   padding: 118px clamp(20px, 6vw, 86px) 76px;
   overflow: hidden;
@@ -111,9 +115,28 @@ img {
 
 .hero-overlay {
   background:
-    radial-gradient(circle at 78% 28%, rgba(141, 179, 182, 0.25), transparent 24%),
-    linear-gradient(90deg, rgba(18, 26, 22, 0.86), rgba(24, 30, 25, 0.56) 46%, rgba(24, 30, 25, 0.18)),
+    linear-gradient(90deg, rgba(214, 214, 210, 0.1), rgba(214, 214, 210, 0.58) 64%, rgba(214, 214, 210, 0.82)),
+    linear-gradient(90deg, rgba(18, 26, 22, 0.86), rgba(24, 30, 25, 0.5) 46%, rgba(24, 30, 25, 0.08)),
     linear-gradient(0deg, rgba(18, 19, 16, 0.62), transparent 40%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  left: max(-130px, -8vw);
+  top: 72px;
+  z-index: 1;
+  width: min(360px, 52vw);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 253, 247, 0.42);
+  border-radius: 50%;
+  box-shadow:
+    18px 0 0 -17px rgba(255, 253, 247, 0.42),
+    36px 0 0 -35px rgba(255, 253, 247, 0.42),
+    54px 0 0 -53px rgba(255, 253, 247, 0.42),
+    72px 0 0 -71px rgba(255, 253, 247, 0.42),
+    90px 0 0 -89px rgba(255, 253, 247, 0.42);
+  opacity: 0.8;
 }
 
 .hero-ornaments {
@@ -132,6 +155,49 @@ img {
   width: min(780px, 100%);
 }
 
+.hero-date-card {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  justify-self: end;
+  display: grid;
+  width: min(520px, 100%);
+  padding: clamp(22px, 4vw, 42px);
+  color: var(--neon);
+  background: rgba(214, 214, 210, 0.82);
+  text-transform: uppercase;
+}
+
+.hero-date-card span {
+  font-size: clamp(2.1rem, 4.4vw, 4.4rem);
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1.02;
+}
+
+.hero-date-card em {
+  margin-top: 30px;
+  font-size: clamp(2rem, 4.8vw, 4.2rem);
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.hero-date-card strong {
+  font-size: clamp(5.6rem, 12vw, 12rem);
+  font-weight: 900;
+  line-height: 0.86;
+}
+
+.hero-date-card b {
+  justify-self: end;
+  margin-top: -0.36em;
+  writing-mode: vertical-rl;
+  font-size: clamp(3.8rem, 8vw, 8rem);
+  font-weight: 900;
+  line-height: 0.84;
+}
+
 .eyebrow,
 .section-kicker,
 .panel-place,
@@ -144,7 +210,10 @@ img {
   text-transform: uppercase;
 }
 
-.eyebrow,
+.eyebrow {
+  color: var(--neon);
+}
+
 .section-kicker {
   color: var(--amber);
 }
@@ -250,10 +319,10 @@ h3 {
 }
 
 .button.accent {
-  border-color: #f0b27e;
-  background: var(--amber);
-  color: var(--white);
-  box-shadow: 0 10px 30px rgba(194, 108, 58, 0.28);
+  border-color: var(--neon);
+  background: var(--neon);
+  color: var(--ink);
+  box-shadow: 0 10px 30px rgba(237, 255, 53, 0.24);
 }
 
 .button.ghost {
@@ -451,11 +520,13 @@ h3 {
 
 .sound-section {
   padding-bottom: clamp(54px, 8vw, 96px);
+  background: var(--white);
+  border-block: 1px solid var(--line);
 }
 
 .sound-map-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1.24fr) minmax(340px, 0.76fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
   gap: 22px;
   align-items: stretch;
 }
@@ -470,7 +541,7 @@ h3 {
 
 .map-wrap {
   position: relative;
-  min-height: 620px;
+  min-height: 460px;
 }
 
 #map {
@@ -540,6 +611,33 @@ blockquote {
   background: var(--paper);
   font-size: 0.78rem;
   font-weight: 700;
+}
+
+.player-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mode-button {
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid rgba(36, 72, 62, 0.34);
+  border-radius: 999px;
+  color: var(--green);
+  background: var(--paper);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.mode-button[aria-pressed="true"] {
+  border-color: var(--neon);
+  color: var(--ink);
+  background: var(--neon);
+  box-shadow: 0 8px 22px rgba(237, 255, 53, 0.24);
 }
 
 .soundcloud-frame {
@@ -638,8 +736,14 @@ blockquote {
   .section-grid,
   .sound-map-shell,
   .join-section,
-  .event-section {
+  .event-section,
+  .hero {
     grid-template-columns: 1fr;
+  }
+
+  .hero-date-card {
+    justify-self: start;
+    width: min(420px, 100%);
   }
 
   .project-flow {
@@ -647,7 +751,7 @@ blockquote {
   }
 
   .map-wrap {
-    min-height: min(58svh, 520px);
+    min-height: min(48svh, 420px);
   }
 }
 
@@ -669,6 +773,11 @@ blockquote {
   .hero {
     min-height: 92svh;
     padding: 112px 20px 54px;
+  }
+
+  .hero::before,
+  .hero-date-card {
+    display: none;
   }
 
   .hero-ornaments {

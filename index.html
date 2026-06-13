@@ -7,8 +7,9 @@
     <meta property="og:title" content="サウンド・コミュニケーション・ウォークさいたま2026">
     <meta property="og:description" content="“フィールドレコーディングクラブさいたま”と歩く大宮一番街〜氷川の森。">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="assets/img/hero.jpg">
+    <meta property="og:image" content="assets/img/listening-walk-banner.jpg">
     <title>フィールドレコーディングクラブさいたま</title>
+    <link rel="stylesheet" href="assets/vendor/maplibre/maplibre-gl.css">
     <link rel="stylesheet" href="assets/css/style.css">
   </head>
   <body>
@@ -19,6 +20,7 @@
       </a>
       <nav class="site-nav" aria-label="主要ナビゲーション">
         <a href="#about">About</a>
+        <a href="#sound-map">Sound Map</a>
         <a href="#program">Program</a>
         <a href="#join">Join</a>
       </nav>
@@ -50,6 +52,12 @@
           <div class="hero-actions secondary" aria-label="補助リンク">
             <a class="button ghost" href="#join">活動をフォローする</a>
           </div>
+        </div>
+        <div class="hero-date-card" aria-label="World Listening Day 2026年7月18日土曜日">
+          <span>WORLD<br>LISTENING DAY !!</span>
+          <em>2026.</em>
+          <strong>7.18</strong>
+          <b>SAT</b>
         </div>
       </section>
 
@@ -147,11 +155,11 @@
         </div>
       </section>
 
-      <section id="sound-map" class="section sound-section" aria-labelledby="sound-map-title" hidden>
+      <section id="sound-map" class="section sound-section" aria-labelledby="sound-map-title">
         <div class="section-heading compact">
           <p class="section-kicker">Sound Map</p>
           <h2 id="sound-map-title">さいたまの音地図</h2>
-          <p>地図上の録音地点を選ぶと、地点情報とSoundCloudプレイヤーが切り替わります。</p>
+          <p>地図上の録音地点を選ぶと、Livingroom TapesのSoundCloud音源と録音メモが切り替わります。</p>
         </div>
         <div class="sound-map-shell">
           <div class="map-wrap">
@@ -166,10 +174,13 @@
               <p id="sound-description"></p>
               <blockquote id="sound-note"></blockquote>
               <div id="sound-tags" class="tag-list" aria-label="タグ"></div>
+              <div class="player-controls" aria-label="音源再生オプション">
+                <button id="continuous-play" class="mode-button" type="button" aria-pressed="false">連続再生 OFF</button>
+              </div>
               <div id="sound-player" class="player-placeholder">
                 <p>地点を選ぶとSoundCloudプレイヤーが表示されます。</p>
               </div>
-              <p class="rights-note">サンプル音源です。正式公開時はFRCS録音または許諾済み音源に差し替えてください。</p>
+              <p class="rights-note">SoundCloudの表記をもとに地点情報を整理しています。座標は録音地点説明からの推定です。</p>
             </div>
           </aside>
         </div>
@@ -235,6 +246,8 @@
       <p>Field Recording Club Saitama / Sample sound map</p>
     </footer>
 
-    <script src="assets/js/main.js?v=20260613"></script>
+    <script src="assets/vendor/maplibre/maplibre-gl.js"></script>
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="assets/js/main.js?v=20260613-map"></script>
   </body>
 </html>
