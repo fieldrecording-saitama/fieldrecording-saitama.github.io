@@ -494,8 +494,20 @@ h3 {
 
 .section-grid {
   display: grid;
-  grid-template-columns: minmax(220px, 0.82fr) minmax(280px, 1.18fr);
-  gap: clamp(34px, 7vw, 88px);
+  grid-template-columns: minmax(300px, 0.78fr) minmax(420px, 1fr);
+  gap: clamp(56px, 8vw, 132px);
+  align-items: start;
+}
+
+.section-grid > * {
+  min-width: 0;
+}
+
+#about h2 {
+  width: 100%;
+  max-width: min(9.5em, 100%);
+  font-size: clamp(2.5rem, 4.8vw, 5rem);
+  line-height: 1.2;
 }
 
 .section-heading {
@@ -954,6 +966,11 @@ blockquote {
     line-height: 1.08;
   }
 
+  #about h2 {
+    font-size: 2rem;
+    line-height: 1.18;
+  }
+
   .hero-copy {
     font-size: 0.96rem;
   }
@@ -1014,12 +1031,15 @@ blockquote {
 
   .hero-copy,
   .section-heading p,
+  .prose p,
   .event-copy > p,
   .navigators p,
   .panel-body p,
   blockquote,
   .program-detail p {
     line-height: 1.75;
+    word-break: normal;
+    overflow-wrap: break-word;
     text-wrap: pretty;
   }
 
