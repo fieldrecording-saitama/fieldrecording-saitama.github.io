@@ -109,8 +109,113 @@ img {
 }
 
 .hero-media {
-  background: url("../img/hero.jpg") center / cover no-repeat;
+  overflow: hidden;
   transform: scale(1.02);
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  animation-duration: 25s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  will-change: opacity;
+}
+
+.hero-slide-1 {
+  background-image: url("../img/hero-slide-race-stadium.jpg");
+  animation-name: heroFade1;
+}
+
+.hero-slide-2 {
+  background-image: url("../img/hero-slide-night-water.jpg");
+  animation-name: heroFade2;
+}
+
+.hero-slide-3 {
+  background-image: url("../img/hero-slide-recording-stand.jpg");
+  animation-name: heroFade3;
+}
+
+.hero-slide-4 {
+  background-image: url("../img/hero-slide-field-recorder.jpg");
+  animation-name: heroFade4;
+}
+
+.hero-slide-5 {
+  background-image: url("../img/hero-slide-night-park.jpg");
+  animation-name: heroFade5;
+}
+
+@keyframes heroFade1 {
+  0%,
+  18%,
+  100% {
+    opacity: 1;
+  }
+
+  22%,
+  96% {
+    opacity: 0;
+  }
+}
+
+@keyframes heroFade2 {
+  0%,
+  18%,
+  42%,
+  100% {
+    opacity: 0;
+  }
+
+  22%,
+  38% {
+    opacity: 1;
+  }
+}
+
+@keyframes heroFade3 {
+  0%,
+  38%,
+  62%,
+  100% {
+    opacity: 0;
+  }
+
+  42%,
+  58% {
+    opacity: 1;
+  }
+}
+
+@keyframes heroFade4 {
+  0%,
+  58%,
+  82%,
+  100% {
+    opacity: 0;
+  }
+
+  62%,
+  78% {
+    opacity: 1;
+  }
+}
+
+@keyframes heroFade5 {
+  0%,
+  78%,
+  100% {
+    opacity: 0;
+  }
+
+  82%,
+  96% {
+    opacity: 1;
+  }
 }
 
 .hero-overlay {
@@ -640,6 +745,11 @@ blockquote {
   box-shadow: 0 8px 22px rgba(237, 255, 53, 0.24);
 }
 
+.mode-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
 .soundcloud-frame {
   width: 100%;
   height: 166px;
@@ -730,6 +840,16 @@ blockquote {
   border-radius: 0;
   color: var(--ink);
   font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    animation: none;
+  }
+
+  .hero-slide-1 {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 980px) {

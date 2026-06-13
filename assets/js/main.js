@@ -31,6 +31,7 @@ const els = {
   photo: document.querySelector("#sound-photo"),
   player: document.querySelector("#sound-player"),
   continuousButton: document.querySelector("#continuous-play"),
+  nextButton: document.querySelector("#next-sound"),
 };
 
 const mapContainer = document.querySelector("#map");
@@ -112,6 +113,14 @@ function updateContinuousButton() {
   els.continuousButton.setAttribute("aria-pressed", String(soundState.continuous));
 }
 
+function updateNextButton() {
+  if (!els.nextButton) {
+    return;
+  }
+
+  els.nextButton.disabled = soundState.features.length < 2;
+}
+
 function getSelectedIndex() {
   return soundState.features.findIndex((item) => item.properties.id === soundState.selectedId);
 }
@@ -151,6 +160,15 @@ function playNextFeature() {
   }
 
   selectFeature(nextFeature, { autoplay: true, focusMap: true });
+}
+
+function goToNextFeature() {
+  const nextFeature = getNextFeature();
+  if (!nextFeature) {
+    return;
+  }
+
+  selectFeature(nextFeature, { autoplay: soundState.continuous, focusMap: true });
 }
 
 function setupSoundCloudWidget(iframe, shouldAutoplay = false) {
@@ -242,6 +260,11 @@ if (els.continuousButton) {
   });
 }
 
+if (els.nextButton) {
+  updateNextButton();
+  els.nextButton.addEventListener("click", goToNextFeature);
+}
+
 async function loadSounds() {
   const response = await fetch("data/sounds.geojson");
   if (!response.ok) {
@@ -254,6 +277,7 @@ map.on("load", async () => {
   try {
     const geojson = await loadSounds();
     soundState.features = geojson.features;
+    updateNextButton();
 
     map.addSource("sounds", {
       type: "geojson",
