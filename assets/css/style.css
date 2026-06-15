@@ -655,6 +655,12 @@ h3 {
   text-underline-offset: 4px;
 }
 
+.inline-apply.disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+  text-decoration: none;
+}
+
 .program-detail {
   display: grid;
   gap: 6px;
