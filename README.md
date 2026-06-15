@@ -26,7 +26,7 @@
 
 - メインコピー「耳をひらくと、さいたまは別の風景になる。」
 - 団体の短い紹介
-- World Listening Day翌日の2026年7月19日イベントの申込み予告CTA
+- World Listening Dayの翌日、2026年7月19日開催イベントの申込み予告CTA
 - 申込み開始前の「近日公開」表示
 
 ### About
@@ -62,7 +62,7 @@
 
 ### Program
 
-- World Listening Day翌日の2026年7月19日イベント
+- World Listening Dayの翌日、2026年7月19日開催イベント
 - 2026年9月〜12月の録音ワークショップ
 - 2027年3月の成果展示発表会
 
@@ -75,7 +75,7 @@
 
 ## 実装内容
 
-- World Listening Day翌日の2026年7月19日イベント告知
+- World Listening Dayの翌日、2026年7月19日開催イベントの告知
 - MapLibre GL JSによる音地図
 - GeoJSONで管理する録音地点データ
 - SoundCloud埋め込みプレイヤー

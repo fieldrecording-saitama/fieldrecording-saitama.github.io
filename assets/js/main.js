@@ -203,7 +203,7 @@ function renderPanel(feature, options = {}) {
   els.description.textContent = props.description;
   els.note.textContent = props.note;
   els.photo.src = props.photo || "assets/img/hero.jpg";
-  els.photo.alt = `${props.place}の仮イメージ`;
+  els.photo.alt = `${props.place}の写真`;
 
   const tags = Array.isArray(props.tags) ? props.tags : JSON.parse(props.tags || "[]");
   els.tags.replaceChildren(

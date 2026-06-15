@@ -5,7 +5,7 @@
       "type": "Feature",
       "properties": {
         "id": "lumine-rooftop-west",
-        "title": "Field Recording Club, Saitama - West Side Omiya Station (New Commercial Area) .WAV",
+        "title": "大宮駅西口側の商業エリア",
         "place": "ルミネ大宮 屋上駐車場付近",
         "displayName": "Lumine RF01",
         "description": "SoundCloudの表記では、ルミネ屋上駐車場から大宮駅西口の商業エリア、ペデストリアンデッキ、周辺ビル群を見下ろす地点で録音されています。",
@@ -31,10 +31,10 @@
       "type": "Feature",
       "properties": {
         "id": "lumine-rooftop-airduct",
-        "title": "Field Recording Club, Saitama- a vent / air exhaust at Lumina roof top carpark .WAV",
+        "title": "ルミネ屋上駐車場の排気口",
         "place": "ルミネ大宮 屋上駐車場・排気口付近",
         "displayName": "Lumine RF02",
-        "description": "SoundCloudの表記では、ルミネ屋上駐車場の新幹線・鉄道ホーム側からの排気口、エアダクト付近で録音された音源です。",
+        "description": "SoundCloudの表記では、ルミネ屋上駐車場の新幹線・鉄道ホーム側にある排気口、エアダクト付近で録音された音源です。",
         "note": "録音日時: 2024.10.06 19:30 / Recorder: Zoom H1 essential (eugen.n)。機械音、駅の構造物、鉄道由来の低い響きを聴く地点として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-193953-lumine-rf02-the",
         "photo": "assets/img/soundcloud-lumine-omiya.jpg",
@@ -57,7 +57,7 @@
       "type": "Feature",
       "properties": {
         "id": "lumine-rooftop-east",
-        "title": "Field Recording Club, Saitama- East Side of Omiya Station (Old Commercial Area 旧中山道) .WAV",
+        "title": "大宮駅東口・旧中山道側の商業エリア",
         "place": "ルミネ大宮 屋上テラス付近",
         "displayName": "Lumine RF03",
         "description": "SoundCloudの表記では、ルミネ屋上テラスから大宮駅東口、旧商業エリア、旧中山道側を見下ろす地点で録音されています。",
@@ -83,7 +83,7 @@
       "type": "Feature",
       "properties": {
         "id": "omiya-station-east-west-passage",
-        "title": "Field Recording Club, Saitama - Xxx Omiya Station East-West Passage .WAV",
+        "title": "大宮駅東西連絡通路",
         "place": "大宮駅 東西連絡通路",
         "displayName": "Omiya Passage",
         "description": "SoundCloudの表記では、大宮駅の東西を結ぶ通路周辺の録音です。大宮駅西口・東口・ルミネ屋上シリーズに連なる駅構内の音として整理しています。",
@@ -109,7 +109,7 @@
       "type": "Feature",
       "properties": {
         "id": "omiya-park-zoo-night",
-        "title": "100 Soundscape Saitama- Omiya zoo at night さいたま音百景 -夜の大宮公園小動物園",
+        "title": "夜の大宮公園小動物園",
         "place": "大宮公園小動物園 閉園後のゲート付近",
         "displayName": "Omiya Park Zoo",
         "description": "SoundCloudの表記では、1953年開園の大宮公園小動物園の夜の音風景。閉園後のゲート付近で、動物の鳴き声が公園と都市の中に響く場面として紹介されています。",
@@ -216,7 +216,7 @@
         "title": "大圓寺（七里）20260405_NK",
         "place": "大圓寺（七里）",
         "displayName": "Daienji",
-        "description": "SoundCloudの表記では、七里エリアの大圓寺で録音された音源です。同じ説明内に七里駅の三本櫻と小御嶽神社も並んでおり、春の地域録音シリーズの1地点として整理しています。",
+        "description": "SoundCloudの表記では、七里エリアの大圓寺で録音された音源です。関連する録音として七里駅の三本櫻と小御嶽神社も並んでおり、春の地域録音シリーズの1地点として整理しています。",
         "note": "録音日: 2026.04.05 / 記録者表記: NK。寺の境内と七里の住宅地が接する場所の音として、鐘や鳥、足音、周辺道路の気配を想定しています。座標は地点名からの推定です。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/da-yuan-si-qi-li-20260405_nk-1",
         "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
@@ -295,7 +295,7 @@
         "place": "曳舟駅周辺",
         "displayName": "Hikifune Festival",
         "description": "SoundCloudの表記では、東京下町の曳舟で町内のお祭りに遭遇した際の録音です。昼食後に街を歩く中で出会った祭りの音として紹介されています。",
-        "note": "録音日時: 2024.06.09 14:51頃 / Recorder: H1 essential + Clippy EM272。神輿や人声、路地の反響、下町の午後の空気を含む音として整理しています。",
+        "note": "録音日時: 2024.06.09 14:51頃 / Recorder: H1 essential + Clippy EM272。神輿や人の声、路地の反響、下町の午後の空気を含む音として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/240609-145147-wav",
         "photo": "assets/img/soundcloud-tokyo-oldtown.jpg",
         "tags": [
@@ -347,7 +347,7 @@
         "place": "宮代町進修館 大ホール室内2階",
         "displayName": "Shinshukan Hall",
         "description": "SoundCloudの表記では、宮代町進修館で開催された「窓を開いて 風をまねく」イベント時の、大ホール室内2階での録音です。",
-        "note": "録音日時: 2024.11.10 16:06頃。建築の全窓・建具を開放する展示会で、風、光、人の移動、ホールの響きを記録した地点として整理しています。",
+        "note": "録音日時: 2024.11.10 16:06頃。建築のすべての窓や建具を開放する展示会で、風、光、人の移動、ホールの響きを記録した地点として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/frcs",
         "photo": "assets/img/soundcloud-shinshukan-hall.jpg",
         "tags": [
