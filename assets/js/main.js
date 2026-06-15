@@ -14,7 +14,7 @@ const fallbackFeature = {
     note: "自動再生はしません。聴きたい地点を選んで、プレイヤーから再生してください。",
     soundcloudUrl: "",
     photo: "assets/img/hero.jpg",
-    tags: ["sample", "soundmap"],
+    tags: ["archive", "soundmap"],
   },
   geometry: {
     type: "Point",
