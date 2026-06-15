@@ -867,6 +867,51 @@ blockquote {
   margin-top: 0;
 }
 
+.grant-section {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(280px, 1.2fr);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+  padding: 42px clamp(20px, 6vw, 86px);
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.grant-copy {
+  max-width: 520px;
+}
+
+.grant-copy h2 {
+  margin: 0 0 14px;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.grant-copy p:last-child {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.96rem;
+  line-height: 1.8;
+}
+
+.grant-copy a {
+  color: var(--green);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.grant-logo-link {
+  display: block;
+  justify-self: end;
+  width: min(100%, 520px);
+}
+
+.grant-section img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--white);
+}
+
 .site-footer {
   display: flex;
   flex-wrap: wrap;
@@ -906,8 +951,14 @@ blockquote {
   .sound-map-shell,
   .join-section,
   .event-section,
+  .grant-section,
   .hero {
     grid-template-columns: 1fr;
+  }
+
+  .grant-logo-link {
+    justify-self: start;
+    width: min(100%, 420px);
   }
 
   .hero-date-card {
