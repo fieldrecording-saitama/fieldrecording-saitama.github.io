@@ -4,181 +4,131 @@
     {
       "type": "Feature",
       "properties": {
-        "id": "daienji-shichiri-20260405-nk",
-        "title": "大圓寺（七里）20260405_NK",
-        "place": "大圓寺（七里）",
-        "displayName": "Daienji",
-        "description": "SoundCloudの表記では、七里エリアの大圓寺で録音された音源です。同じ説明内に七里駅の三本櫻と小御嶽神社も並んでおり、春の地域録音シリーズの1地点として整理しています。",
-        "note": "録音日: 2026.04.05 / 記録者表記: NK。寺の境内と七里の住宅地が接する場所の音として、鐘や鳥、足音、周辺道路の気配を想定しています。座標は地点名からの推定です。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/da-yuan-si-qi-li-20260405_nk-1",
-        "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
-        "tags": ["shichiri", "temple", "spring", "nk"]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.6648, 35.9342]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "shichiri-station-sakura-20260405-nk",
-        "title": "七里駅の三本櫻（七里）20260405_NK",
-        "place": "七里駅周辺",
-        "displayName": "Shichiri Sakura",
-        "description": "SoundCloudの表記では、七里駅の三本櫻を対象にした録音です。駅前の桜、通行人、東武アーバンパークラインの気配を含む地点として整理しています。",
-        "note": "録音日: 2026.04.05 / 記録者表記: NK。春の駅前で、花を見る人の足取りと鉄道の音が重なる地点と推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/qi-li-yi-nosan-ben-ying-qi-li-20260405_nk-2",
-        "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
-        "tags": ["shichiri", "station", "sakura", "nk"]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.66582, 35.93639]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "omitake-shrine-iwatsuki-20260426-fkd",
-        "title": "小御嶽神社（岩槻）20260426_FKD",
-        "place": "小御嶽神社（岩槻）",
-        "displayName": "Omitake Shrine",
-        "description": "SoundCloudの表記では、岩槻の小御嶽神社で録音された音源です。岩槻エリアの神社境内を対象にした地域音風景として整理しています。",
-        "note": "録音日: 2026.04.26 / 記録者表記: FKD。神社の境内、木々、鳥、近隣の生活音が重なる場所として推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/xiao-yu-yue-shen-she-yan-gui-20260426_fkd-4",
-        "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
-        "tags": ["iwatsuki", "shrine", "spring", "fkd"]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.7036, 35.9562]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "hikifune-festival-20240609",
-        "title": "曳舟お祭り",
-        "place": "曳舟駅周辺",
-        "displayName": "Hikifune Festival",
-        "description": "SoundCloudの表記では、東京下町の曳舟で町内のお祭りに遭遇した際の録音です。昼食後に街を歩く中で出会った祭りの音として紹介されています。",
-        "note": "録音日時: 2024.06.09 14:51頃 / Recorder: H1 essential + Clippy EM272。神輿や人声、路地の反響、下町の午後の空気を含む音として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/240609-145147-wav",
-        "photo": "assets/img/soundcloud-tokyo-oldtown.jpg",
-        "tags": ["tokyo", "hikifune", "festival", "sound-journey"]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.8166, 35.7185]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "senju-nakacho-hikawa-20240609",
-        "title": "千住仲町氷川神社",
-        "place": "千住仲町氷川神社",
-        "displayName": "Senju Hikawa",
-        "description": "SoundCloudの表記では、仲町の家へ行く前、朝の待ち合わせまでの時間に千住仲町氷川神社で休憩しながら録音された音源です。",
-        "note": "録音日時: 2024.06.09 09:41頃 / Recorder: H1 essential + Clippy EM272。池の水音、朝の街音、電車の音が聞こえる東京下町の朝の音として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/240609-094144-wav",
-        "photo": "assets/img/soundcloud-tokyo-oldtown.jpg",
-        "tags": ["tokyo", "senju", "hikawa-shrine", "morning"]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [139.7954, 35.7446]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "id": "lumine-rooftop-west",
-        "title": "大宮駅西口・新しい商業エリアの音",
+        "title": "Field Recording Club, Saitama - West Side Omiya Station (New Commercial Area) .WAV",
         "place": "ルミネ大宮 屋上駐車場付近",
         "displayName": "Lumine RF01",
         "description": "SoundCloudの表記では、ルミネ屋上駐車場から大宮駅西口の商業エリア、ペデストリアンデッキ、周辺ビル群を見下ろす地点で録音されています。",
         "note": "録音日時: 2024.10.06 19:30 / Recorder: Zoom H1 essential (eugen.n)。駅前の広場、建物、交通、人の流れが上方からひとつの層として聞こえる地点と推定しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-193332-lumine-rf01-the",
         "photo": "assets/img/soundcloud-lumine-omiya.jpg",
-        "tags": ["omiya-station", "west-side", "commercial-area", "rooftop"]
+        "tags": [
+          "omiya-station",
+          "west-side",
+          "commercial-area",
+          "rooftop"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.62275, 35.90636]
+        "coordinates": [
+          139.62275,
+          35.90636
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
         "id": "lumine-rooftop-airduct",
-        "title": "ルミネ屋上の排気口の音",
+        "title": "Field Recording Club, Saitama- a vent / air exhaust at Lumina roof top carpark .WAV",
         "place": "ルミネ大宮 屋上駐車場・排気口付近",
         "displayName": "Lumine RF02",
         "description": "SoundCloudの表記では、ルミネ屋上駐車場の新幹線・鉄道ホーム側からの排気口、エアダクト付近で録音された音源です。",
         "note": "録音日時: 2024.10.06 19:30 / Recorder: Zoom H1 essential (eugen.n)。機械音、駅の構造物、鉄道由来の低い響きを聴く地点として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-193953-lumine-rf02-the",
         "photo": "assets/img/soundcloud-lumine-omiya.jpg",
-        "tags": ["omiya-station", "airduct", "rooftop", "machine"]
+        "tags": [
+          "omiya-station",
+          "airduct",
+          "rooftop",
+          "machine"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.62305, 35.90655]
+        "coordinates": [
+          139.62305,
+          35.90655
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
         "id": "lumine-rooftop-east",
-        "title": "大宮駅東口・旧中山道側の音",
+        "title": "Field Recording Club, Saitama- East Side of Omiya Station (Old Commercial Area 旧中山道) .WAV",
         "place": "ルミネ大宮 屋上テラス付近",
         "displayName": "Lumine RF03",
         "description": "SoundCloudの表記では、ルミネ屋上テラスから大宮駅東口、旧商業エリア、旧中山道側を見下ろす地点で録音されています。",
         "note": "録音日時: 2024.10.06 19:50 / Recorder: Zoom H1 essential (eugen.n)。駅東口の密度ある街路、旧中山道側の商業地、人通りの気配を俯瞰する音として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-194708-lumine-rf03-the",
         "photo": "assets/img/soundcloud-lumine-omiya.jpg",
-        "tags": ["omiya-station", "east-side", "old-nakasendo", "rooftop"]
+        "tags": [
+          "omiya-station",
+          "east-side",
+          "old-nakasendo",
+          "rooftop"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.62548, 35.90624]
+        "coordinates": [
+          139.62548,
+          35.90624
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
         "id": "omiya-station-east-west-passage",
-        "title": "大宮駅東西連絡通路",
+        "title": "Field Recording Club, Saitama - Xxx Omiya Station East-West Passage .WAV",
         "place": "大宮駅 東西連絡通路",
         "displayName": "Omiya Passage",
         "description": "SoundCloudの表記では、大宮駅の東西を結ぶ通路周辺の録音です。大宮駅西口・東口・ルミネ屋上シリーズに連なる駅構内の音として整理しています。",
         "note": "録音日: 2024.10.05頃。駅のアナウンス、通行人、改札や商業施設の音が混ざるターミナルの交差点として推定しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241005-xxx-omiya-station",
         "photo": "assets/img/soundcloud-omiya-passage.jpg",
-        "tags": ["omiya-station", "passage", "terminal", "concourse"]
+        "tags": [
+          "omiya-station",
+          "passage",
+          "terminal",
+          "concourse"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.6242, 35.9061]
+        "coordinates": [
+          139.6242,
+          35.9061
+        ]
       }
     },
     {
       "type": "Feature",
       "properties": {
         "id": "omiya-park-zoo-night",
-        "title": "夜の大宮公園小動物園",
+        "title": "100 Soundscape Saitama- Omiya zoo at night さいたま音百景 -夜の大宮公園小動物園",
         "place": "大宮公園小動物園 閉園後のゲート付近",
         "displayName": "Omiya Park Zoo",
         "description": "SoundCloudの表記では、1953年開園の大宮公園小動物園の夜の音風景。閉園後のゲート付近で、動物の鳴き声が公園と都市の中に響く場面として紹介されています。",
         "note": "さいたま音百景として公開されている音源です。夜の公園、動物園、周辺市街地の遠い気配が重なる地点として推定しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/soundscape-saitama-wav",
         "photo": "assets/img/soundcloud-omiya-zoo-night.jpg",
-        "tags": ["omiya-park", "zoo", "night", "soundscape-saitama"]
+        "tags": [
+          "omiya-park",
+          "zoo",
+          "night",
+          "soundscape-saitama"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.63122, 35.91738]
+        "coordinates": [
+          139.63122,
+          35.91738
+        ]
       }
     },
     {
@@ -192,11 +142,19 @@
         "note": "大宮駅開業100年と埼京線開業を記念して制作されたオブジェ周辺。駅の喧騒、東口と西口をつなぐ通路、改札、ルミネ入口、行き交う人、駅アナウンスが重なる地点として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/soundscape-saitama",
         "photo": "assets/img/soundcloud-mamenoki.jpg",
-        "tags": ["omiya-station", "mamenoki", "meeting-spot", "soundscape-saitama"]
+        "tags": [
+          "omiya-station",
+          "mamenoki",
+          "meeting-spot",
+          "soundscape-saitama"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.6239, 35.9063]
+        "coordinates": [
+          139.6239,
+          35.9063
+        ]
       }
     },
     {
@@ -210,11 +168,19 @@
         "note": "荒川から見沼田んぼをつなぐ歴史的な灌漑インフラの気配、水音、周辺市街地の音を聴く地点として推定しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/soundscape-saitama-1",
         "photo": "assets/img/soundcloud-kounuma.jpg",
-        "tags": ["saitama", "kounuma", "water", "soundscape-saitama"]
+        "tags": [
+          "saitama",
+          "kounuma",
+          "water",
+          "soundscape-saitama"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.6305, 35.8935]
+        "coordinates": [
+          139.6305,
+          35.8935
+        ]
       }
     },
     {
@@ -228,11 +194,149 @@
         "note": "橋の上や周辺で、道路、歩行者、都市の反響、水辺や緑地の気配が混ざる地点として推定しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/001-hokosugi-bridge-100-soundscape-saitama",
         "photo": "assets/img/soundcloud-hokosugi.jpg",
-        "tags": ["saitama-shintoshin", "bridge", "urban", "soundscape-saitama"]
+        "tags": [
+          "saitama-shintoshin",
+          "bridge",
+          "urban",
+          "soundscape-saitama"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.6339, 35.8958]
+        "coordinates": [
+          139.6339,
+          35.8958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "daienji-shichiri-20260405-nk",
+        "title": "大圓寺（七里）20260405_NK",
+        "place": "大圓寺（七里）",
+        "displayName": "Daienji",
+        "description": "SoundCloudの表記では、七里エリアの大圓寺で録音された音源です。同じ説明内に七里駅の三本櫻と小御嶽神社も並んでおり、春の地域録音シリーズの1地点として整理しています。",
+        "note": "録音日: 2026.04.05 / 記録者表記: NK。寺の境内と七里の住宅地が接する場所の音として、鐘や鳥、足音、周辺道路の気配を想定しています。座標は地点名からの推定です。",
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/da-yuan-si-qi-li-20260405_nk-1",
+        "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
+        "tags": [
+          "shichiri",
+          "temple",
+          "spring",
+          "nk"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6648,
+          35.9342
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "shichiri-station-sakura-20260405-nk",
+        "title": "七里駅の三本櫻（七里）20260405_NK",
+        "place": "七里駅周辺",
+        "displayName": "Shichiri Sakura",
+        "description": "SoundCloudの表記では、七里駅の三本櫻を対象にした録音です。駅前の桜、通行人、東武アーバンパークラインの気配を含む地点として整理しています。",
+        "note": "録音日: 2026.04.05 / 記録者表記: NK。春の駅前で、花を見る人の足取りと鉄道の音が重なる地点と推定しています。",
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/qi-li-yi-nosan-ben-ying-qi-li-20260405_nk-2",
+        "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
+        "tags": [
+          "shichiri",
+          "station",
+          "sakura",
+          "nk"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.66582,
+          35.93639
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "omitake-shrine-iwatsuki-20260426-fkd",
+        "title": "小御嶽神社（岩槻）20260426_FKD",
+        "place": "小御嶽神社（岩槻）",
+        "displayName": "Omitake Shrine",
+        "description": "SoundCloudの表記では、岩槻の小御嶽神社で録音された音源です。岩槻エリアの神社境内を対象にした地域音風景として整理しています。",
+        "note": "録音日: 2026.04.26 / 記録者表記: FKD。神社の境内、木々、鳥、近隣の生活音が重なる場所として推定しています。",
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/xiao-yu-yue-shen-she-yan-gui-20260426_fkd-4",
+        "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
+        "tags": [
+          "iwatsuki",
+          "shrine",
+          "spring",
+          "fkd"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7036,
+          35.9562
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "hikifune-festival-20240609",
+        "title": "曳舟お祭り",
+        "place": "曳舟駅周辺",
+        "displayName": "Hikifune Festival",
+        "description": "SoundCloudの表記では、東京下町の曳舟で町内のお祭りに遭遇した際の録音です。昼食後に街を歩く中で出会った祭りの音として紹介されています。",
+        "note": "録音日時: 2024.06.09 14:51頃 / Recorder: H1 essential + Clippy EM272。神輿や人声、路地の反響、下町の午後の空気を含む音として整理しています。",
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/240609-145147-wav",
+        "photo": "assets/img/soundcloud-tokyo-oldtown.jpg",
+        "tags": [
+          "tokyo",
+          "hikifune",
+          "festival",
+          "sound-journey"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8166,
+          35.7185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "senju-nakacho-hikawa-20240609",
+        "title": "千住仲町氷川神社",
+        "place": "千住仲町氷川神社",
+        "displayName": "Senju Hikawa",
+        "description": "SoundCloudの表記では、仲町の家へ行く前、朝の待ち合わせまでの時間に千住仲町氷川神社で休憩しながら録音された音源です。",
+        "note": "録音日時: 2024.06.09 09:41頃 / Recorder: H1 essential + Clippy EM272。池の水音、朝の街音、電車の音が聞こえる東京下町の朝の音として整理しています。",
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/240609-094144-wav",
+        "photo": "assets/img/soundcloud-tokyo-oldtown.jpg",
+        "tags": [
+          "tokyo",
+          "senju",
+          "hikawa-shrine",
+          "morning"
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.7954,
+          35.7446
+        ]
       }
     },
     {
@@ -246,11 +350,19 @@
         "note": "録音日時: 2024.11.10 16:06頃。建築の全窓・建具を開放する展示会で、風、光、人の移動、ホールの響きを記録した地点として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/frcs",
         "photo": "assets/img/soundcloud-shinshukan-hall.jpg",
-        "tags": ["miyashiro", "shinshukan", "hall", "architecture"]
+        "tags": [
+          "miyashiro",
+          "shinshukan",
+          "hall",
+          "architecture"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.7247, 36.0229]
+        "coordinates": [
+          139.7247,
+          36.0229
+        ]
       }
     },
     {
@@ -264,11 +376,19 @@
         "note": "録音日時: 2024.11.10 16:12頃。屋内外の境界で、開放された建具、外気、建物の反響が交差する地点として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-161230-2s",
         "photo": "assets/img/soundcloud-shinshukan-terrace.jpg",
-        "tags": ["miyashiro", "shinshukan", "terrace", "wind"]
+        "tags": [
+          "miyashiro",
+          "shinshukan",
+          "terrace",
+          "wind"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.72486, 36.02298]
+        "coordinates": [
+          139.72486,
+          36.02298
+        ]
       }
     },
     {
@@ -282,11 +402,19 @@
         "note": "録音日時: 2024.11.10 16:20頃。外部階段で、足音、風、建物の曲面や開口部からの反響が聞こえる地点として推定しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-162002s",
         "photo": "assets/img/soundcloud-shinshukan-stairs.jpg",
-        "tags": ["miyashiro", "shinshukan", "stairs", "outdoor"]
+        "tags": [
+          "miyashiro",
+          "shinshukan",
+          "stairs",
+          "outdoor"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.72502, 36.02282]
+        "coordinates": [
+          139.72502,
+          36.02282
+        ]
       }
     },
     {
@@ -300,11 +428,19 @@
         "note": "録音日時: 2024.11.10 16:30頃。進修館の中庭中央で、建築の形、風、人の移動が同心円状に広がるように聞こえる地点として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-163007s",
         "photo": "assets/img/soundcloud-shinshukan-center.jpg",
-        "tags": ["miyashiro", "shinshukan", "courtyard", "center"]
+        "tags": [
+          "miyashiro",
+          "shinshukan",
+          "courtyard",
+          "center"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.72478, 36.02272]
+        "coordinates": [
+          139.72478,
+          36.02272
+        ]
       }
     },
     {
@@ -318,11 +454,19 @@
         "note": "録音日時: 2024.11.10 16:36頃。外から建築の開口部に耳を向け、内部の反響と外気が混ざる場所として推定しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-163613-1s",
         "photo": "assets/img/soundcloud-shinshukan-hole.jpg",
-        "tags": ["miyashiro", "shinshukan", "opening", "outside"]
+        "tags": [
+          "miyashiro",
+          "shinshukan",
+          "opening",
+          "outside"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.72461, 36.02278]
+        "coordinates": [
+          139.72461,
+          36.02278
+        ]
       }
     },
     {
@@ -336,11 +480,19 @@
         "note": "録音日時: 2024.11.10 16:43頃。中庭からホールへ移る途中の、足音、風、空間の響きの変化を聴く地点として整理しています。",
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-164356s",
         "photo": "assets/img/soundcloud-shinshukan-courtyard-stairs.jpg",
-        "tags": ["miyashiro", "shinshukan", "stairs", "transition"]
+        "tags": [
+          "miyashiro",
+          "shinshukan",
+          "stairs",
+          "transition"
+        ]
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [139.72495, 36.02262]
+        "coordinates": [
+          139.72495,
+          36.02262
+        ]
       }
     }
   ]
