@@ -501,7 +501,7 @@ h3 {
 
 .section-grid {
   display: grid;
-  grid-template-columns: minmax(300px, 0.78fr) minmax(420px, 1fr);
+  grid-template-columns: minmax(320px, 0.9fr) minmax(460px, 1.1fr);
   gap: clamp(56px, 8vw, 132px);
   align-items: start;
 }
@@ -512,18 +512,18 @@ h3 {
 
 #about h2 {
   width: 100%;
-  max-width: min(9.5em, 100%);
-  font-size: clamp(2.5rem, 4.8vw, 5rem);
-  line-height: 1.2;
+  max-width: none;
+  font-size: clamp(1.8rem, 4vw, 3.25rem);
+  line-height: 1.28;
 }
 
 .section-heading {
-  width: min(900px, 100%);
+  width: min(1080px, 100%);
   margin-bottom: 38px;
 }
 
 .section-heading.compact {
-  width: min(720px, 100%);
+  width: min(920px, 100%);
 }
 
 .section-heading p:last-child {
@@ -545,7 +545,7 @@ h3 {
 
 .event-section {
   display: grid;
-  grid-template-columns: minmax(0, 920px);
+  grid-template-columns: minmax(0, 1080px);
   align-items: start;
   justify-content: start;
   background: var(--white);
@@ -906,12 +906,12 @@ blockquote {
 .timeline {
   display: grid;
   gap: 18px;
-  width: min(920px, 100%);
+  width: min(1080px, 100%);
 }
 
 .timeline article {
   display: grid;
-  grid-template-columns: 190px minmax(0, 1fr);
+  grid-template-columns: minmax(50%, 1fr) minmax(0, 2fr);
   gap: 22px;
   padding: 24px 0;
   border-top: 1px solid var(--line);
