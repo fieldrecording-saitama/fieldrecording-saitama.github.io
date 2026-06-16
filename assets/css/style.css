@@ -536,7 +536,7 @@ h3 {
 }
 
 .prose {
-  font-size: 1.05rem;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
 }
 
 .prose p {
@@ -559,6 +559,7 @@ h3 {
 
 .event-copy > p {
   color: var(--ink-muted);
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
 }
 
 .event-lead {
@@ -1074,6 +1075,10 @@ blockquote {
 
   .hero-date-card strong {
     font-size: 3.35rem;
+  }
+
+  .hero-date-card strong br {
+    display: none;
   }
 
   .hero-date-card b {
