@@ -510,6 +510,11 @@ h3 {
   min-width: 0;
 }
 
+#about.section-grid {
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 5vw, 56px);
+}
+
 #about h2 {
   width: 100%;
   max-width: none;
