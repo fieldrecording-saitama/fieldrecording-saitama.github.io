@@ -598,6 +598,32 @@ h3 {
   font-weight: 700;
 }
 
+.event-detail-block {
+  margin-top: 18px;
+}
+
+.event-detail-block h3 {
+  margin: 0 0 6px;
+  color: var(--green);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.event-detail-block p {
+  margin: 0 0 0.9em;
+  color: var(--ink-muted);
+}
+
+.event-list {
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--ink-muted);
+}
+
+.event-list li {
+  margin: 0.2em 0;
+}
+
 .navigators {
   display: grid;
   gap: 10px;
