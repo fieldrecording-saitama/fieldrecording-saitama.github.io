@@ -103,8 +103,8 @@ img {
   position: relative;
   min-height: 92svh;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
-  gap: clamp(28px, 5vw, 72px);
+  grid-template-columns: minmax(520px, 1.08fr) minmax(360px, 0.92fr);
+  gap: clamp(28px, 4vw, 64px);
   align-items: end;
   padding: 118px clamp(20px, 6vw, 86px) 76px;
   overflow: hidden;
@@ -267,7 +267,7 @@ img {
 .hero-content {
   position: relative;
   z-index: 1;
-  width: min(780px, 100%);
+  width: min(740px, 100%);
 }
 
 .hero-date-card {
@@ -298,6 +298,27 @@ img {
   letter-spacing: 0.04em;
 }
 
+.hero-date-card-range {
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "label label"
+    "year days";
+  align-items: end;
+  column-gap: clamp(18px, 3vw, 34px);
+  row-gap: clamp(18px, 2.4vw, 28px);
+  width: min(520px, 100%);
+  margin-bottom: clamp(36px, 6vh, 64px);
+  padding: clamp(24px, 4vw, 40px);
+  transform: translateY(-42px);
+}
+
+.hero-date-card-range span {
+  grid-area: label;
+  max-width: 100%;
+  font-size: clamp(1.3rem, 2.2vw, 2.05rem);
+  line-height: 0.96;
+}
+
 .hero-date-card em {
   grid-column: 1;
   margin-top: 24px;
@@ -305,6 +326,15 @@ img {
   font-style: normal;
   font-weight: 900;
   line-height: 1;
+}
+
+.hero-date-card-range em {
+  grid-area: year;
+  margin-top: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: clamp(2.2rem, 4.4vw, 4.8rem);
+  line-height: 0.82;
 }
 
 .hero-date-card strong {
@@ -324,6 +354,41 @@ img {
   font-weight: 900;
   line-height: 0.84;
   color: rgba(242, 255, 55, 0.9);
+}
+
+.hero-date-days {
+  grid-area: days;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2.4vw, 28px);
+  min-width: 0;
+}
+
+.hero-date-day {
+  display: grid;
+  align-content: end;
+  gap: 8px;
+  min-width: 0;
+  padding-top: clamp(16px, 2vw, 24px);
+  border-top: 2px solid rgba(242, 255, 55, 0.72);
+}
+
+.hero-date-card-range strong {
+  grid-column: auto;
+  font-size: clamp(3.4rem, 5.7vw, 6.3rem);
+  line-height: 0.88;
+  white-space: nowrap;
+}
+
+.hero-date-card-range b {
+  grid-column: auto;
+  grid-row: auto;
+  align-self: auto;
+  justify-self: start;
+  writing-mode: horizontal-tb;
+  font-size: clamp(1.25rem, 2.1vw, 2rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
 }
 
 .eyebrow,
@@ -380,7 +445,7 @@ blockquote {
 
 h1 {
   margin: 16px 0 22px;
-  font-size: clamp(2.35rem, 6vw, 5.8rem);
+  font-size: clamp(2.35rem, 5.2vw, 5.15rem);
   line-height: 1.12;
   letter-spacing: 0;
   text-wrap: balance;
@@ -984,7 +1049,7 @@ blockquote {
 
   .hero-date-card {
     justify-self: start;
-    width: min(420px, 100%);
+    width: min(720px, 100%);
   }
 
   .project-flow {
@@ -1040,9 +1105,9 @@ blockquote {
   }
 
   h1 {
-    margin: 12px 0 16px;
-    font-size: clamp(2.35rem, 12vw, 3.7rem);
-    line-height: 1.08;
+    margin: 10px 0 12px;
+    font-size: clamp(2rem, 10.4vw, 3.25rem);
+    line-height: 1.02;
   }
 
   #about h2 {
@@ -1051,19 +1116,29 @@ blockquote {
   }
 
   .hero-copy {
-    font-size: 0.96rem;
+    font-size: 0.92rem;
   }
 
   .hero-date-card {
-    grid-template-columns: minmax(0, 1fr) auto;
     justify-self: start;
-    width: min(330px, 100%);
-    padding: 14px 16px;
+    padding: 10px 16px 12px;
     background: rgba(20, 25, 22, 0.68);
   }
 
+  .hero-date-card-range {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "year"
+      "days";
+    width: 100%;
+    margin-bottom: 0;
+    row-gap: 14px;
+    transform: none;
+  }
+
   .hero-date-card span {
-    font-size: 0.92rem;
+    font-size: 0.86rem;
     line-height: 1.14;
     letter-spacing: 0.06em;
   }
@@ -1073,8 +1148,20 @@ blockquote {
     font-size: 1.18rem;
   }
 
+  .hero-date-card-range em {
+    margin-top: 0;
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+  }
+
   .hero-date-card strong {
     font-size: 3.35rem;
+  }
+
+  .hero-date-card-range strong {
+    font-size: clamp(2rem, 10vw, 3.2rem);
   }
 
   .hero-date-card strong br {
@@ -1083,6 +1170,24 @@ blockquote {
 
   .hero-date-card b {
     font-size: 2.15rem;
+  }
+
+  .hero-date-card-range b {
+    justify-self: end;
+    font-size: 0.82rem;
+  }
+
+  .hero-date-days {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .hero-date-day {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 5px;
+    padding-top: 8px;
   }
 
   .hero-actions,
