@@ -894,6 +894,10 @@ blockquote {
   gap: 8px;
 }
 
+#sound-tags {
+  display: none;
+}
+
 .tag-list span {
   padding: 4px 9px;
   border: 1px solid var(--line);
