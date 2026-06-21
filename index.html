@@ -320,17 +320,28 @@
           <aside class="sound-panel" aria-live="polite">
             <img id="sound-photo" src="assets/img/hero.jpg" alt="" loading="lazy">
             <div class="panel-body">
+              <div id="sound-player" class="player-placeholder">
+                <p>地点を選ぶとSoundCloudプレイヤーが表示されます。</p>
+              </div>
               <p id="sound-place" class="panel-place">地点を読み込み中</p>
               <h3 id="sound-title">さいたまの音</h3>
               <p id="sound-description"></p>
               <blockquote id="sound-note"></blockquote>
               <div id="sound-tags" class="tag-list" aria-label="タグ"></div>
               <div class="player-controls" aria-label="音源再生オプション">
-                <button id="continuous-play" class="mode-button" type="button" aria-pressed="false">連続再生 OFF</button>
-                <button id="next-sound" class="mode-button" type="button" disabled>次の地点へ</button>
-              </div>
-              <div id="sound-player" class="player-placeholder">
-                <p>地点を選ぶとSoundCloudプレイヤーが表示されます。</p>
+                <button id="continuous-play" class="mode-button icon-button" type="button" aria-pressed="false" aria-label="連続再生を切り替える">
+                  <span class="control-icon" aria-hidden="true">∞</span>
+                  <span class="sr-only">連続再生</span>
+                </button>
+                <button id="prev-sound" class="mode-button icon-button" type="button" disabled aria-label="前の地点へ">
+                  <span class="control-icon" aria-hidden="true">◀</span>
+                  <span class="sr-only">前の地点へ</span>
+                </button>
+                <span id="sound-counter" class="sound-counter" aria-live="polite">- / -</span>
+                <button id="next-sound" class="mode-button icon-button" type="button" disabled aria-label="次の地点へ">
+                  <span class="control-icon" aria-hidden="true">▶</span>
+                  <span class="sr-only">次の地点へ</span>
+                </button>
               </div>
               <p class="rights-note">SoundCloudの表記をもとに地点情報を整理しています。座標は録音地点説明からの推定です。</p>
             </div>

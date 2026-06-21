@@ -31,7 +31,9 @@ const els = {
   photo: document.querySelector("#sound-photo"),
   player: document.querySelector("#sound-player"),
   continuousButton: document.querySelector("#continuous-play"),
+  prevButton: document.querySelector("#prev-sound"),
   nextButton: document.querySelector("#next-sound"),
+  counter: document.querySelector("#sound-counter"),
 };
 
 const mapContainer = document.querySelector("#map");
@@ -109,16 +111,25 @@ function updateContinuousButton() {
     return;
   }
 
-  els.continuousButton.textContent = soundState.continuous ? "連続再生 ON" : "連続再生 OFF";
+  els.continuousButton.setAttribute("aria-label", soundState.continuous ? "連続再生をオフにする" : "連続再生をオンにする");
   els.continuousButton.setAttribute("aria-pressed", String(soundState.continuous));
 }
 
-function updateNextButton() {
-  if (!els.nextButton) {
-    return;
+function updateNavigationControls() {
+  const hasMultipleSounds = soundState.features.length > 1;
+
+  if (els.prevButton) {
+    els.prevButton.disabled = !hasMultipleSounds;
   }
 
-  els.nextButton.disabled = soundState.features.length < 2;
+  if (els.nextButton) {
+    els.nextButton.disabled = !hasMultipleSounds;
+  }
+
+  if (els.counter) {
+    const selectedIndex = getSelectedIndex();
+    els.counter.textContent = selectedIndex >= 0 ? `${selectedIndex + 1} / ${soundState.features.length}` : `- / ${soundState.features.length || "-"}`;
+  }
 }
 
 function getSelectedIndex() {
@@ -133,6 +144,16 @@ function getNextFeature() {
   const currentIndex = getSelectedIndex();
   const nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % soundState.features.length;
   return soundState.features[nextIndex];
+}
+
+function getPrevFeature() {
+  if (!soundState.features.length) {
+    return null;
+  }
+
+  const currentIndex = getSelectedIndex();
+  const prevIndex = currentIndex < 0 ? 0 : (currentIndex - 1 + soundState.features.length) % soundState.features.length;
+  return soundState.features[prevIndex];
 }
 
 function selectFeature(feature, options = {}) {
@@ -171,6 +192,15 @@ function goToNextFeature() {
   selectFeature(nextFeature, { autoplay: soundState.continuous, focusMap: true });
 }
 
+function goToPrevFeature() {
+  const prevFeature = getPrevFeature();
+  if (!prevFeature) {
+    return;
+  }
+
+  selectFeature(prevFeature, { autoplay: soundState.continuous, focusMap: true });
+}
+
 function setupSoundCloudWidget(iframe, shouldAutoplay = false) {
   soundState.widget = null;
 
@@ -197,6 +227,7 @@ function setupSoundCloudWidget(iframe, shouldAutoplay = false) {
 function renderPanel(feature, options = {}) {
   const props = feature.properties;
   soundState.selectedId = props.id;
+  updateNavigationControls();
 
   els.place.textContent = props.place;
   els.title.textContent = props.title;
@@ -261,8 +292,13 @@ if (els.continuousButton) {
 }
 
 if (els.nextButton) {
-  updateNextButton();
+  updateNavigationControls();
   els.nextButton.addEventListener("click", goToNextFeature);
+}
+
+if (els.prevButton) {
+  updateNavigationControls();
+  els.prevButton.addEventListener("click", goToPrevFeature);
 }
 
 async function loadSounds() {
@@ -277,7 +313,7 @@ map.on("load", async () => {
   try {
     const geojson = await loadSounds();
     soundState.features = geojson.features;
-    updateNextButton();
+    updateNavigationControls();
 
     map.addSource("sounds", {
       type: "geojson",
