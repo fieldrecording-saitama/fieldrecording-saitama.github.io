@@ -854,15 +854,11 @@ h3 {
 }
 
 .sound-panel {
-  display: grid;
-  grid-template-rows: 220px 1fr;
+  display: block;
 }
 
 .sound-panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: var(--paper-soft);
+  display: none;
 }
 
 .panel-body {
@@ -898,7 +894,7 @@ blockquote {
 }
 
 #sound-tags {
-  display: none;
+  display: flex;
 }
 
 .tag-list span {
@@ -914,10 +910,14 @@ blockquote {
 .player-controls {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
 }
 
 .mode-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 40px;
   padding: 8px 14px;
   border: 1px solid rgba(36, 72, 62, 0.34);
@@ -929,6 +929,31 @@ blockquote {
   font-weight: 700;
   line-height: 1.2;
   cursor: pointer;
+}
+
+.icon-button {
+  width: 42px;
+  height: 42px;
+  min-height: 42px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.control-icon {
+  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols", system-ui, sans-serif;
+  font-size: 1.12rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.sound-counter {
+  min-width: 58px;
+  color: var(--green);
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
 }
 
 .mode-button[aria-pressed="true"] {
@@ -964,6 +989,17 @@ blockquote {
   color: var(--ink-muted);
   letter-spacing: 0;
   text-transform: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .notes-grid {
@@ -1259,10 +1295,6 @@ blockquote {
     align-items: flex-start;
     flex-direction: column;
     gap: 10px;
-  }
-
-  .sound-panel {
-    grid-template-rows: 190px 1fr;
   }
 
   .timeline article {

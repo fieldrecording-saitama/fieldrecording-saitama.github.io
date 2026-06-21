@@ -4,78 +4,87 @@
     {
       "type": "Feature",
       "properties": {
-        "id": "lumine-rooftop-west",
-        "title": "大宮駅西口側の商業エリア",
-        "place": "ルミネ大宮 屋上駐車場付近",
-        "displayName": "Lumine RF01",
-        "description": "SoundCloudの表記では、ルミネ屋上駐車場から大宮駅西口の商業エリア、ペデストリアンデッキ、周辺ビル群を見下ろす地点で録音されています。",
-        "note": "録音日時: 2024.10.06 19:30 / Recorder: Zoom H1 essential (eugen.n)。駅前の広場、建物、交通、人の流れが上方からひとつの層として聞こえる地点と推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-193332-lumine-rf01-the",
-        "photo": "assets/img/soundcloud-lumine-omiya.jpg",
+        "id": "omiya-station-east-old-nakasendo",
+        "title": "大宮駅東口・旧中山道側を見下ろす",
+        "place": "ルミネ大宮 屋上テラス付近",
+        "displayName": "Omiya East / Old Nakasendo",
+        "description": "ルミネ大宮の屋上テラス付近から、大宮駅東口側の古くからの商業地と旧中山道方面を見下ろす録音です。駅前の人の流れ、建物の反響、夜の商店街のざわめきが、東口らしい都市の密度として重なります。",
+        "note": "録音日時: 2024-10-06 19:50 / 録音: eugen.n / 機材: Zoom H1 essential / リライト注: SoundCloudの「East Side」「Old Commercial Area」「old nakasendo side」と誤記「eat side」を、大宮駅東口・旧中山道側として整理。座標は大宮駅・ルミネ大宮の公開情報とOSMを参照した概略です。 / SoundCloud ID: 1930148621 / Duration: 5:36 / Original title: Field Recording Club, Saitama- East Side of Omiya Station (Old Commercial Area 旧中山道)  .WAV",
         "tags": [
-          "omiya-station",
-          "west-side",
-          "commercial-area",
-          "rooftop"
-        ]
+          "field-recording",
+          "soundscape",
+          "大宮駅",
+          "LUMINE",
+          "旧中山道",
+          "rooftop",
+          "urban"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-194708-lumine-rf03-the",
+        "photo": "https://i1.sndcdn.com/artworks-ag3j9RRcE4zVpRUa-XjukHQ-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.62275,
-          35.90636
+          139.6252,
+          35.9065
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "lumine-rooftop-airduct",
-        "title": "ルミネ屋上駐車場の排気口",
-        "place": "ルミネ大宮 屋上駐車場・排気口付近",
-        "displayName": "Lumine RF02",
-        "description": "SoundCloudの表記では、ルミネ屋上駐車場の新幹線・鉄道ホーム側にある排気口、エアダクト付近で録音された音源です。",
-        "note": "録音日時: 2024.10.06 19:30 / Recorder: Zoom H1 essential (eugen.n)。機械音、駅の構造物、鉄道由来の低い響きを聴く地点として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-193953-lumine-rf02-the",
-        "photo": "assets/img/soundcloud-lumine-omiya.jpg",
+        "id": "omiya-station-rooftop-air-duct",
+        "title": "ルミネ大宮屋上の排気口",
+        "place": "ルミネ大宮 屋上駐車場付近",
+        "displayName": "LUMINE Rooftop / Air Duct",
+        "description": "ルミネ大宮の屋上駐車場付近で、駅施設や新幹線ホーム方面につながる排気口・換気設備の音に耳を向けた録音です。人の声や街のざわめきの奥で、駅を支える機械音と低い空気の流れが続きます。",
+        "note": "録音日時: 2024-10-06 19:30 / 録音: eugen.n / 機材: Zoom H1 essential / リライト注: SoundCloudの「Lumina」は「LUMINE / ルミネ大宮」に補正。「air exhaust」「airduct」は屋上の排気口・換気設備として整理しました。録音点は屋上駐車場内のため概略配置です。 / SoundCloud ID: 1930148624 / Duration: 3:06 / Original title: Field Recording Club, Saitama-  a vent / air exhaust at Lumina roof top carpark  .WAV",
         "tags": [
-          "omiya-station",
-          "airduct",
+          "field-recording",
+          "soundscape",
+          "大宮駅",
+          "LUMINE",
+          "air-duct",
           "rooftop",
           "machine"
-        ]
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-193953-lumine-rf02-the",
+        "photo": "https://i1.sndcdn.com/artworks-ag3j9RRcE4zVpRUa-XjukHQ-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.62305,
-          35.90655
+          139.6239,
+          35.9068
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "lumine-rooftop-east",
-        "title": "大宮駅東口・旧中山道側の商業エリア",
-        "place": "ルミネ大宮 屋上テラス付近",
-        "displayName": "Lumine RF03",
-        "description": "SoundCloudの表記では、ルミネ屋上テラスから大宮駅東口、旧商業エリア、旧中山道側を見下ろす地点で録音されています。",
-        "note": "録音日時: 2024.10.06 19:50 / Recorder: Zoom H1 essential (eugen.n)。駅東口の密度ある街路、旧中山道側の商業地、人通りの気配を俯瞰する音として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-194708-lumine-rf03-the",
-        "photo": "assets/img/soundcloud-lumine-omiya.jpg",
+        "id": "omiya-station-west-pedestrian-deck",
+        "title": "大宮駅西口・ペデストリアンデッキを見下ろす",
+        "place": "ルミネ大宮 屋上駐車場付近",
+        "displayName": "Omiya West / Pedestrian Deck",
+        "description": "大宮駅西口のペデストリアンデッキ、駅前広場、周辺の商業ビル群を、ルミネ大宮の屋上駐車場付近から見下ろす録音です。夕方以降の人の移動、車両音、建物に反射する街音が広がります。",
+        "note": "録音日時: 2024-10-06 19:30 / 録音: eugen.n / 機材: Zoom H1 essential / リライト注: SoundCloudの「West Side」「New Commercial Area」「pedestrain deck square」を、大宮駅西口・ペデストリアンデッキ周辺として整理。座標は西口側へ概略配置しました。 / SoundCloud ID: 1930148636 / Duration: 4:57 / Original title: Field Recording Club, Saitama - West Side Omiya Station (New Commercial Area) .WAV",
         "tags": [
-          "omiya-station",
-          "east-side",
-          "old-nakasendo",
-          "rooftop"
-        ]
+          "field-recording",
+          "soundscape",
+          "大宮駅",
+          "west-side",
+          "deck",
+          "rooftop",
+          "urban"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241006-193332-lumine-rf01-the",
+        "photo": "https://i1.sndcdn.com/artworks-ag3j9RRcE4zVpRUa-XjukHQ-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.62548,
-          35.90624
+          139.6227,
+          35.9063
         ]
       }
     },
@@ -83,25 +92,28 @@
       "type": "Feature",
       "properties": {
         "id": "omiya-station-east-west-passage",
-        "title": "大宮駅東西連絡通路",
-        "place": "大宮駅 東西連絡通路",
-        "displayName": "Omiya Passage",
-        "description": "SoundCloudの表記では、大宮駅の東西を結ぶ通路周辺の録音です。大宮駅西口・東口・ルミネ屋上シリーズに連なる駅構内の音として整理しています。",
-        "note": "録音日: 2024.10.05頃。駅のアナウンス、通行人、改札や商業施設の音が混ざるターミナルの交差点として推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241005-xxx-omiya-station",
-        "photo": "assets/img/soundcloud-omiya-passage.jpg",
+        "title": "大宮駅 東西連絡通路",
+        "place": "大宮駅 改札外コンコース付近",
+        "displayName": "Omiya East-West Passage",
+        "description": "大宮駅の東口と西口をつなぐ改札外コンコース付近の録音です。通行人、待ち合わせ、案内放送、店舗の出入口が重なり、巨大なターミナル駅を横断する人の流れが音の断面として聞こえます。",
+        "note": "録音日: 2024-10-05頃 / リライト注: SoundCloudの「Xxx Omiya Station East-West Passage」から、表示名を大宮駅東西連絡通路に整理。説明欄は屋上3点と共通で、単体の録音時刻・録音者は未確定です。座標はJR大宮駅構内図とOSMを参照した概略です。 / SoundCloud ID: 1930148642 / Duration: 4:59 / Original title: Field Recording Club, Saitama - Xxx Omiya Station East-West Passage .WAV",
         "tags": [
-          "omiya-station",
+          "field-recording",
+          "soundscape",
+          "大宮駅",
           "passage",
+          "concourse",
           "terminal",
-          "concourse"
-        ]
+          "people"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241005-xxx-omiya-station",
+        "photo": "https://i1.sndcdn.com/artworks-kOuYPFH99yzGOizI-FdTN7A-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.6242,
-          35.9061
+          139.6239,
+          35.90635
         ]
       }
     },
@@ -110,70 +122,79 @@
       "properties": {
         "id": "omiya-park-zoo-night",
         "title": "夜の大宮公園小動物園",
-        "place": "大宮公園小動物園 閉園後のゲート付近",
-        "displayName": "Omiya Park Zoo",
-        "description": "SoundCloudの表記では、1953年開園の大宮公園小動物園の夜の音風景。閉園後のゲート付近で、動物の鳴き声が公園と都市の中に響く場面として紹介されています。",
-        "note": "さいたま音百景として公開されている音源です。夜の公園、動物園、周辺市街地の遠い気配が重なる地点として推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/soundscape-saitama-wav",
-        "photo": "assets/img/soundcloud-omiya-zoo-night.jpg",
+        "place": "大宮公園小動物園 閉園後の園外付近",
+        "displayName": "Omiya Park Zoo at Night",
+        "description": "大宮公園小動物園の閉園後、夜の公園側から聞こえる動物の声や周囲の街音を捉えた音風景です。昼間の賑わいとは違い、暗い公園の奥から届く鳴き声が都市の中の動物園の存在を際立たせます。",
+        "note": "リライト注: SoundCloudの「Omiya zoo at night」「closed gate at night」「roars of animals」を、閉園後の園外付近から聴いた夜の音風景として整理。大宮公園小動物園は埼玉県大宮公園内の施設として公式情報とOSMで確認しました。 / SoundCloud ID: 1850629794 / Duration: 12:36 / Original title: 100 Soundscape Saitama- Omiya zoo at night さいたま音百景 -夜の大宮公園小動物園",
         "tags": [
-          "omiya-park",
+          "soundscape",
+          "さいたま音百景",
+          "大宮公園",
           "zoo",
           "night",
-          "soundscape-saitama"
-        ]
+          "animals",
+          "park"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/soundscape-saitama-wav",
+        "photo": "https://i1.sndcdn.com/artworks-gvAAxcB4MG74dW4S-FDl2IQ-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.63122,
-          35.91738
+          139.6324525,
+          35.9184862
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "mamenoki-omiya-station",
-        "title": "まめの木",
-        "place": "大宮駅 まめの木",
-        "displayName": "Mamenoki",
-        "description": "SoundCloudの表記では、大宮駅の待ち合わせ場所として知られる「まめの木」を対象にした、さいたま音百景の音源です。",
-        "note": "大宮駅開業100年と埼京線開業を記念して制作されたオブジェ周辺。駅の喧騒、東口と西口をつなぐ通路、改札、ルミネ入口、行き交う人、駅アナウンスが重なる地点として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/soundscape-saitama",
-        "photo": "assets/img/soundcloud-mamenoki.jpg",
+        "id": "omiya-station-mamenoki",
+        "title": "大宮駅「まめの木」",
+        "place": "大宮駅 東西連絡通路「行きかう・線」付近",
+        "displayName": "Mamenoki / Ikikau-sen",
+        "description": "大宮駅の待ち合わせ場所として知られる「まめの木」付近の録音です。正式名称は伊藤隆道によるモニュメント「行きかう・線」。東西連絡通路の中心で、足音、会話、案内放送、待ち合わせの気配が交差します。",
+        "note": "リライト注: SoundCloud本文の「まめの木」「行きかう・線」「伊藤隆道」「1985年9月制作」を、作品名・通称・設置文脈が伝わるよう再構成。読みは「いきかうせん」として整理。座標は大宮駅コンコースの概略です。 / SoundCloud ID: 1849108428 / Duration: 8:20 / Original title: 100 Soundscape Saitama- mamenoki a famous meeting spot さいたま音百景-まめの木",
         "tags": [
-          "omiya-station",
-          "mamenoki",
-          "meeting-spot",
-          "soundscape-saitama"
-        ]
+          "soundscape",
+          "さいたま音百景",
+          "大宮駅",
+          "まめの木",
+          "public-art",
+          "meeting",
+          "伊藤隆道"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/soundscape-saitama",
+        "photo": "https://i1.sndcdn.com/artworks-LnksIyAvyq43WAgq-uIBl3Q-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
           139.6239,
-          35.9063
+          35.90635
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "kounuma-irrigation-fountain",
-        "title": "鴻沼用水公園噴水",
-        "place": "鴻沼用水公園付近",
-        "displayName": "Kounuma Fountain",
-        "description": "SoundCloudの表記では、鴻沼用水の公園噴水を対象にした、さいたま音百景の音源です。都市化の進む地域に残る用水の音として紹介されています。",
-        "note": "荒川から見沼田んぼをつなぐ歴史的な灌漑インフラの気配、水音、周辺市街地の音を聴く地点として推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/soundscape-saitama-1",
-        "photo": "assets/img/soundcloud-kounuma.jpg",
+        "id": "kounuma-irrigation-canal-fountain",
+        "title": "鴻沼用水の噴水",
+        "place": "鴻沼用水・高沼用水路周辺",
+        "displayName": "Kounuma Canal Fountain",
+        "description": "さいたま市中心部を流れる鴻沼用水・高沼用水路の近くで、水の音に焦点を当てた録音です。かつて灌漑を担った用水が、都市化した市街地の中で親水空間や歴史の痕跡として残っています。",
+        "note": "リライト注: SoundCloudの「old kounuma irrigation canals」「鴻沼用水公園噴水」を、鴻沼用水・高沼用水路の歴史的文脈と水音の録音として整理。正式な噴水名と録音点は外部資料で十分に確認できなかったため、座標は概略です。 / SoundCloud ID: 1850598249 / Duration: 8:03 / Original title: 100 Soundscape Saitama - fountain at old kounuma irrigation canals さいたま音百景-鴻沼用水公園噴水",
         "tags": [
-          "saitama",
-          "kounuma",
+          "soundscape",
+          "さいたま音百景",
+          "鴻沼用水",
           "water",
-          "soundscape-saitama"
-        ]
+          "canal",
+          "history",
+          "fountain"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/soundscape-saitama-1",
+        "photo": "https://i1.sndcdn.com/artworks-lZYGAwUczg9Yc8MD-lJgp6w-large.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -188,24 +209,27 @@
       "properties": {
         "id": "hokosugi-bridge",
         "title": "ほこすぎ橋",
-        "place": "ほこすぎ橋（さいたま新都心周辺）",
+        "place": "さいたま新都心東西連絡路・ほこすぎ橋",
         "displayName": "Hokosugi Bridge",
-        "description": "SoundCloudの表記では、さいたま音百景の1地点として、さいたま新都心・大宮区のほこすぎ橋が取り上げられています。",
-        "note": "橋の上や周辺で、道路、歩行者、都市の反響、水辺や緑地の気配が混ざる地点として推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/001-hokosugi-bridge-100-soundscape-saitama",
-        "photo": "assets/img/soundcloud-hokosugi.jpg",
+        "description": "さいたま新都心の北側で、鉄道と道路をまたぐ歩行者用の橋「ほこすぎ橋」の音風景です。さいたまスーパーアリーナ方面と氷川参道方面を結ぶ歩行空間で、電車、車、人の移動が上下に重なります。",
+        "note": "リライト注: SoundCloudの「hokosugi bridge」「さいたま新都心、大宮区」を、橋の位置と役割が伝わる説明に整理。座標はOSMの「ほこすぎ橋」を参照しました。 / SoundCloud ID: 1846457223 / Duration: 12:46 / Original title: 100 Soundscape Saitama - hokosugi bridge さいたま音百景-ほこすぎ橋",
         "tags": [
-          "saitama-shintoshin",
+          "soundscape",
+          "さいたま音百景",
+          "ほこすぎ橋",
+          "さいたま新都心",
           "bridge",
-          "urban",
-          "soundscape-saitama"
-        ]
+          "railway",
+          "urban"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/001-hokosugi-bridge-100-soundscape-saitama",
+        "photo": "https://i1.sndcdn.com/artworks-B6EpP1LgMlbSYsIy-Wu5A7w-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.6339,
-          35.8958
+          139.6316871,
+          35.8965675
         ]
       }
     },
@@ -213,71 +237,80 @@
       "type": "Feature",
       "properties": {
         "id": "daienji-shichiri-20260405-nk",
-        "title": "大圓寺（七里）20260405_NK",
-        "place": "大圓寺（七里）",
-        "displayName": "Daienji",
-        "description": "SoundCloudの表記では、七里エリアの大圓寺で録音された音源です。関連する録音として七里駅の三本櫻と小御嶽神社も並んでおり、春の地域録音シリーズの1地点として整理しています。",
-        "note": "録音日: 2026.04.05 / 記録者表記: NK。寺の境内と七里の住宅地が接する場所の音として、鐘や鳥、足音、周辺道路の気配を想定しています。座標は地点名からの推定です。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/da-yuan-si-qi-li-20260405_nk-1",
-        "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
+        "title": "七里・大圓寺",
+        "place": "大圓寺（さいたま市見沼区風渡野）",
+        "displayName": "Daienji / Shichiri",
+        "description": "七里駅に近い見沼区風渡野の寺院、大圓寺での短い録音です。春の境内周辺にある静けさ、住宅地の気配、鳥や風の音を、まち歩きの一地点として切り取っています。",
+        "note": "録音日: 2026-04-05 / 録音者表記: NK / リライト注: SoundCloudの「大圓寺（七里）」を、OSMで確認できる見沼区風渡野の大圓寺として整理。寺名表記は「大圓寺」を採用し、読みは「だいえんじ」としました。 / SoundCloud ID: 2301528179 / Duration: 1:06 / Original title: 大圓寺（七里）20260405_NK",
         "tags": [
-          "shichiri",
+          "field-recording",
+          "大圓寺",
+          "七里",
           "temple",
           "spring",
-          "nk"
-        ]
+          "NK",
+          "Saitama"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/da-yuan-si-qi-li-20260405_nk-1",
+        "photo": "https://i1.sndcdn.com/artworks-8eXzToRHbeIpguvc-QgOcBQ-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.6648,
-          35.9342
+          139.6659723,
+          35.9345845
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "shichiri-station-sakura-20260405-nk",
-        "title": "七里駅の三本櫻（七里）20260405_NK",
+        "id": "nanasato-station-three-sakura-20260405-nk",
+        "title": "七里駅の三本桜",
         "place": "七里駅周辺",
-        "displayName": "Shichiri Sakura",
-        "description": "SoundCloudの表記では、七里駅の三本櫻を対象にした録音です。駅前の桜、通行人、東武アーバンパークラインの気配を含む地点として整理しています。",
-        "note": "録音日: 2026.04.05 / 記録者表記: NK。春の駅前で、花を見る人の足取りと鉄道の音が重なる地点と推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/qi-li-yi-nosan-ben-ying-qi-li-20260405_nk-2",
-        "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
+        "displayName": "Nanasato Three Sakura",
+        "description": "七里駅周辺にある三本の桜を対象にした春の録音です。駅前の交通、人の移動、桜の季節の空気感を、短いフィールドレコーディングとしてまとめています。",
+        "note": "録音日: 2026-04-05 / 録音者表記: NK / リライト注: SoundCloudの「七里駅の三本櫻」を一般表記の「三本桜」に整えました。固有地点としての三本桜は公式資料で確認できなかったため、七里駅座標を基準に概略配置しています。 / SoundCloud ID: 2301528182 / Duration: 2:18 / Original title: 七里駅の三本櫻（七里）20260405_NK",
         "tags": [
-          "shichiri",
-          "station",
+          "field-recording",
+          "七里駅",
+          "三本桜",
           "sakura",
-          "nk"
-        ]
+          "spring",
+          "NK",
+          "station"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/qi-li-yi-nosan-ben-ying-qi-li-20260405_nk-2",
+        "photo": "https://i1.sndcdn.com/artworks-8eXzToRHbeIpguvc-QgOcBQ-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.66582,
-          35.93639
+          139.6658159,
+          35.9363894
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "omitake-shrine-iwatsuki-20260426-fkd",
-        "title": "小御嶽神社（岩槻）20260426_FKD",
-        "place": "小御嶽神社（岩槻）",
-        "displayName": "Omitake Shrine",
-        "description": "SoundCloudの表記では、岩槻の小御嶽神社で録音された音源です。岩槻エリアの神社境内を対象にした地域音風景として整理しています。",
-        "note": "録音日: 2026.04.26 / 記録者表記: FKD。神社の境内、木々、鳥、近隣の生活音が重なる場所として推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/xiao-yu-yue-shen-she-yan-gui-20260426_fkd-4",
-        "photo": "assets/img/soundcloud-shichiri-iwatsuki.jpg",
+        "id": "komitake-shrine-iwatsuki-20260426-fkd",
+        "title": "岩槻・小御嶽神社",
+        "place": "岩槻区内の小御嶽神社付近",
+        "displayName": "Komitake Shrine / Iwatsuki",
+        "description": "岩槻区内の小御嶽神社付近で録られた春の音風景として整理しました。木々や鳥の声、周辺の生活音が重なり、富士信仰に関わる小さな祈りの場をまち歩きの途中で記録しています。",
+        "note": "録音日: 2026-04-26 / 録音者表記: FKD / リライト注: SoundCloudの「小御嶽神社（岩槻）」を表示用に整理。単独施設としての外部確認が難しく、読みは富士山小御嶽神社の一般的な読みにならい「こみたけ」としました。座標は岩槻区内の概略です。 / SoundCloud ID: 2301528188 / Duration: 3:01 / Original title: 小御嶽神社（岩槻）20260426_FKD",
         "tags": [
-          "iwatsuki",
+          "field-recording",
+          "岩槻",
+          "小御嶽神社",
           "shrine",
           "spring",
-          "fkd"
-        ]
+          "FKD",
+          "Saitama"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/xiao-yu-yue-shen-she-yan-gui-20260426_fkd-4",
+        "photo": "https://i1.sndcdn.com/artworks-8eXzToRHbeIpguvc-QgOcBQ-large.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -291,76 +324,114 @@
       "type": "Feature",
       "properties": {
         "id": "hikifune-festival-20240609",
-        "title": "曳舟お祭り",
-        "place": "曳舟駅周辺",
+        "title": "曳舟のまちのお祭り",
+        "place": "曳舟駅東口周辺",
         "displayName": "Hikifune Festival",
-        "description": "SoundCloudの表記では、東京下町の曳舟で町内のお祭りに遭遇した際の録音です。昼食後に街を歩く中で出会った祭りの音として紹介されています。",
-        "note": "録音日時: 2024.06.09 14:51頃 / Recorder: H1 essential + Clippy EM272。神輿や人の声、路地の反響、下町の午後の空気を含む音として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/240609-145147-wav",
-        "photo": "assets/img/soundcloud-tokyo-oldtown.jpg",
+        "description": "曳舟駅東口周辺を歩いている途中に出会った、下町の町内祭りの録音です。駅前の飲食店や路地、祭りの掛け声、人の流れが混ざり、初夏の東京東部らしい街の高揚感が立ち上がります。",
+        "note": "録音日時: 2024-06-09 14:51頃 / 録音機材: H1 essential + Clippy EM272 / リライト注: SoundCloudの「曳舟お祭り」と本文の散策記録を、曳舟駅東口周辺で遭遇した町内祭りの音風景として整理。祭礼名の同定は未確定です。 / SoundCloud ID: 1846326111 / Duration: 2:01 / Original title: Old town in Tokyo / SOUND JOURNEY 240609 - 145147 曳舟お祭り.WAV",
         "tags": [
-          "tokyo",
-          "hikifune",
+          "field-recording",
+          "曳舟",
           "festival",
-          "sound-journey"
-        ]
+          "old-town",
+          "Tokyo",
+          "street",
+          "matsuri"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/240609-145147-wav",
+        "photo": "https://i1.sndcdn.com/artworks-IVZPrFtffvPQCofo-SB5SXw-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.8166,
-          35.7185
+          139.8167501,
+          35.7183056
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "senju-nakacho-hikawa-20240609",
-        "title": "千住仲町氷川神社",
-        "place": "千住仲町氷川神社",
-        "displayName": "Senju Hikawa",
-        "description": "SoundCloudの表記では、仲町の家へ行く前、朝の待ち合わせまでの時間に千住仲町氷川神社で休憩しながら録音された音源です。",
-        "note": "録音日時: 2024.06.09 09:41頃 / Recorder: H1 essential + Clippy EM272。池の水音、朝の街音、電車の音が聞こえる東京下町の朝の音として整理しています。",
+        "id": "senju-nakacho-hikawa-shrine-20240609",
+        "title": "千住仲町氷川神社の朝",
+        "place": "千住仲町氷川神社付近",
+        "displayName": "Senju Nakacho Hikawa Shrine",
+        "description": "アートスペース訪問前の朝、千住仲町氷川神社付近で休憩しながら録られた音風景です。池の水音、朝の街音、近くを走る電車の響きが重なり、東京下町の静かな時間を伝えます。",
+        "note": "録音日時: 2024-06-09 09:41頃 / 録音機材: H1 essential + Clippy EM272 / リライト注: SoundCloud本文の「千住仲町氷川神社」「池の水音、朝の街音、電車の音」を中心に整理。OSMで神社単体を確認できなかったため、千住仲町周辺の概略座標です。 / SoundCloud ID: 1846335627 / Duration: 5:16 / Original title: Old town in Tokyo / SOUND JOURNEY 240609 - 094144 千住仲町氷川神社.WAV",
+        "tags": [
+          "field-recording",
+          "千住",
+          "氷川神社",
+          "morning",
+          "water",
+          "Tokyo",
+          "old-town"
+        ],
         "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/240609-094144-wav",
-        "photo": "assets/img/soundcloud-tokyo-oldtown.jpg",
-        "tags": [
-          "tokyo",
-          "senju",
-          "hikawa-shrine",
-          "morning"
-        ]
+        "photo": "https://i1.sndcdn.com/artworks-IVZPrFtffvPQCofo-SB5SXw-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.7954,
-          35.7446
+          139.799,
+          35.7465
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "shinshukan-hall-indoor-2f",
-        "title": "宮代町進修館 大ホール室内2階",
-        "place": "宮代町進修館 大ホール室内2階",
-        "displayName": "Shinshukan Hall",
-        "description": "SoundCloudの表記では、宮代町進修館で開催された「窓を開いて 風をまねく」イベント時の、大ホール室内2階での録音です。",
-        "note": "録音日時: 2024.11.10 16:06頃。建築のすべての窓や建具を開放する展示会で、風、光、人の移動、ホールの響きを記録した地点として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/frcs",
-        "photo": "assets/img/soundcloud-shinshukan-hall.jpg",
+        "id": "shinsyukan-hall-second-floor-20241110",
+        "title": "進修館 大ホール室内2階",
+        "place": "コミュニティセンター進修館 大ホール室内2階",
+        "displayName": "Shinsyukan Hall / 2F Interior",
+        "description": "宮代町のコミュニティセンター進修館で開かれた「窓を開いて 風をまねく」イベント時の録音です。大ホール室内2階から、開放された建具、室内の響き、人の移動、外気の気配を捉えています。",
+        "note": "録音日時: 2024-11-10 16:06頃 / リライト注: SoundCloudの「大ホール室内2階」とイベント説明を、進修館内の録音地点として整理。進修館は宮代町の公共施設で、OSMの建物座標を基準に内部地点を概略配置しました。 / SoundCloud ID: 1971504835 / Duration: 5:14 / Original title: 窓を開いて 風をまねく（When the openings were open）宮代町進修館大ホール室内2階",
         "tags": [
-          "miyashiro",
-          "shinshukan",
+          "field-recording",
+          "進修館",
+          "宮代町",
+          "architecture",
           "hall",
-          "architecture"
-        ]
+          "wind",
+          "event"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/frcs",
+        "photo": "https://i1.sndcdn.com/artworks-HLasYfAOTLLsjiHX-yzRyjg-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.7247,
+          139.72342,
+          36.02284
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "shinsyukan-hall-back-terrace-20241110",
+        "title": "進修館 大ホール2階裏テラス",
+        "place": "コミュニティセンター進修館 大ホール2階裏テラス",
+        "displayName": "Shinsyukan Back Terrace",
+        "description": "進修館の大ホール2階裏テラスで録られた音です。建物の内外が近づく場所で、開け放たれた窓や建具、外の風、人の気配、ホールからの反響が混ざり合います。",
+        "note": "録音日時: 2024-11-10 16:12頃 / リライト注: SoundCloudの「大ホール2階裏テラス」を、屋内外の境界にある録音地点として整理。座標は進修館建物内の相対位置を示すため、施設座標から小さくオフセットしています。 / SoundCloud ID: 1971504843 / Duration: 5:14 / Original title: 窓を開いて 風をまねく（When the openings were open）宮代町進修館大ホール2階裏テラス",
+        "tags": [
+          "field-recording",
+          "進修館",
+          "宮代町",
+          "terrace",
+          "architecture",
+          "wind",
+          "event"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-161230-2s",
+        "photo": "https://i1.sndcdn.com/artworks-zEuIXNrpbZk7jbhp-1NVTtg-large.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.72355,
           36.0229
         ]
       }
@@ -368,103 +439,28 @@
     {
       "type": "Feature",
       "properties": {
-        "id": "shinshukan-hall-terrace-2f",
-        "title": "宮代町進修館 大ホール2階裏テラス",
-        "place": "宮代町進修館 大ホール2階裏テラス",
-        "displayName": "Shinshukan Terrace",
-        "description": "SoundCloudの表記では、「窓を開いて 風をまねく」イベント時に、大ホール2階裏テラスで録音された音源です。",
-        "note": "録音日時: 2024.11.10 16:12頃。屋内外の境界で、開放された建具、外気、建物の反響が交差する地点として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-161230-2s",
-        "photo": "assets/img/soundcloud-shinshukan-terrace.jpg",
+        "id": "shinsyukan-hall-outside-stairs-20241110",
+        "title": "進修館 大ホール外の階段",
+        "place": "コミュニティセンター進修館 大ホール外階段",
+        "displayName": "Shinsyukan Outside Stairs",
+        "description": "進修館の大ホール外にある階段付近での録音です。曲面をもつ建築の外側で、足音、風、建物に反射する音、周囲の気配が重なり、屋内から屋外へ移る感覚が聞こえます。",
+        "note": "録音日時: 2024-11-10 16:20頃 / リライト注: SoundCloudの「大ホール外-階段」を、建物外部の階段付近として整理。座標は進修館建物内外の相対位置がわかるよう概略配置しています。 / SoundCloud ID: 1971504847 / Duration: 5:14 / Original title: 窓を開いて 風をまねく（When the openings were open）宮代町進修館 大ホール外-階段",
         "tags": [
-          "miyashiro",
-          "shinshukan",
-          "terrace",
-          "wind"
-        ]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          139.72486,
-          36.02298
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "shinshukan-hall-outside-stairs",
-        "title": "宮代町進修館 大ホール外・階段",
-        "place": "宮代町進修館 大ホール外階段",
-        "displayName": "Shinshukan Stairs",
-        "description": "SoundCloudの表記では、「窓を開いて 風をまねく」イベント時に、大ホール外の階段で録音された音源です。",
-        "note": "録音日時: 2024.11.10 16:20頃。外部階段で、足音、風、建物の曲面や開口部からの反響が聞こえる地点として推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-162002s",
-        "photo": "assets/img/soundcloud-shinshukan-stairs.jpg",
-        "tags": [
-          "miyashiro",
-          "shinshukan",
+          "field-recording",
+          "進修館",
+          "宮代町",
           "stairs",
-          "outdoor"
-        ]
+          "architecture",
+          "wind",
+          "event"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-162002s",
+        "photo": "https://i1.sndcdn.com/artworks-HtyZxVct7qevGDP7-FpyM7A-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.72502,
-          36.02282
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "shinshukan-courtyard-center",
-        "title": "宮代町進修館 中庭へそ・同心円中心",
-        "place": "宮代町進修館 中庭中心部",
-        "displayName": "Shinshukan Center",
-        "description": "SoundCloudの表記では、「窓を開いて 風をまねく」イベント時に、中庭のへそ・同心円中心で録音された音源です。",
-        "note": "録音日時: 2024.11.10 16:30頃。進修館の中庭中央で、建築の形、風、人の移動が同心円状に広がるように聞こえる地点として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-163007s",
-        "photo": "assets/img/soundcloud-shinshukan-center.jpg",
-        "tags": [
-          "miyashiro",
-          "shinshukan",
-          "courtyard",
-          "center"
-        ]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          139.72478,
-          36.02272
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": "shinshukan-hole-outside",
-        "title": "宮代町進修館 穴（外から）",
-        "place": "宮代町進修館 外部開口部付近",
-        "displayName": "Shinshukan Hole",
-        "description": "SoundCloudの表記では、「窓を開いて 風をまねく」イベント時に、建物の穴を外から聴いた録音です。",
-        "note": "録音日時: 2024.11.10 16:36頃。外から建築の開口部に耳を向け、内部の反響と外気が混ざる場所として推定しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-163613-1s",
-        "photo": "assets/img/soundcloud-shinshukan-hole.jpg",
-        "tags": [
-          "miyashiro",
-          "shinshukan",
-          "opening",
-          "outside"
-        ]
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          139.72461,
+          139.72364,
           36.02278
         ]
       }
@@ -472,26 +468,87 @@
     {
       "type": "Feature",
       "properties": {
-        "id": "shinshukan-courtyard-hall-stairs",
-        "title": "宮代町進修館 中庭から大ホールへの階段",
-        "place": "宮代町進修館 中庭から大ホールへの階段",
-        "displayName": "Shinshukan Walk",
-        "description": "SoundCloudの表記では、「窓を開いて 風をまねく」イベント時に、中庭から大ホールへ向かう階段で録音された音源です。",
-        "note": "録音日時: 2024.11.10 16:43頃。中庭からホールへ移る途中の、足音、風、空間の響きの変化を聴く地点として整理しています。",
-        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-164356s",
-        "photo": "assets/img/soundcloud-shinshukan-courtyard-stairs.jpg",
+        "id": "shinsyukan-courtyard-center-20241110",
+        "title": "進修館 中庭のへそ",
+        "place": "コミュニティセンター進修館 中庭・同心円中心",
+        "displayName": "Shinsyukan Courtyard Center",
+        "description": "進修館の中庭にある同心円状の中心部、「へそ」と呼ばれる地点での録音です。建物に囲まれた屋外空間で、風、足音、人の移動、ホールから漏れる響きが立体的に回り込みます。",
+        "note": "録音日時: 2024-11-10 16:30頃 / リライト注: SoundCloudの「中庭へそ-同心円中心」を、進修館中庭の中心部として整理。座標はOSMの建物座標を基準に、地図上で重なりすぎないよう概略配置しました。 / SoundCloud ID: 1971504851 / Duration: 5:14 / Original title: 窓を開いて 風をまねく（When the openings were open）宮代町進修館中庭へそ-同心円中心",
         "tags": [
-          "miyashiro",
-          "shinshukan",
-          "stairs",
-          "transition"
-        ]
+          "field-recording",
+          "進修館",
+          "宮代町",
+          "courtyard",
+          "architecture",
+          "wind",
+          "event"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-163007s",
+        "photo": "https://i1.sndcdn.com/artworks-x9csaQFFw879mHQJ-cu8jzg-large.jpg"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          139.72495,
-          36.02262
+          139.72342,
+          36.0227
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "shinsyukan-building-hole-outside-20241110",
+        "title": "進修館 建物の穴を外から聴く",
+        "place": "コミュニティセンター進修館 建物外部の開口部付近",
+        "displayName": "Shinsyukan Opening / Outside",
+        "description": "進修館の特徴的な開口部を外側から聴いた録音です。建築の穴を通して、内部の響きと外気が混ざり、開放された窓や建具によって建物全体が風の通り道になる様子が感じられます。",
+        "note": "録音日時: 2024-11-10 16:36頃 / リライト注: SoundCloudの「穴（外から）」を、建物外部の開口部付近での録音として整理。正確な開口部位置は公開資料だけでは特定できないため、施設内の概略座標です。 / SoundCloud ID: 1971504859 / Duration: 5:48 / Original title: 窓を開いて 風をまねく（When the openings were open）宮代町進修館- 穴（外から）",
+        "tags": [
+          "field-recording",
+          "進修館",
+          "宮代町",
+          "opening",
+          "architecture",
+          "wind",
+          "event"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-163613-1s",
+        "photo": "https://i1.sndcdn.com/artworks-8yPzGiyVWyyFV0Rk-9AZCYA-large.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.72328,
+          36.02282
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "shinsyukan-courtyard-to-hall-stairs-20241110",
+        "title": "進修館 中庭から大ホールへの階段",
+        "place": "コミュニティセンター進修館 中庭から大ホールへの階段",
+        "displayName": "Shinsyukan Courtyard Stairs",
+        "description": "進修館の中庭から大ホールへ向かう階段で録られた音です。屋外の風と中庭の反響、階段を移動する足音、ホールへ近づくにつれて変わる響きが、空間の連続性を伝えます。",
+        "note": "録音日時: 2024-11-10 16:43頃 / リライト注: SoundCloudの「中庭から大ホールへの階段」を、屋外からホールへ移る導線上の録音として整理。座標は進修館内の相対位置を示す概略です。 / SoundCloud ID: 1971504863 / Duration: 5:48 / Original title: 窓を開いて 風をまねく（When the openings were open）宮代町進修館 中庭から大ホールへの階段",
+        "tags": [
+          "field-recording",
+          "進修館",
+          "宮代町",
+          "stairs",
+          "courtyard",
+          "architecture",
+          "event"
+        ],
+        "soundcloudUrl": "https://soundcloud.com/livingroom-tapes/241110-164356s",
+        "photo": "https://i1.sndcdn.com/artworks-9WKycmBiK1Ky3jYz-oqXKvA-large.jpg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.72352,
+          36.02274
         ]
       }
     }
