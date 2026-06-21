@@ -861,6 +861,16 @@ h3 {
   display: none;
 }
 
+.sound-panel.artwork-fallback img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  max-height: 440px;
+  object-fit: cover;
+  background: var(--paper-soft);
+}
+
 .panel-body {
   display: grid;
   gap: 14px;
