@@ -38,6 +38,7 @@ const els = {
 
 const mapContainer = document.querySelector("#map");
 const soundMapSection = document.querySelector("#sound-map");
+const soundPanel = document.querySelector(".sound-panel");
 
 if (!mapContainer || soundMapSection?.hidden) {
   window.frcsSoundMap = { disabled: true };
@@ -103,7 +104,15 @@ function buildSoundCloudSrc(soundcloudUrl) {
   }
 
   const encodedUrl = encodeURIComponent(soundcloudUrl);
-  return `https://w.soundcloud.com/player/?url=${encodedUrl}&color=%2324483e&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false`;
+  return `https://w.soundcloud.com/player/?url=${encodedUrl}&color=%2324483e&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_artwork=true&show_reposts=false&show_teaser=false&visual=false`;
+}
+
+function updateArtworkFallback() {
+  if (!soundPanel || !els.player) {
+    return;
+  }
+
+  soundPanel.classList.toggle("artwork-fallback", els.player.getBoundingClientRect().width < 440);
 }
 
 function updateContinuousButton() {
@@ -235,6 +244,7 @@ function renderPanel(feature, options = {}) {
   els.note.textContent = props.note;
   els.photo.src = props.photo || "assets/img/hero.jpg";
   els.photo.alt = `${props.place}の写真`;
+  updateArtworkFallback();
 
   const tags = Array.isArray(props.tags) ? props.tags : JSON.parse(props.tags || "[]");
   els.tags.replaceChildren(
@@ -255,11 +265,13 @@ function renderPanel(feature, options = {}) {
     iframe.src = iframeSrc;
     els.player.className = "";
     els.player.replaceChildren(iframe);
+    updateArtworkFallback();
     setupSoundCloudWidget(iframe, options.autoplay);
   } else {
     soundState.widget = null;
     els.player.className = "player-placeholder";
     els.player.innerHTML = "<p>SoundCloud URLを設定すると、ここにプレイヤーが表示されます。</p>";
+    updateArtworkFallback();
   }
 
   if (map.getLayer("sound-points")) {
@@ -299,6 +311,13 @@ if (els.nextButton) {
 if (els.prevButton) {
   updateNavigationControls();
   els.prevButton.addEventListener("click", goToPrevFeature);
+}
+
+if (window.ResizeObserver && els.player) {
+  const playerResizeObserver = new ResizeObserver(updateArtworkFallback);
+  playerResizeObserver.observe(els.player);
+} else {
+  window.addEventListener("resize", updateArtworkFallback);
 }
 
 async function loadSounds() {
