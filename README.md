@@ -180,9 +180,32 @@ python3 -m http.server 8000
 
 ブラウザで `http://localhost:8000/` を開きます。
 
+## SoundCloudプレイリストデータの生成
+
+SoundCloudプレイリストからトラック一覧のJSONとCSVを生成します。Python標準ライブラリのみで動くため、ローカルとGitHub Actionsのどちらでも同じコマンドを使えます。
+
+```sh
+python3 scripts/scrape_soundcloud_playlist.py
+```
+
+デフォルトでは以下を生成します。
+
+- `data/soundcloud-playlist.json`
+- `data/soundcloud-playlist.csv`
+
+対象URLや出力先を変える場合:
+
+```sh
+python3 scripts/scrape_soundcloud_playlist.py \
+  --url "https://soundcloud.com/livingroom-tapes/sets/field-recording-club-saitama" \
+  --json data/soundcloud-playlist.json \
+  --csv data/soundcloud-playlist.csv
+```
+
 ## 主なファイル
 
 - `index.html`
 - `assets/css/style.css`
 - `assets/js/main.js`
 - `data/sounds.geojson`
+- `scripts/scrape_soundcloud_playlist.py`
