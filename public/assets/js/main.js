@@ -13,7 +13,7 @@ const fallbackFeature = {
     description: "地図上の録音地点を選ぶと、ここに説明と録音メモが表示されます。",
     note: "自動再生はしません。聴きたい地点を選んで、プレイヤーから再生してください。",
     soundcloudUrl: "",
-    photo: "assets/img/hero.jpg",
+    photo: "/assets/img/hero.jpg",
     tags: ["archive", "soundmap"],
   },
   geometry: {
@@ -47,6 +47,7 @@ const map = new maplibregl.Map({
   container: "map",
   style: {
     version: 8,
+    glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
     sources: {
       osm: {
         type: "raster",
@@ -242,7 +243,7 @@ function renderPanel(feature, options = {}) {
   els.title.textContent = props.title;
   els.description.textContent = props.description;
   els.note.textContent = props.note;
-  els.photo.src = props.photo || "assets/img/hero.jpg";
+  els.photo.src = props.photo || "/assets/img/hero.jpg";
   els.photo.alt = `${props.place}の写真`;
   updateArtworkFallback();
 
@@ -321,7 +322,7 @@ if (window.ResizeObserver && els.player) {
 }
 
 async function loadSounds() {
-  const response = await fetch("data/sounds.geojson");
+  const response = await fetch("/data/sounds.geojson");
   if (!response.ok) {
     throw new Error(`Failed to load sounds.geojson: ${response.status}`);
   }

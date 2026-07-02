@@ -611,6 +611,12 @@ h3 {
   margin: 0 0 1.2em;
 }
 
+.prose ol,
+.prose ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
 .muted {
   background: rgba(235, 231, 220, 0.82);
   border-block: 1px solid var(--line);
@@ -672,29 +678,33 @@ h3 {
   font-weight: 700;
 }
 
-.event-detail-block {
+.markdown-content h3 {
   margin-top: 18px;
 }
 
-.event-detail-block h3 {
+.markdown-content h3 {
   margin: 0 0 6px;
   color: var(--green);
   font-size: 0.95rem;
   letter-spacing: 0.04em;
 }
 
-.event-detail-block p {
+.markdown-content h3:not(:first-child) {
+  margin-top: 18px;
+}
+
+.markdown-content p {
   margin: 0 0 0.9em;
   color: var(--ink-muted);
 }
 
-.event-list {
+.markdown-content ul {
   margin: 0;
   padding-left: 1.2em;
   color: var(--ink-muted);
 }
 
-.event-list li {
+.markdown-content li {
   margin: 0.2em 0;
 }
 
