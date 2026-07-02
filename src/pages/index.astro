@@ -1,35 +1,17 @@
 ---
 import AboutContent from "../content/about.md";
 import EventContent from "../content/event.md";
+import HeroContent from "../content/hero.md";
+import JoinContent from "../content/join.md";
 import ListeningNotes from "../content/listening-notes.md";
+import ProgramContent from "../content/program.md";
+import ProjectContent from "../content/project.md";
+import SoundMapContent from "../content/sound-map.md";
 
 const pageTitle = "サウンド・コミュニケーション・ウォークさいたま2026 | フィールドレコーディングクラブさいたま";
 const pageDescription = "2026年7月18日・19日に同一内容で各日開催。参加はどちらか1日を選ぶ、フィールドレコーディングクラブさいたまのサウンドウォークです。";
 const siteUrl = "https://fieldrecording-saitama.github.io/";
 const ogImage = `${siteUrl}assets/img/ogp-fieldrecording-saitama.jpg`;
-
-const projectSteps = [
-  {
-    number: "01",
-    title: "世界リスニングデーイベント",
-    body: "7月18日・19日に同じ内容で各日開催。大宮駅前から氷川参道、氷川神社、大宮公園へ、「聴くこと」を通して音風景を探索します。",
-  },
-  {
-    number: "02",
-    title: "録音ワークショップ",
-    body: "大宮駅東口、氷川参道、その周辺をフィールドに録音します。",
-  },
-  {
-    number: "03",
-    title: "成果展示発表会",
-    body: "音源、地図、写真、映像、サウンド・インスタレーションを組み合わせて展示します。",
-  },
-  {
-    number: "04",
-    title: "Webアーカイブ化",
-    body: "録音地点、メモ、写真を整理し、さいたまの音風景として残します。",
-  },
-];
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -148,7 +130,7 @@ const structuredData = {
     </header>
 
     <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
+      <section class="hero" aria-label="フィールドレコーディングクラブさいたま">
         <div class="hero-media" aria-hidden="true">
           <span class="hero-slide hero-slide-1"></span>
           <span class="hero-slide hero-slide-2"></span>
@@ -161,21 +143,12 @@ const structuredData = {
           <span>35.906 N / 139.624 E</span>
           <span>OMIYA - HIKAWA - MINUMA</span>
         </div>
-        <div class="hero-content">
-          <p class="eyebrow">Field Recording Club Saitama</p>
-          <div class="hero-event" aria-label="Peatixで参加申込み受付中。7月18日または19日のどちらか1日を選んで参加">
-            <span>Peatixで日程を選んで申込み受付中</span>
-            <strong>サウンド・<wbr />コミュニケーション・<wbr /><span class="text-keep">ウォークさいたま2026</span></strong>
-          </div>
-          <h1 id="hero-title">耳をひらくと、<br />さいたまは<br />別の風景になる。</h1>
-          <p class="hero-copy">
-            World Listening Day関連企画。同じ内容のサウンドウォークを7月18日（土）・19日（日）に各日開催します。参加はどちらか1日。<span class="text-keep">フィールドレコーディング</span><wbr /><span class="text-keep">クラブさいたま</span>と、都市の喧騒から自然の静寂へ、五感で音風景をたどります。
-          </p>
+        <div class="hero-content markdown-content">
+          <HeroContent />
           <div class="hero-actions" aria-label="ページ内リンク">
             <a class="button primary accent" href="https://soundwalk-saitama2026-7.peatix.com/" target="_blank" rel="noopener">参加日を選んで申込む</a>
             <a class="button" href="#event">詳細を見る</a>
           </div>
-          <p class="hero-apply-note">2026年7月18日（土）・19日（日）16:00〜19:00（15:30受付開始予定） / 両日同一内容・参加はどちらか1日 / 各日定員10名程度・参加費1000円（当日払い / 小中学生無料） / 雨天決行</p>
           <div class="hero-actions secondary" aria-label="補助リンク">
             <a class="button ghost" href="#join">活動をフォローする</a>
           </div>
@@ -206,8 +179,9 @@ const structuredData = {
         </div>
       </section>
 
-      <section id="event" class="section event-section" aria-labelledby="event-title">
+      <section id="event" class="section event-section" aria-label="サウンド・コミュニケーション・ウォークさいたま2026">
         <div class="event-copy markdown-content">
+          <p class="section-kicker">World Listening Day 7/18 / Same Program 7/18-19</p>
           <EventContent />
           <div class="event-actions">
             <a class="button primary accent" href="https://soundwalk-saitama2026-7.peatix.com/" target="_blank" rel="noopener">参加日を選んで申込む</a>
@@ -218,39 +192,24 @@ const structuredData = {
       <section id="project" class="section muted">
         <div class="section-heading">
           <p class="section-kicker">Project</p>
-          <h2>さいたまの音風景<br /><span class="text-keep">録音ワークショップ</span>＆<span class="text-keep">成果展示発表会</span></h2>
-        </div>
-        <div class="project-flow" aria-label="今年度事業の流れ">
-          {projectSteps.map((step) => (
-            <article>
-              <span>{step.number}</span>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </article>
-          ))}
-        </div>
-        <div class="project-support" aria-label="助成情報">
-          <p>
-            本事業は、
-            <a href="https://artscouncil-saitama.jp/grants/information/r8joseikin/" target="_blank" rel="noopener">アーツカウンシルさいたま文化芸術都市創造助成事業</a>
-            の採択事業です。
-          </p>
+          <div class="markdown-content project-content">
+            <ProjectContent />
+          </div>
           <a class="project-support-logo" href="https://artscouncil-saitama.jp/grants/information/r8joseikin/" target="_blank" rel="noopener" aria-label="アーツカウンシルさいたま公式サイト">
             <img src="/assets/img/arts-council-saitama-logo.png" alt="アーツカウンシルさいたま" loading="lazy" />
           </a>
         </div>
       </section>
 
-      <section id="sound-map" class="section sound-section" aria-labelledby="sound-map-title">
-        <div class="section-heading compact">
+      <section id="sound-map" class="section sound-section" aria-label="さいたまの音地図">
+        <div class="section-heading compact markdown-content sound-map-intro">
           <p class="section-kicker">Sound Map</p>
-          <h2 id="sound-map-title">さいたまの音地図</h2>
-          <p>地図上の録音地点を選ぶと、Livingroom TapesのSoundCloud音源と録音メモが切り替わります。</p>
+          <SoundMapContent />
         </div>
         <div class="sound-map-shell">
           <div class="map-wrap">
             <div id="map" aria-label="さいたまの録音地点地図"></div>
-            <p class="map-note">Map data © OpenStreetMap contributors / 録音地点はSoundCloudの表記から推定</p>
+            <p class="map-note">Map data © OpenStreetMap contributors</p>
           </div>
           <aside class="sound-panel" aria-live="polite">
             <img id="sound-photo" src="/assets/img/hero.jpg" alt="" loading="lazy" />
@@ -297,57 +256,22 @@ const structuredData = {
       <section id="program" class="section muted">
         <div class="section-heading compact">
           <p class="section-kicker">Program</p>
-          <h2>今年度の予定</h2>
-        </div>
-        <div class="timeline">
-          <article>
-            <time datetime="2026-07-18">2026年7月18日（土）・19日（日）16:00〜19:00</time>
-            <div>
-              <h3>サウンド・<wbr />コミュニケーション・<wbr /><span class="text-keep">ウォークさいたま2026</span></h3>
-              <p>フィールドレコーディングクラブさいたまと歩く、大宮の音風景の探索。同一内容で各日開催するため、参加はどちらか1日をお選びください。集合: まちラボおおみや / 各日定員10名程度 / 参加費1000円（当日払い・小中学生無料）</p>
-              <a class="inline-apply" href="https://soundwalk-saitama2026-7.peatix.com/" target="_blank" rel="noopener">参加日を選んで申込む</a>
-              <div class="program-detail">
-                <p><strong>受付</strong> 15:30〜 / <strong>開始</strong> 16:00</p>
-                <p>コミュニケーション・サウンドウォーク（徒歩約1.5km / 約2時間）</p>
-                <p><strong>ルート</strong> 大宮駅周辺・大宮一番街商店街〜氷川参道〜武蔵一宮氷川神社・大宮公園</p>
-                <p><strong>体験内容</strong> 沈黙して歩く時間、音や風景の記録、参加者同士の共有</p>
-              </div>
-            </div>
-          </article>
-          <article>
-            <time datetime="2026-09">2026年9月〜12月</time>
-            <div>
-              <h3>録音ワークショップ</h3>
-              <p>街歩きとフィールドレコーディングのワークショップを2回開催予定です。</p>
-            </div>
-          </article>
-          <article>
-            <time datetime="2027-03">2027年3月</time>
-            <div>
-              <h3>成果展示発表会</h3>
-              <p>ワークショップで録音した音源や関連資料を展示します。</p>
-            </div>
-          </article>
+          <div class="markdown-content program-content">
+            <ProgramContent />
+          </div>
         </div>
       </section>
 
-      <section id="join" class="section join-section">
-        <div>
-          <p class="section-kicker">Join</p>
-          <h2>7月18日か19日。どちらか1日、聴くために歩く。</h2>
-        </div>
-        <div class="join-links">
-          <a class="button primary accent" href="https://soundwalk-saitama2026-7.peatix.com/" target="_blank" rel="noopener">参加日を選んで申込む</a>
-          <span class="button disabled" aria-disabled="true">録音ワークショップ申込み / 準備中</span>
-          <a class="button" href="#program">展示発表会の情報を見る</a>
-          <a class="button" href="https://www.instagram.com/fieldrecording_saitama" target="_blank" rel="noopener">Instagramを見る</a>
-          <a class="button" href="https://www.facebook.com/groups/800702228957228/" target="_blank" rel="noopener">Facebookグループを見る</a>
-        </div>
-      </section>
     </main>
 
-    <footer class="site-footer">
-      <p>Field Recording Club Saitama / Soundscape Archive</p>
+    <footer id="join" class="site-footer">
+      <div class="footer-main">
+        <p class="section-kicker">Join</p>
+        <div class="markdown-content footer-join">
+          <JoinContent />
+        </div>
+      </div>
+      <p class="footer-signature">Field Recording Club Saitama / Soundscape Archive</p>
     </footer>
 
     <script is:inline src="/assets/vendor/maplibre/maplibre-gl.js"></script>

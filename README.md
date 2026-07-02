@@ -208,6 +208,11 @@ python3 scripts/scrape_soundcloud_playlist.py \
 - `src/pages/index.astro`
 - `src/content/about.md`
 - `src/content/event.md`
+- `src/content/hero.md`
+- `src/content/project.md`
+- `src/content/sound-map.md`
+- `src/content/program.md`
+- `src/content/join.md`
 - `src/content/listening-notes.md`
 - `public/assets/css/style.css`
 - `public/assets/js/main.js`
