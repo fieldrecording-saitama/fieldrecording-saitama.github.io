@@ -129,102 +129,69 @@ img {
   background-position: center;
   background-size: cover;
   opacity: 0;
-  animation-duration: 25s;
+  animation-name: heroCarousel;
+  animation-duration: 45s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
   will-change: opacity;
 }
 
 .hero-slide-1 {
-  background-image: url("../img/hero-slide-race-stadium.jpg");
-  animation-name: heroFade1;
+  background-image: url("../img/soundwalk-leaflet.jpeg");
+  background-position: center 46%;
 }
 
 .hero-slide-2 {
-  background-image: url("../img/hero-slide-night-water.jpg");
-  animation-name: heroFade2;
+  background-image: url("../img/soundwalk-listening-tube.jpeg");
+  animation-delay: 5s;
 }
 
 .hero-slide-3 {
-  background-image: url("../img/hero-slide-recording-stand.jpg");
-  animation-name: heroFade3;
+  background-image: url("../img/soundwalk-fence-listening.jpeg");
+  background-position: center 42%;
+  animation-delay: 10s;
 }
 
 .hero-slide-4 {
-  background-image: url("../img/hero-slide-field-recorder.jpg");
-  animation-name: heroFade4;
+  background-image: url("../img/soundwalk-listening-session.jpeg");
+  animation-delay: 15s;
 }
 
 .hero-slide-5 {
+  background-image: url("../img/soundwalk-museum-walk.jpeg");
+  animation-delay: 20s;
+}
+
+.hero-slide-6 {
+  background-image: url("../img/workshop-hikawa-walk.png");
+  background-position: center 45%;
+  animation-delay: 25s;
+}
+
+.hero-slide-7 {
+  background-image: url("../img/hero-slide-recording-stand.jpg");
+  animation-delay: 30s;
+}
+
+.hero-slide-8 {
+  background-image: url("../img/hero-slide-field-recorder.jpg");
+  animation-delay: 35s;
+}
+
+.hero-slide-9 {
   background-image: url("../img/hero-slide-night-park.jpg");
-  animation-name: heroFade5;
+  animation-delay: 40s;
 }
 
-@keyframes heroFade1 {
+@keyframes heroCarousel {
   0%,
-  18%,
-  100% {
+  8% {
     opacity: 1;
   }
 
-  22%,
-  96% {
-    opacity: 0;
-  }
-}
-
-@keyframes heroFade2 {
-  0%,
-  18%,
-  42%,
+  11%,
   100% {
     opacity: 0;
-  }
-
-  22%,
-  38% {
-    opacity: 1;
-  }
-}
-
-@keyframes heroFade3 {
-  0%,
-  38%,
-  62%,
-  100% {
-    opacity: 0;
-  }
-
-  42%,
-  58% {
-    opacity: 1;
-  }
-}
-
-@keyframes heroFade4 {
-  0%,
-  58%,
-  82%,
-  100% {
-    opacity: 0;
-  }
-
-  62%,
-  78% {
-    opacity: 1;
-  }
-}
-
-@keyframes heroFade5 {
-  0%,
-  78%,
-  100% {
-    opacity: 0;
-  }
-
-  82%,
-  96% {
-    opacity: 1;
   }
 }
 
