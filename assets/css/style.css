@@ -184,7 +184,11 @@ img {
 }
 
 @keyframes heroCarousel {
-  0%,
+  0% {
+    opacity: 0;
+  }
+
+  1.5%,
   9.5% {
     opacity: 1;
   }
@@ -258,17 +262,17 @@ img {
 
 @keyframes revealHeroPhoto {
   0%,
-  5%,
+  15%,
   100% {
     opacity: 1;
   }
 
-  10%,
-  16% {
+  22.5%,
+  28.5% {
     opacity: 0.28;
   }
 
-  24% {
+  40.5% {
     opacity: 1;
   }
 }
