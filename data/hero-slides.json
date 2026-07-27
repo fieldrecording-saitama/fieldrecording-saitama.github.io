@@ -1,0 +1,33 @@
+{
+  "intervalSeconds": 8,
+  "slides": [
+    {
+      "image": "assets/img/soundwalk-leaflet.jpeg",
+      "position": "center 46%"
+    },
+    {
+      "image": "assets/img/soundwalk-listening-tube.jpeg",
+      "position": "center"
+    },
+    {
+      "image": "assets/img/soundwalk-fence-listening.jpeg",
+      "position": "center 42%"
+    },
+    {
+      "image": "assets/img/workshop-hikawa-walk.png",
+      "position": "center 45%"
+    },
+    {
+      "image": "assets/img/hero-slide-recording-stand.jpg",
+      "position": "center"
+    },
+    {
+      "image": "assets/img/hero-slide-field-recorder.jpg",
+      "position": "center"
+    },
+    {
+      "image": "assets/img/hero-slide-night-park.jpg",
+      "position": "center"
+    }
+  ]
+}

@@ -129,74 +129,9 @@ img {
   background-position: center;
   background-size: cover;
   opacity: 0;
-  animation-name: heroCarousel;
-  animation-duration: 72s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
   will-change: opacity;
-}
-
-.hero-slide-1 {
-  background-image: url("../img/soundwalk-leaflet.jpeg");
-  background-position: center 46%;
-}
-
-.hero-slide-2 {
-  background-image: url("../img/soundwalk-listening-tube.jpeg");
-  animation-delay: 8s;
-}
-
-.hero-slide-3 {
-  background-image: url("../img/soundwalk-fence-listening.jpeg");
-  background-position: center 42%;
-  animation-delay: 16s;
-}
-
-.hero-slide-4 {
-  background-image: url("../img/soundwalk-listening-session.jpeg");
-  animation-delay: 24s;
-}
-
-.hero-slide-5 {
-  background-image: url("../img/soundwalk-museum-walk.jpeg");
-  animation-delay: 32s;
-}
-
-.hero-slide-6 {
-  background-image: url("../img/workshop-hikawa-walk.png");
-  background-position: center 45%;
-  animation-delay: 40s;
-}
-
-.hero-slide-7 {
-  background-image: url("../img/hero-slide-recording-stand.jpg");
-  animation-delay: 48s;
-}
-
-.hero-slide-8 {
-  background-image: url("../img/hero-slide-field-recorder.jpg");
-  animation-delay: 56s;
-}
-
-.hero-slide-9 {
-  background-image: url("../img/hero-slide-night-park.jpg");
-  animation-delay: 64s;
-}
-
-@keyframes heroCarousel {
-  0% {
-    opacity: 0;
-  }
-
-  1.5%,
-  9.5% {
-    opacity: 1;
-  }
-
-  11.2%,
-  100% {
-    opacity: 0;
-  }
 }
 
 .hero-overlay {
@@ -1075,7 +1010,7 @@ blockquote {
     animation: none;
   }
 
-  .hero-slide-1 {
+  .hero-slide:first-child {
     opacity: 1;
   }
 
