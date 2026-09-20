@@ -1,0 +1,42 @@
+<section id="about" class="section section-grid">
+  <div>
+    <p class="section-kicker">About</p>
+    <h2>フィールドレコーディング<br><span class="text-keep">クラブさいたまとは</span></h2>
+  </div>
+  <div class="prose">
+    <p>
+      さいたま市を拠点にするフィールドレコーデイングに関心のあるメンバーが集まる自由参加型のコミュニティです。<br>
+      みんなでプロジェクトを企画したり、いろいろな活動しています。
+    </p>
+    <p>
+      主な活動
+    </p>
+    <p>
+      ①音やフィールドレコーディングに関する情報交換、交流会、勉強会の開催<br>
+      ②まちや文化や歴史、自然などにまつわる音の記録、編集・発表<br>
+      ③音や音楽にまつわるイベントの開催、地域イベントへの参加 など
+    </p>
+  </div>
+</section>
+
+<style>
+#about.section-grid {
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 5vw, 56px);
+}
+
+#about h2 {
+  width: 100%;
+  max-width: none;
+  font-size: clamp(1.8rem, 4vw, 3.25rem);
+  line-height: 1.28;
+}
+
+@media (max-width: 720px) {
+  #about h2 {
+    font-size: 2rem;
+    line-height: 1.18;
+
+  }
+}
+</style>

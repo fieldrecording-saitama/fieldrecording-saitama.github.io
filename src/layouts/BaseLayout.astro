@@ -1,5 +1,10 @@
 ---
-import "../styles/global.css";
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/utilities.css";
+import "../styles/event.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 ---
 
 <!doctype html>
@@ -127,31 +132,12 @@ import "../styles/global.css";
         ]
       }
     </script>
-    <link rel="stylesheet" href="/assets/vendor/maplibre/maplibre-gl.css">
   </head>
   <body>
-    <header class="site-header" aria-label="サイトヘッダー">
-      <a class="brand" href="#top" aria-label="フィールドレコーディングクラブさいたま ホーム">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>FRCS</span>
-      </a>
-      <nav class="site-nav" aria-label="主要ナビゲーション">
-        <a href="#about">About</a>
-        <a href="#workshop">Workshop</a>
-        <a href="#sound-map">Sound Map</a>
-        <a href="#program">Program</a>
-        <a href="#join">Join</a>
-      </nav>
-    </header>
+    <SiteHeader />
 
     <slot />
 
-    <footer class="site-footer">
-      <p>Field Recording Club Saitama / Soundscape Archive</p>
-    </footer>
-
-    <script is:inline src="/assets/vendor/maplibre/maplibre-gl.js"></script>
-    <script is:inline src="https://w.soundcloud.com/player/api.js"></script>
-    <script is:inline src="/assets/js/main.js"></script>
+    <SiteFooter />
   </body>
 </html>

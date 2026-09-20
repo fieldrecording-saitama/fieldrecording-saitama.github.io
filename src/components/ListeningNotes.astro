@@ -1,0 +1,39 @@
+<section class="section notes-section" aria-labelledby="notes-title">
+  <div class="section-heading compact">
+    <p class="section-kicker">Listening Notes</p>
+    <h2 id="notes-title">聴くための短い記録</h2>
+  </div>
+  <div class="notes-grid">
+    <p>夕方の参道。人の声は遠く、足音だけが木々の間に残る。車の音も、鳥の声も、同じ風景の中にある。</p>
+    <p>駅前の音は騒がしい。けれど、少し離れて聴くと、まちが呼吸しているようにも感じる。</p>
+  </div>
+</section>
+
+<style>
+.notes-grid p {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+
+.notes-grid p {
+  min-height: 180px;
+  padding: 30px;
+  background: var(--white);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 720px) {
+  .notes-grid {
+    grid-template-columns: 1fr;
+
+  }
+}
+</style>

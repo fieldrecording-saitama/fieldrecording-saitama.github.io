@@ -1,0 +1,131 @@
+<section id="project" class="section muted">
+  <div class="section-heading">
+    <p class="section-kicker">Project</p>
+    <h2>さいたまの音風景<br><span class="text-keep">録音ワークショップ</span>＆<span class="text-keep">成果展示発表会</span></h2>
+  </div>
+  <div class="project-flow" aria-label="今年度事業の流れ">
+    <article>
+      <span>01</span>
+      <h3><span class="text-keep">世界リスニングデー</span>イベント</h3>
+      <p>7月18日・19日に開催しました。大宮駅前から氷川参道、氷川神社、大宮公園へ、「聴くこと」を通して音風景を探索しました。</p>
+    </article>
+    <article>
+      <span>02</span>
+      <h3>録音ワークショップ</h3>
+      <p>パウロ・ダンタス（サウンドアーティスト）をゲストに迎え、大宮駅周辺で9月のワークショップを開催しました。大宮公園周辺で12月に第2回を開催し、来春2月に成果展示へつなげる予定です。</p>
+    </article>
+    <article>
+      <span>03</span>
+      <h3>成果展示発表会</h3>
+      <p>2027年2月の開催を予定しています。音、テキスト、地図、写真、オブジェクトなどを組み合わせて展示します。</p>
+    </article>
+    <article>
+      <span>04</span>
+      <h3>Webアーカイブ化</h3>
+      <p>録音地点、メモ、写真を整理し、さいたまの音風景として残します。</p>
+    </article>
+  </div>
+  <div class="project-support" aria-label="助成情報">
+    <p>
+      本事業は、
+      <a href="https://artscouncil-saitama.jp/grants/information/r8joseikin/" target="_blank" rel="noopener">アーツカウンシルさいたま文化芸術都市創造助成事業</a>
+      の採択事業です。
+    </p>
+    <a class="project-support-logo" href="https://artscouncil-saitama.jp/grants/information/r8joseikin/" target="_blank" rel="noopener" aria-label="アーツカウンシルさいたま公式サイト">
+      <img src="/assets/img/arts-council-saitama-logo.png" alt="アーツカウンシルさいたま" loading="lazy">
+    </a>
+  </div>
+</section>
+
+<style>
+.project-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.project-flow article {
+  min-height: 220px;
+  padding: 24px;
+  background: var(--paper);
+}
+
+.project-flow span {
+  display: inline-block;
+  margin-bottom: 42px;
+  color: var(--green-soft);
+  font-weight: 700;
+}
+
+.project-flow p {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.project-support {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(36, 72, 62, 0.16);
+}
+
+.project-support p {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.project-support a {
+  color: var(--green);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.project-support-logo {
+  flex-shrink: 0;
+  width: min(120px, 32vw);
+}
+
+.project-support-logo img {
+  width: 100%;
+  height: auto;
+  opacity: 0.9;
+}
+
+@media (max-width: 980px) {
+  .project-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  }
+}
+
+@media (max-width: 720px) {
+  .project-flow {
+    grid-template-columns: 1fr;
+
+  }
+
+  .project-flow article {
+    min-height: 0;
+
+  }
+
+  .project-flow span {
+    margin-bottom: 22px;
+
+  }
+
+  .project-support {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+
+  }
+}
+</style>

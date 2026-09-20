@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+  linear-gradient(90deg, rgba(36, 72, 62, 0.035) 1px, transparent 1px),
+  linear-gradient(0deg, rgba(36, 72, 62, 0.035) 1px, transparent 1px),
+  var(--paper);
+  background-size: 42px 42px;
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, system-ui, sans-serif;
+  line-height: 1.8;
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-break: strict;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+li,
+dt,
+dd,
+strong,
+time,
+blockquote {
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-break: strict;
+}
+
+:lang(ja) body,
+:lang(ja) h1,
+:lang(ja) h2,
+:lang(ja) h3,
+:lang(ja) p,
+:lang(ja) li,
+:lang(ja) dt,
+:lang(ja) dd,
+:lang(ja) strong,
+:lang(ja) time,
+:lang(ja) blockquote,
+:lang(ja) .button,
+:lang(ja) .mode-button,
+:lang(ja) .inline-apply {
+  word-break: auto-phrase;
+}
+
+h1 {
+  margin: 16px 0 22px;
+  font-size: clamp(2.35rem, 5.2vw, 5.15rem);
+  line-height: 1.12;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+h2 {
+  margin: 8px 0 0;
+  font-size: clamp(1.8rem, 4vw, 3.25rem);
+  line-height: 1.28;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+h3 {
+  margin: 0 0 8px;
+  font-size: 1.04rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+blockquote {
+  margin: 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--amber);
+  color: var(--ink-muted);
+}
+
+@media (max-width: 720px) {
+  h1 {
+    margin: 10px 0 12px;
+    font-size: clamp(2rem, 10.4vw, 3.25rem);
+    line-height: 1.02;
+
+  }
+
+  blockquote {
+    line-height: 1.75;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+
+  }
+}
