@@ -1,5 +1,10 @@
 import * as maplibregl from "maplibre-gl";
+import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "maplibre-gl/dist/maplibre-gl.css";
+
+// MapLibre はワーカーの場所を import.meta.url から組み立てるため、バンドル後は
+// 解決に失敗する。Vite が書き出したワーカーの URL を明示的に渡す。
+maplibregl.setWorkerUrl(maplibreWorkerUrl);
 
 const soundState = {
   selectedId: null,
@@ -278,20 +283,21 @@ function renderPanel(feature, options = {}) {
     updateArtworkFallback();
   }
 
-  if (map.getLayer("sound-points")) {
-    map.setPaintProperty("sound-points", "circle-radius", [
-      "case",
-      ["==", ["get", "id"], props.id],
-      11,
-      7,
-    ]);
-    map.setPaintProperty("sound-points", "circle-color", [
-      "case",
-      ["==", ["get", "id"], props.id],
-      "#b44735",
-      "#c26c3a",
-    ]);
+  highlightSelected(props.id);
+}
+
+function highlightSelected(id) {
+  if (!map.getLayer("sound-points")) {
+    return;
   }
+
+  map.setPaintProperty("sound-points", "circle-radius", ["case", ["==", ["get", "id"], id], 11, 7]);
+  map.setPaintProperty("sound-points", "circle-color", [
+    "case",
+    ["==", ["get", "id"], id],
+    "#b44735",
+    "#c26c3a",
+  ]);
 }
 
 if (els.continuousButton) {
@@ -324,38 +330,48 @@ if (window.ResizeObserver && els.player) {
   window.addEventListener("resize", updateArtworkFallback);
 }
 
+let soundsPromise = null;
+
 async function loadSounds() {
-  const response = await fetch("/data/sounds.geojson");
-  if (!response.ok) {
-    throw new Error(`Failed to load sounds.geojson: ${response.status}`);
+  if (!soundsPromise) {
+    soundsPromise = (async () => {
+      const response = await fetch("/data/sounds.geojson");
+      if (!response.ok) {
+        throw new Error(`Failed to load sounds.geojson: ${response.status}`);
+      }
+      return response.json();
+    })();
   }
-  return response.json();
+
+  return soundsPromise;
 }
 
-map.on("load", async () => {
-  try {
-    const geojson = await loadSounds();
-    soundState.features = geojson.features;
-    updateNavigationControls();
+const SOUND_POINTS_PAINT = {
+  "circle-radius": 7,
+  "circle-color": "#c26c3a",
+  "circle-stroke-color": "#fffdf7",
+  "circle-stroke-width": 2,
+  "circle-opacity": 0.96,
+};
 
+function addSoundLayers(geojson) {
+  if (!map.getSource("sounds")) {
     map.addSource("sounds", {
       type: "geojson",
       data: geojson,
     });
+  }
 
+  if (!map.getLayer("sound-points")) {
     map.addLayer({
       id: "sound-points",
       type: "circle",
       source: "sounds",
-      paint: {
-        "circle-radius": 7,
-        "circle-color": "#c26c3a",
-        "circle-stroke-color": "#fffdf7",
-        "circle-stroke-width": 2,
-        "circle-opacity": 0.96,
-      },
+      paint: { ...SOUND_POINTS_PAINT },
     });
+  }
 
+  if (!map.getLayer("sound-labels")) {
     map.addLayer({
       id: "sound-labels",
       type: "symbol",
@@ -372,36 +388,74 @@ map.on("load", async () => {
         "text-halo-width": 1.6,
       },
     });
+  }
+}
 
-    if (geojson.features.length > 1) {
-      const bounds = geojson.features.reduce((box, feature) => {
-        return box.extend(feature.geometry.coordinates);
-      }, new maplibregl.LngLatBounds(geojson.features[0].geometry.coordinates, geojson.features[0].geometry.coordinates));
+function fitToSounds(geojson) {
+  if (geojson.features.length < 2) {
+    return;
+  }
 
-      map.fitBounds(bounds, {
-        padding: { top: 80, right: 80, bottom: 80, left: 80 },
-        maxZoom: 14.6,
-        duration: 0,
-      });
+  const bounds = geojson.features.reduce((box, feature) => {
+    return box.extend(feature.geometry.coordinates);
+  }, new maplibregl.LngLatBounds(geojson.features[0].geometry.coordinates, geojson.features[0].geometry.coordinates));
+
+  map.fitBounds(bounds, {
+    padding: { top: 80, right: 80, bottom: 80, left: 80 },
+    maxZoom: 14.6,
+    duration: 0,
+  });
+}
+
+function bindMapInteractions() {
+  map.on("mouseenter", "sound-points", () => {
+    map.getCanvas().style.cursor = "pointer";
+  });
+
+  map.on("mouseleave", "sound-points", () => {
+    map.getCanvas().style.cursor = "";
+  });
+
+  map.on("click", "sound-points", (event) => {
+    const feature = event.features[0];
+    selectFeature(feature, { autoplay: soundState.continuous, focusMap: true });
+  });
+}
+
+let soundMapReady = false;
+
+// スタイルは読み込み直しが起きることがあり、そのたびに追加済みのソースとレイヤーが
+// 失われる。load ではなく style.load を起点にして、毎回レイヤーを組み立て直す。
+async function setUpSoundMap() {
+  try {
+    const geojson = await loadSounds();
+    soundState.features = geojson.features;
+    updateNavigationControls();
+
+    addSoundLayers(geojson);
+
+    if (!soundMapReady) {
+      soundMapReady = true;
+      fitToSounds(geojson);
+      bindMapInteractions();
+      renderPanel(geojson.features[0] || fallbackFeature);
+    } else if (soundState.selectedId) {
+      // スタイルを組み直した場合はハイライトだけ復元する。パネルを描き直すと
+      // SoundCloudのiframeが作り直されて再生が止まってしまう。
+      highlightSelected(soundState.selectedId);
     }
-
-    map.on("mouseenter", "sound-points", () => {
-      map.getCanvas().style.cursor = "pointer";
-    });
-
-    map.on("mouseleave", "sound-points", () => {
-      map.getCanvas().style.cursor = "";
-    });
-
-    map.on("click", "sound-points", (event) => {
-      const feature = event.features[0];
-      selectFeature(feature, { autoplay: soundState.continuous, focusMap: true });
-    });
-
-    renderPanel(geojson.features[0] || fallbackFeature);
   } catch (error) {
     console.error(error);
-    renderPanel(fallbackFeature);
+    if (!soundMapReady) {
+      soundMapReady = true;
+      renderPanel(fallbackFeature);
+    }
   }
-});
+}
+
+map.on("style.load", setUpSoundMap);
+
+if (map.isStyleLoaded()) {
+  setUpSoundMap();
+}
 }
