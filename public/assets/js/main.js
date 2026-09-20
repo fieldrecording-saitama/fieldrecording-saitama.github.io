@@ -6,7 +6,7 @@ async function initializeHeroSlides() {
   }
 
   try {
-    const response = await fetch("data/hero-slides.json");
+    const response = await fetch("/data/hero-slides.json");
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -394,7 +394,7 @@ if (window.ResizeObserver && els.player) {
 }
 
 async function loadSounds() {
-  const response = await fetch("data/sounds.geojson");
+  const response = await fetch("/data/sounds.geojson");
   if (!response.ok) {
     throw new Error(`Failed to load sounds.geojson: ${response.status}`);
   }
