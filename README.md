@@ -4,7 +4,7 @@
 
 ## 現状のサイト概要
 
-フィールドレコーディングクラブさいたまの活動紹介と、さいたまの音地図を中心にした静的なランディングページです。2026年9月5日・6日に開催した録音ワークショップの記録と、今後のワークショップ・成果展示を案内しています。
+フィールドレコーディングクラブさいたまの活動紹介と、さいたまの音地図を中心にした静的サイトです。Astroで構築し、GitHub Actions経由でGitHub Pagesに公開しています。2026年9月5日・6日に開催した録音ワークショップの記録と、今後のワークショップ・成果展示を案内しています。
 
 現在は以下の役割を持っています。
 
@@ -16,64 +16,27 @@
 - 今年度の活動予定の紹介
 - SoundCloud音源と連動した音地図アーカイブ
 
-## 現状のページ構成
+## ページ構成
 
-### Header
+2026年9月にAstroへ移行し、1ページ構成から以下の複数ページ構成に変更しました。
 
-- FRCSロゴ
-- About、Program、Joinへのページ内ナビゲーション
+| URL | 内容 |
+| --- | --- |
+| `/` | ヒーロー、今年度事業の流れ、音地図への導線、聴くための記録の抜粋、年間スケジュール、クラブ紹介、参加導線 |
+| `/about/` | フィールドレコーディングクラブさいたまの紹介と今年度事業 |
+| `/events/` | 年間スケジュール一覧 |
+| `/events/<slug>/` | イベント個別ページ（Markdownで管理） |
+| `/sound-map/` | MapLibre GL JSによる音地図 |
+| `/notes/` `/notes/<slug>/` | 聴くための短い記録 |
+| `/join/` | 参加方法、よくある質問、SNS導線 |
 
-### Hero
+1ページ構成だった頃のアンカー（`/#workshop`、`/#event`、`/#program`、`/#join` など）は、トップページのスクリプトで対応するページへ転送します。
 
-- メインコピー「耳をひらくと、さいたまは別の風景になる。」
-- 団体の短い紹介
-- 2026年9月5日・6日の録音ワークショップ終了案内
-- 今後の活動と音地図への導線
+### 共通要素
 
-### About
-
-- フィールドレコーディングクラブさいたまの活動紹介
-- さいたまの音風景を記録し、展示やWebアーカイブとして発信する方針を説明
-
-### Workshop / Event
-
-- 「出会い：聞き手、テクニック、場所」の開催記録
-- 「サウンド・コミュニケーション・ウォークさいたま2026」の詳細
-- 日時、集合場所、街歩きルート、定員、対象、参加費
-- ナビゲーター紹介
-
-### Project
-
-- 今年度事業の流れを4ステップで紹介
-- 世界リスニングデーイベント
-- 録音ワークショップ
-- 成果展示発表会
-- Webアーカイブ化
-
-### Sound Map
-
-- MapLibre GL JSを使った音地図機能
-- SoundCloudプレイリスト「Field Recording Club, Saitama - Archives」の表記をもとにした地点を表示
-- GeoJSONで録音地点を管理
-- 地点クリックで写真、説明、録音メモ、タグ、SoundCloudプレイヤーを切り替える想定
-
-### Listening Notes
-
-- 音風景に添える短い記録文
-- サイト全体の詩的なトーンを補うセクション
-
-### Program
-
-- 2026年7月18日・19日開催イベント（終了）
-- 2026年9月5日・6日の録音ワークショップ第1回（終了）
-- 日程調整中の録音ワークショップ第2回
-- 2026年度・冬頃開催予定の成果展示発表会
-
-### Join
-
-- 9月の録音ワークショップ記録と今後の活動への導線
-- 展示発表会情報への導線
-- Instagram、Facebookグループへの導線
+- ヘッダー：FRCSロゴと主要ナビゲーション（About / Events / Sound Map / Notes / Join）
+- フッター：Field Recording Club Saitama / Soundscape Archive
+- OGP・構造化データ：ページごとに `Seo.astro` と `JsonLd.astro` が生成
 
 ## 実装内容
 
@@ -82,6 +45,8 @@
 - MapLibre GL JSによる音地図
 - GeoJSONで管理する録音地点データ
 - SoundCloud埋め込みプレイヤー
+- Markdownで管理するイベント・記録コンテンツ
+- frontmatterから生成する構造化データ（schema.org Event）とサイトマップ
 
 ## 今後充実させたい項目
 
@@ -175,17 +140,77 @@ Webディレクター視点では、今後は「信頼」「参加動機」「�
 
 イベント告知サイトとしてだけでなく、「さいたまの音風景アーカイブ」として育てると、団体の存在意義がより伝わるサイトになります。
 
-## ローカル確認
+## 技術構成
+
+- [Astro](https://astro.build/) 7（静的出力）
+- Content Collections（Markdown + zodスキーマ）
+- MapLibre GL JS 6（npmパッケージ）
+- SoundCloud Widget API
+- npm / Node.js 22（`.node-version` で固定）
+
+## 開発
 
 ```sh
-python3 -m http.server 8000
+npm ci          # 依存のインストール
+npm run dev     # 開発サーバー（http://localhost:4321/）
+npm run build   # dist/ へ静的書き出し
+npm run preview # ビルド結果の確認
+npm run check   # 型・テンプレートの検査
 ```
 
-ブラウザで `http://localhost:8000/` を開きます。
+## ディレクトリ構成
+
+```
+public/            そのまま公開されるファイル（画像、data/*.geojson、robots.txt など）
+src/
+  components/      ヘッダー、ヒーロー、音地図、イベントカードなどのコンポーネント
+  content/         Markdownコンテンツ
+    events/        イベント（frontmatterが一覧・詳細・構造化データの元データ）
+    notes/         聴くための記録
+    pages/         About / Join の本文
+  content.config.ts  コレクションのスキーマ定義
+  layouts/         BaseLayout
+  lib/site.ts      サイト共通の定数、旧アンカーの転送表
+  pages/           ルーティング
+  scripts/         hero-slides.js（トップ）、sound-map.js（音地図ページ）
+  styles/          tokens / base / utilities / event の共通CSS
+scripts/           SoundCloudプレイリスト取得スクリプト
+```
+
+コンポーネント固有のCSSは各 `.astro` の `<style>` に置いています。`astro.config.mjs` で `scopedStyleStrategy: "where"` を指定しているため、スコープ付きスタイルは詳細度を上げません。JavaScriptが生成する要素（`.hero-slide`、タグ一覧、SoundCloudのiframeなど）は `:global()` で指定しています。
+
+## コンテンツの更新
+
+イベントを追加・変更する場合は `src/content/events/` にMarkdownファイルを置きます。frontmatterの内容が、年間スケジュール・イベント詳細ページ・構造化データ（schema.org Event）のすべてに反映されます。
+
+```yaml
+---
+title: イベント正式名称
+shortTitle: 一覧で使う短い名前
+startDate: 2027-02-01T14:00:00+09:00
+dateLabel: 2027年2月1日（月）14:00〜
+status: upcoming        # upcoming / open / closed / finished
+summary: 一覧とOGPに出る説明文
+place: 会場名
+facts:                  # 詳細ページの「日時・集合・定員」などの一覧
+  - term: 日時
+    detail: 2027年2月1日（月）14:00〜
+---
+
+本文をMarkdownで書きます。
+```
+
+本文中の改行はそのまま改行として表示されます。
+
+## デプロイ
+
+`master` への push で GitHub Actions（`.github/workflows/deploy.yml`）が `npm ci` → `astro check` → `astro build` を実行し、`dist/` を GitHub Pages に公開します。プルリクエストではビルド確認のみ行い、公開はしません。
+
+GitHub Pages の公開元は「GitHub Actions」です。
 
 ## SoundCloudプレイリストデータの生成
 
-SoundCloudプレイリストからトラック一覧のJSONとCSVを生成します。Python標準ライブラリのみで動くため、ローカルとGitHub Actionsのどちらでも同じコマンドを使えます。
+SoundCloudプレイリストからトラック一覧のJSONとCSVを生成します。Python標準ライブラリのみで動きます。
 
 ```sh
 python3 scripts/scrape_soundcloud_playlist.py
@@ -193,22 +218,14 @@ python3 scripts/scrape_soundcloud_playlist.py
 
 デフォルトでは以下を生成します。
 
-- `data/soundcloud-playlist.json`
-- `data/soundcloud-playlist.csv`
+- `public/data/soundcloud-playlist.json`
+- `public/data/soundcloud-playlist.csv`
 
 対象URLや出力先を変える場合:
 
 ```sh
 python3 scripts/scrape_soundcloud_playlist.py \
   --url "https://soundcloud.com/livingroom-tapes/sets/field-recording-club-saitama" \
-  --json data/soundcloud-playlist.json \
-  --csv data/soundcloud-playlist.csv
+  --json public/data/soundcloud-playlist.json \
+  --csv public/data/soundcloud-playlist.csv
 ```
-
-## 主なファイル
-
-- `index.html`
-- `assets/css/style.css`
-- `assets/js/main.js`
-- `data/sounds.geojson`
-- `scripts/scrape_soundcloud_playlist.py`
