@@ -1,0 +1,124 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EventFacts from "../../components/EventFacts.astro";
+import EventPoster from "../../components/EventPoster.astro";
+import Prose from "../../components/Prose.astro";
+import { SITE, schemaEventStatus, statusLabel } from "../../lib/site";
+
+export const getStaticPaths = async () => {
+  const events = await getCollection("events", ({ data }) => !data.draft);
+  return events.map((event) => ({ params: { slug: event.id }, props: { event } }));
+};
+
+const { event } = Astro.props;
+const data = event.data;
+const { Content } = await render(event);
+const url = new URL(`/events/${event.id}/`, SITE.url).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "@id": `${url}#event`,
+  name: data.title,
+  description: data.summary,
+  startDate: data.startDate.toISOString(),
+  ...(data.endDate ? { endDate: data.endDate.toISOString() } : {}),
+  eventStatus: schemaEventStatus(data.status),
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  url,
+  inLanguage: "ja",
+  ...(data.image ? { image: [new URL(data.image, SITE.url).href] } : {}),
+  ...(data.capacity ? { maximumAttendeeCapacity: data.capacity } : {}),
+  ...(data.place
+    ? {
+        location: {
+          "@type": "Place",
+          name: data.place,
+          ...(data.address
+            ? {
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: data.address.street,
+                  addressLocality: data.address.locality,
+                  addressRegion: data.address.region,
+                  addressCountry: data.address.country,
+                },
+              }
+            : {}),
+        },
+      }
+    : {}),
+  organizer: { "@id": `${SITE.url}/#organization` },
+  ...(data.performers.length > 0
+    ? { performer: data.performers.map((p) => ({ "@type": p.type, name: p.name })) }
+    : {}),
+};
+
+const finished = data.status === "finished" || data.status === "closed";
+---
+
+<BaseLayout
+  title={data.shortTitle ?? data.title}
+  description={data.summary}
+  ogImage={data.image}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <main class="page-main">
+    <section class="section event-section" aria-labelledby="event-title">
+      <div class="event-copy peatix-copy">
+        <p class="section-kicker">{data.kicker ?? "Event"}</p>
+        <h2 id="event-title" class="workshop-heading">{data.shortTitle ?? data.title}</h2>
+
+        {data.poster && <EventPoster poster={data.poster} />}
+
+        {data.lead && <p class="event-lead">{data.lead}</p>}
+
+        <EventFacts facts={data.facts} />
+
+        <Prose>
+          <Content />
+        </Prose>
+
+        {
+          !finished && data.ticketUrl && (
+            <p class="event-actions">
+              <a class="button primary accent" href={data.ticketUrl} target="_blank" rel="noopener">
+                {statusLabel(data.status, data.statusLabel)}
+              </a>
+            </p>
+          )
+        }
+
+        {
+          data.performers.some((p) => p.description) && (
+            <div class="navigators">
+              <h3>ナビゲーター</h3>
+              {data.performers
+                .filter((p) => p.description)
+                .map((p) => (
+                  <p>
+                    <strong>{p.name}</strong> / {p.description}
+                  </p>
+                ))}
+            </div>
+          )
+        }
+
+        <p class="event-back"><a href="/events/">← 年間スケジュールに戻る</a></p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .event-back {
+    margin-top: 40px;
+  }
+
+  .event-back a {
+    color: var(--green);
+    font-weight: 600;
+  }
+</style>

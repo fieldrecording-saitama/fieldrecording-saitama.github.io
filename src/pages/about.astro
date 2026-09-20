@@ -1,0 +1,19 @@
+---
+import { getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutSection from "../components/AboutSection.astro";
+import ProjectFlow from "../components/ProjectFlow.astro";
+
+const about = await getEntry("pages", "about");
+const { Content } = await render(about!);
+---
+
+<BaseLayout title="クラブについて" description={about!.data.description}>
+  <main class="page-main">
+    <AboutSection title={about!.data.title} kicker={about!.data.kicker}>
+      <Content />
+    </AboutSection>
+
+    <ProjectFlow />
+  </main>
+</BaseLayout>

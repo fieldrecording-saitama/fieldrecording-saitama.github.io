@@ -1,0 +1,15 @@
+---
+import { LEGACY_HASH_REDIRECTS } from "../lib/site";
+const map = JSON.stringify(LEGACY_HASH_REDIRECTS);
+---
+
+<!-- 1ページ構成だった頃のアンカー（/#workshop など）を、分割後のページへ送る -->
+<script is:inline define:vars={{ map }}>
+  (function () {
+    var table = JSON.parse(map);
+    var target = table[window.location.hash];
+    if (target) {
+      window.location.replace(target);
+    }
+  })();
+</script>

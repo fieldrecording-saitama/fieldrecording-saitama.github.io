@@ -1,0 +1,29 @@
+---
+import { getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Prose from "../components/Prose.astro";
+import JoinSection from "../components/JoinSection.astro";
+
+const join = await getEntry("pages", "join");
+const { Content } = await render(join!);
+---
+
+<BaseLayout title="参加する" description={join!.data.description}>
+  <main class="page-main">
+    <JoinSection />
+
+    <section class="section">
+      <div class="prose join-body">
+        <Prose>
+          <Content />
+        </Prose>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .join-body {
+    width: min(760px, 100%);
+  }
+</style>

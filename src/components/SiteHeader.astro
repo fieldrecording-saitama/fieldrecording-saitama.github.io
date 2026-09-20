@@ -1,14 +1,30 @@
-<header class="site-header" aria-label="サイトヘッダー">
-  <a class="brand" href="#top" aria-label="フィールドレコーディングクラブさいたま ホーム">
+---
+import { NAV } from "../lib/site";
+
+interface Props {
+  transparent?: boolean;
+}
+const { transparent = false } = Astro.props;
+const here = Astro.url.pathname;
+const isCurrent = (href: string) => here === href || (href !== "/" && here.startsWith(href));
+---
+
+<header
+  class:list={["site-header", { "site-header-solid": !transparent }]}
+  aria-label="サイトヘッダー"
+>
+  <a class="brand" href="/" aria-label="フィールドレコーディングクラブさいたま ホーム">
     <span class="brand-mark" aria-hidden="true"></span>
     <span>FRCS</span>
   </a>
   <nav class="site-nav" aria-label="主要ナビゲーション">
-    <a href="#about">About</a>
-    <a href="#workshop">Workshop</a>
-    <a href="#sound-map">Sound Map</a>
-    <a href="#program">Program</a>
-    <a href="#join">Join</a>
+    {
+      NAV.map((item) => (
+        <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+          {item.label}
+        </a>
+      ))
+    }
   </nav>
 </header>
 
@@ -76,4 +92,19 @@
 
   }
 }
+</style>
+
+<style>
+  /* ヒーローのないページでは背景を敷いて可読性を確保する */
+  .site-header-solid {
+    position: sticky;
+    background: var(--ink);
+    border-bottom: 1px solid rgba(255, 253, 247, 0.12);
+  }
+
+  .site-nav a[aria-current="page"] {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
 </style>

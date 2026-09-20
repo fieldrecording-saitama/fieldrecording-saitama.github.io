@@ -1,0 +1,20 @@
+---
+interface Props {
+  poster: {
+    mainTitle: string[];
+    japanese?: string;
+    artist?: string;
+    credit?: string;
+  };
+}
+const { poster } = Astro.props;
+---
+
+<div class="event-title-poster">
+  <p class="poster-main-title">
+    {poster.mainTitle.map((line) => <span>{line}</span>)}
+  </p>
+  {poster.japanese && <p class="poster-japanese">{poster.japanese}</p>}
+  {poster.artist && <p class="poster-artist">{poster.artist}</p>}
+  {poster.credit && <p class="poster-credit" set:html={poster.credit} />}
+</div>

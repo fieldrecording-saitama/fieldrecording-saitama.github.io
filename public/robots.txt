@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fieldrecording-saitama.github.io/sitemap.xml
+Sitemap: https://fieldrecording-saitama.github.io/sitemap-index.xml

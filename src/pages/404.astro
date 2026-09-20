@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { NAV } from "../lib/site";
+---
+
+<BaseLayout title="ページが見つかりません" noindex>
+  <main class="page-main">
+    <section class="section">
+      <SectionHeading kicker="404" title="ページが見つかりません">
+        <p>
+          お探しのページは移動または削除された可能性があります。以下のページからお探しください。
+        </p>
+      </SectionHeading>
+      <div class="join-links">
+        <a class="button primary accent" href="/">トップへ戻る</a>
+        {NAV.map((item) => <a class="button" href={item.href}>{item.label}</a>)}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -166,3 +166,15 @@
 
   }
 }
+
+/* 下層ページ：固定ヘッダーの下に本文が潜らないようにする */
+.page-main {
+  display: block;
+  padding-top: 82px;
+}
+
+@media (max-width: 720px) {
+  .page-main {
+    padding-top: 64px;
+  }
+}

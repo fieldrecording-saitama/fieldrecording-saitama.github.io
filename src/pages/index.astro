@@ -1,192 +1,43 @@
 ---
+import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import ProjectFlow from "../components/ProjectFlow.astro";
-import SoundMap from "../components/SoundMap.astro";
+import SoundMapTeaser from "../components/SoundMapTeaser.astro";
 import ListeningNotes from "../components/ListeningNotes.astro";
 import EventTimeline from "../components/EventTimeline.astro";
 import AboutSection from "../components/AboutSection.astro";
 import JoinSection from "../components/JoinSection.astro";
+import LegacyHashRedirect from "../components/LegacyHashRedirect.astro";
+
+const events = (await getCollection("events", ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf(),
+);
+const notes = (await getCollection("notes", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+
+const about = await getEntry("pages", "about");
+const { Content: AboutContent } = await render(about!);
 ---
 
-<BaseLayout>
-    <main id="top">
-      <Hero />
+<BaseLayout transparentHeader>
+  <LegacyHashRedirect />
+  <main id="top">
+    <Hero />
 
-      <section id="workshop" class="section event-section" aria-labelledby="workshop-title">
-        <div class="event-copy peatix-copy">
-          <p class="section-kicker">Workshop</p>
-          <h2 id="workshop-title" class="workshop-heading">フィールドレコーディング・ワークショップ #001</h2>
-          <div class="event-title-poster">
-            <p class="poster-main-title">
-              <span>ENCOUNTERS:</span>
-              <span>LISTENER, TECHNIQUE,</span>
-              <span>LOCATION</span>
-            </p>
-            <p class="poster-japanese">「出会い：聞き手、テクニック、場所」</p>
-            <p class="poster-artist">by Paulo Dantas</p>
-            <p class="poster-credit">(music composer and sound artist, professor<br>and sound technician)</p>
-          </div>
-          <p class="event-lead">本イベントは終了しました。「都市の呼吸、ひとの気配、日常的に過ぎ去る時間を、私たちはどう書き留められるだろう？」という問いから、2日間のワークショップを開催しました。</p>
-          <p>本イベントは、Field Recording Club, Saitamaによる年度を通したプロジェクトの第２回目となる「音の記録」をテーマとしたものです。今年度は、パウロ・ダンタス（サウンドアーティスト）をゲストに迎え、大宮駅周辺で9月のフィールドレコーディング・ワークショップを開催しました。大宮公園周辺で12月に第2回を開催する予定で、来春2月にその成果展示（ワークショップ参加者みなさんの音源の展示）を行う予定です。※さいたまの”音”風景 フィールドレコーディング・ワークショップ＆成果展示発表会［アーツカウンシルさいたま文化芸術都市創造助成事業］</p>
-          <p>参考*１　パウロの展示「Paulo Dantas - Not a real city」<a href="http://www.kanzan-g.jp/exhibitions/paulo-dantas-2026/" target="_blank" rel="noopener">http://www.kanzan-g.jp/exhibitions/paulo-dantas-2026/</a> </p>
+    <ProjectFlow />
 
-          <dl class="event-facts">
-            <div>
-              <dt>日時</dt>
-              <dd>2026年9月5日（土）・6日（日）の2日間 16:00〜20:00（開催終了）</dd>
-            </div>
-            <div>
-              <dt>ゲスト アーティスト</dt>
-              <dd>パウロ・ダンタス（作曲家・サウンドアーティスト）</dd>
-            </div>
-            <div>
-              <dt>集合</dt>
-              <dd>まちラボおおみや / URBAN DESIGN CENTER OMIYA (15:30 開場・受付開始）  (JR大宮駅東口より徒歩１分）</dd>
-            </div>
-            <div>
-              <dt>定員・参加対象</dt>
-              <dd>14名<br>2日連続参加できる方。小学3年生以上推奨。</dd>
-            </div>
-            <div>
-              <dt>使用言語</dt>
-              <dd>日本語</dd>
-            </div>
-            <div>
-              <dt>持ち物</dt>
-              <dd>スナックタイム用のおやつ</dd>
-            </div>
-          </dl>
+    <SoundMapTeaser />
 
-          <p class="event-note">このイベントは終了しました。ご参加・ご関心をお寄せいただき、ありがとうございました。</p>
+    <ListeningNotes notes={notes} moreHref="/notes/" />
 
-          <div class="event-detail-block event-summary-block">
-            <h3>参加費</h3>
-            <p>A: 6,500円、B: 5,000円、C: 3,500円、D（中学生以下限定）: 2,000円 </p>
-            <ul class="event-list">
-              <li>参加内容はすべて同じですが、さまざまな状況やご関心にあわせてご参加いただけるよう、4つのチケットをご用意しています。</li>
-              <li>ご自身のご事情に合わせてお選びください。</li>
-              <li>2日間の通しチケットです</li>
-              <li>中学生以下は、保護者の同伴ok</li>
-            </ul>
-          </div>
+    <EventTimeline events={events} />
 
-          <div class="event-detail-block event-summary-block">
-            <h3>録音機材</h3>
-            <ul class="event-list">
-              <li>レコーダー及びモニターヘッドホンの貸出有り（録音機材等お持ちでない方もご参加いただけます）</li>
-              <li>株式会社ズーム / ZOOM CORPORATION による各種機材紹介・体験セッションも予定しています</li>
-            </ul>
-          </div>
+    <AboutSection title="フィールドレコーディング<br><span class='text-keep'>クラブさいたまとは</span>" moreHref="/about/">
+      <AboutContent />
+    </AboutSection>
 
-          <div class="event-detail-block artist-section">
-            <h3>▼ゲスト・アーティスト：</h3>
-            <div class="artist-profile">
-              <img src="https://cdn.peatix.com/event/5117510/cover-YJhdCxOM2p4t1TQCgY02lwY66N6unr8L.jpeg" alt="" width="313" height="209">
-              <div>
-                <p class="artist-name">Paulo Dantas / パウロ・ダンタス</p>
-                <p>1981年ブラジル・リオデジャネイロ生まれ。作曲家、サウンドアーティスト、音響エンジニアとして活動するほか、リオデジャネイロ州連邦大学で教授を務める。2023年、研究のためのサバティカル休暇で来日し、現在は茨城県ひたちなか市在住。主な関心領域は、フィールド・レコーディング実践の芸術的活用、「不確定性」や「協働（コラボレーション）」の概念が創造プロセスにもたらす影響など。最近の創作活動では、さまざまな録音機器、シンセサイザー、テキスト、その他のオブジェクトの思索的な運用を通じて、音楽、フィールドレコーディング、サウンドデザイン、およびその他の芸術表現との間に新たな対話を生み出すことを探求している。</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="event-detail-block event-summary-block">
-            <h3>▼こんな方におすすめ</h3>
-            <ul class="event-list">
-              <li>まちの歴史・文化・芸術に興味がある方</li>
-              <li>普段とは違う視点で街歩きをしてみたい方</li>
-              <li>建築やまちづくり、まちの未来について考えたい方</li>
-              <li>フィールド・レコーディングや環境音に関心のある方</li>
-              <li>テキストや写真、映像以外のメディアで、まちを記録してみたい方</li>
-            </ul>
-          </div>
-
-          <div class="event-detail-block event-summary-block event-credit">
-            <p>主催：Field Recording Club, Saitama / フィールド・レコーディング・クラブさいたま<br>助成：アーツカウンシルさいたま［アーツカウンシルさいたま文化芸術都市創造助成事業］<br>機材協力：株式会社ズーム / ZOOM CORPORATION、WHISMR（ウイスマー）合同会社</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="event" class="section event-section" aria-labelledby="event-title">
-        <div class="event-copy">
-          <p class="section-kicker">World Listening Day 7/18 / Same Program 7/18-19</p>
-          <h2 id="event-title">サウンド・<wbr>コミュニケーション・<wbr><span class="text-keep">ウォークさいたま2026</span></h2>
-          <p class="event-lead">本イベントは終了しました。7月18日・19日の2日間、<span class="text-keep">フィールドレコーディング</span><wbr><span class="text-keep">クラブさいたま</span>と大宮の音風景を探索しました。</p>
-          <p>
-            夜の大宮公園はどんな音がしていると思いますか？
-            本イベントは、国際的な記念日 World Listening Day（世界リスニングデー）関連企画として、2026年7月18日（土）と19日（日）に開催したサウンドウォークです。
-          </p>
-          <p>
-            さいたま市を拠点に活動する Field Recording Club, Saitama のメンバーと共にまちを歩き、普段の生活で見過ごしがちな「聴覚」や「環境音」への理解を深めます。徒歩20分（約1.5km）程度の距離を、体験と共有を交えながら約2時間かけて歩きます。
-          </p>
-          <p>
-            夏の夕刻、大宮駅前（都市・喧騒）から氷川参道へ、そして武蔵一宮氷川神社・大宮公園（自然・静寂）へ。変化する音の風景（サウンドスケープ）を身体・五感をつかって楽しみます。静かに音を聴く「静」の体験と、感じたことを共有し響き合わせる「動」の体験をセットで行う、まちと環境音にまつわる探究型プログラムです。
-          </p>
-          <dl class="event-facts">
-            <div>
-              <dt>日時</dt>
-              <dd>2026年7月18日（土）、19日（日）16:00〜19:00（開催終了）</dd>
-            </div>
-            <div>
-              <dt>集合</dt>
-              <dd>まちラボおおみや / URBAN DESIGN CENTER OMIYA（さいたま市大宮区宮町一丁目60番地 大宮ラクーン8F / JR大宮駅東口より徒歩1分）</dd>
-            </div>
-            <div>
-              <dt>街歩き</dt>
-              <dd>大宮駅周辺・大宮一番街商店街〜氷川参道〜武蔵一宮氷川神社・大宮公園</dd>
-            </div>
-            <div>
-              <dt>定員</dt>
-              <dd>各日10名程度</dd>
-            </div>
-            <div>
-              <dt>推奨対象</dt>
-              <dd>小学生以上（約1.5kmを2時間程度かけてゆっくり歩きます）</dd>
-            </div>
-            <div>
-              <dt>参加費</dt>
-              <dd>1000円（当日払い）※小中学生は無料</dd>
-            </div>
-          </dl>
-          <p class="event-note">このイベントは終了しました。ご参加・ご関心をお寄せいただき、ありがとうございました。</p>
-          <div class="event-detail-block">
-            <h3>体験内容</h3>
-            <p>
-              前半はグループで沈黙を保ちながら五感を研ぎ澄ませて歩く体験（耳が開く体験）と、感じた音を共有しながら歩く体験を行います。街の雑踏、建物の反響、風の音、蝉の声、鐘の音など、その瞬間・その土地ならではの音の断片を拾い集めます。
-            </p>
-            <p>
-              後半は夕暮れの氷川参道〜氷川神社をゆっくり歩き、歴史とつながる音風景を探索します。最後に、発見した音や風景、心の動きを参加者同士で再共有する交流の時間を設けます。
-            </p>
-          </div>
-          <div class="event-detail-block">
-            <h3>こんな方におすすめ</h3>
-            <ul class="event-list">
-              <li>まちの歴史・文化・芸術に興味がある方</li>
-              <li>普段とは違う視点で街歩きをしてみたい方</li>
-              <li>建築やまちづくり、都市の未来について考えたい方</li>
-              <li>フィールドレコーディングや環境音に関心のある方</li>
-              <li>テキストや写真、映像以外のメディアで、まちを記録してみたい方</li>
-            </ul>
-          </div>
-          <div class="navigators">
-            <h3>ナビゲーター</h3>
-            <p><strong>Field Recording Club, Saitama</strong> / さいたま市を拠点に、フィールドレコーディングを通してまちの音を記録・共有・発信するプロジェクトを行っています。</p>
-            <p><strong>Minuma / Nukumori Eugene</strong> / さいたまのまち音収集家・音楽家。環境音楽のリリースやライブ、DJ、世界の環境音プロジェクト参加、サウンドアート・サウンドスケープの創作研究など国際的に活動しています。</p>
-          </div>
-        </div>
-      </section>
-
-      <ProjectFlow />
-
-      <SoundMap />
-
-      <ListeningNotes />
-
-      <EventTimeline />
-
-      <AboutSection />
-
-      <JoinSection />
-
-    </main>
+    <JoinSection />
+  </main>
 </BaseLayout>
