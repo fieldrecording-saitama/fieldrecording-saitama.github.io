@@ -238,6 +238,31 @@ SITE_URL=https://example.com BASE_PATH=/staging/ NOINDEX=true npm run build
 
 接続はロリポップのSSHパスワードで行います（`sshpass` 経由。パスワードは環境変数 `SSHPASS` で渡すため、プロセス一覧やログには残りません）。ホスト鍵は `LOLIPOP_KNOWN_HOSTS` を設定すると固定でき、未設定時は実行のたびに `ssh-keyscan` で取得します。
 
+### 配置先の準備（必須）
+
+`rsync --delete` は配置先にあってビルド結果に無いファイルを削除します。**共用のディレクトリを指定すると、そこにある他サイトのファイルまで消えます。**
+
+そのため、デプロイ専用のディレクトリを用意し、目印ファイルを置いてください。これが無いとワークフローは配置を行わずに停止します。
+
+```sh
+# サーバー側で1回だけ実行する
+mkdir -p ~/web/example.com/staging
+touch ~/web/example.com/staging/.deploy-target
+```
+
+`LOLIPOP_DEPLOY_PATH` には、この**専用ディレクトリの絶対パス**を設定します。ホームディレクトリや `web/` 直下を指定してはいけません。
+
+### --delete の安全装置
+
+配置の前に2つの関門を通ります。どちらかで止まった場合、サーバー上のファイルは変更されません。
+
+| 関門 | 内容 | 失敗時 |
+| --- | --- | --- |
+| Verify deploy target | 配置先に `.deploy-target` があるか確認 | 中断（転送なし） |
+| Preview deletions | `--dry-run` で削除予定を数え、先頭50件を表示 | `MAX_DELETIONS`（既定200件）超で中断 |
+
+意図的に大量削除する場合は、ワークフローの `MAX_DELETIONS` を一時的に引き上げてください。`.deploy-target` 自体と、BASIC認証関連ファイルは削除対象から除外しています。
+
 ### 検索エンジン対策
 
 ステージングのビルドは `NOINDEX=true` で実行され、次の3点が本番と変わります。

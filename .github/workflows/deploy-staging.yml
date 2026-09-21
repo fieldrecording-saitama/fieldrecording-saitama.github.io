@@ -4,12 +4,17 @@
 #   LOLIPOP_SSH_HOST     接続先ホスト（例: ssh.lolipop.jp）
 #   LOLIPOP_SSH_USER     SSHユーザー名
 #   LOLIPOP_SSH_PASSWORD ロリポップのSSHパスワード
-#   LOLIPOP_DEPLOY_PATH  配置先の絶対パス（例: /home/users/0/xxx/web/staging）
+#   LOLIPOP_DEPLOY_PATH  配置先の絶対パス（デプロイ専用のディレクトリ）
 #   STAGING_SITE_URL     ステージングのオリジン（例: https://example.com）
 #   STAGING_BASE_PATH    公開ディレクトリ（例: /staging/。ドメイン直下なら /）
 # 任意の Secrets
 #   LOLIPOP_SSH_PORT     SSHポート（未設定なら 2222）
 #   LOLIPOP_KNOWN_HOSTS  ホスト鍵。未設定時は ssh-keyscan で取得する
+#
+# --delete による事故を防ぐため、配置先には目印ファイル（.deploy-target）が
+# 必要。ホームディレクトリなど共用の場所を指定しても実行されない。
+# 初回は配置先で次を実行しておくこと:
+#   mkdir -p <配置先> && touch <配置先>/.deploy-target
 #
 # BASIC認証はロリポップの管理画面で設定する前提のため、ここでは何も行わない。
 # 認証用ファイルは rsync --delete の対象から除外している。
@@ -28,6 +33,15 @@ permissions:
 concurrency:
   group: "staging"
   cancel-in-progress: false
+
+env:
+  # 配置先がデプロイ専用であることを示す目印ファイル。手動で作成する
+  DEPLOY_MARKER: .deploy-target
+  # dry run でこの件数を超える削除が出たら中断する
+  MAX_DELETIONS: "200"
+  # 管理画面が作るBASIC認証ファイルと目印ファイルは削除しない
+  RSYNC_EXCLUDES: "--exclude=.htaccess --exclude=.htpasswd --exclude=.user.ini --exclude=.well-known/ --exclude=.deploy-target"
+  SSH_OPTS: "-o StrictHostKeyChecking=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password -o NumberOfPasswordPrompts=1 -o BatchMode=no"
 
 jobs:
   deploy:
@@ -54,13 +68,13 @@ jobs:
             fi
           done
           if [ -n "$missing" ]; then
-            echo "次の Secrets が未設定です:$missing" >&2
+            echo "::error::次の Secrets が未設定です:$missing"
             exit 1
           fi
-          # --delete を使うため、配置先が広すぎるパスでないことを確認する
+          # 明らかに広すぎるパスはここで弾く（実在確認は後段で行う）
           case "$DEPLOY_PATH" in
-            "/"|""|"~"|"~/")
-              echo "LOLIPOP_DEPLOY_PATH が危険な値です: $DEPLOY_PATH" >&2
+            "/"|"~"|"~/"|"/home"|"/home/"|"/var/www"|"/var/www/")
+              echo "::error::LOLIPOP_DEPLOY_PATH が広すぎます。デプロイ専用のディレクトリを指定してください"
               exit 1
               ;;
           esac
@@ -103,10 +117,66 @@ jobs:
           if [ -n "$KNOWN_HOSTS" ]; then
             printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
           else
-            echo "LOLIPOP_KNOWN_HOSTS が未設定のため ssh-keyscan で取得します" >&2
+            echo "LOLIPOP_KNOWN_HOSTS が未設定のため ssh-keyscan で取得します"
             ssh-keyscan -p "${SSH_PORT:-2222}" -H "$SSH_HOST" >> ~/.ssh/known_hosts
           fi
           chmod 600 ~/.ssh/known_hosts
+
+      # --delete でアカウント全体を消さないための関門。
+      # 配置先に目印ファイルが無ければ、そこはデプロイ専用ではないとみなして止める。
+      # 参照には ssh ではなく rsync のリスト機能を使い、認証経路を本番と揃える。
+      - name: Verify deploy target
+        env:
+          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
+          SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
+          SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
+          DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+          SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
+        run: |
+          if ! listing=$(sshpass -e rsync -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
+               "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/" 2>&1); then
+            echo "::error::配置先を参照できませんでした。パスが存在するか確認してください"
+            printf '%s\n' "$listing" | tail -5
+            exit 1
+          fi
+
+          if printf '%s\n' "$listing" | awk '{print $NF}' | grep -qx -- "$DEPLOY_MARKER"; then
+            echo "配置先の確認が取れました（$DEPLOY_MARKER あり）"
+          else
+            echo "::error::目印ファイル $DEPLOY_MARKER がありません。ここはデプロイ専用ディレクトリではない可能性があります"
+            echo "意図した配置先であれば、サーバー上で次を実行してください: touch <配置先>/$DEPLOY_MARKER"
+            echo "--- 配置先の内容（先頭30件） ---"
+            printf '%s\n' "$listing" | head -30
+            exit 1
+          fi
+
+      # 実際に消えるものを事前に確認する。想定外の件数なら配置先の設定ミスとみなす。
+      - name: Preview deletions (dry run)
+        env:
+          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
+          SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
+          SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
+          DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+          SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
+        run: |
+          sshpass -e rsync -rlptvz --delete --dry-run \
+            -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
+            $RSYNC_EXCLUDES \
+            dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/" > /tmp/rsync-dry.log
+
+          deletions=$(grep -c '^deleting ' /tmp/rsync-dry.log || true)
+          deletions=${deletions:-0}
+          echo "削除予定: ${deletions} 件（上限 ${MAX_DELETIONS} 件）"
+
+          if [ "$deletions" -gt 0 ]; then
+            echo "--- 削除されるファイル（先頭50件） ---"
+            grep '^deleting ' /tmp/rsync-dry.log | head -50
+          fi
+
+          if [ "$deletions" -gt "$MAX_DELETIONS" ]; then
+            echo "::error::削除予定が上限を超えました（${deletions} 件）。配置先が正しいか確認してください。意図した変更なら MAX_DELETIONS を引き上げてください"
+            exit 1
+          fi
 
       - name: Deploy with rsync
         env:
@@ -119,9 +189,6 @@ jobs:
           SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
         run: |
           sshpass -e rsync -rlptvz --delete \
-            -e "ssh -p ${SSH_PORT:-2222} -o StrictHostKeyChecking=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password -o NumberOfPasswordPrompts=1" \
-            --exclude '.htaccess' \
-            --exclude '.htpasswd' \
-            --exclude '.user.ini' \
-            --exclude '.well-known/' \
+            -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
+            $RSYNC_EXCLUDES \
             dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
