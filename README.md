@@ -211,7 +211,26 @@ facts:                  # 詳細ページの「日時・集合・定員」など
 | `master` | GitHub Pages（本番） | `.github/workflows/deploy-production.yml` |
 | `staging` | ロリポップ（SSH + rsync） | `.github/workflows/deploy-staging.yml` |
 
-本番は `master` への push で公開します。プルリクエストではビルド確認のみ行い、公開はしません。GitHub Pages の公開元は「GitHub Actions」です。
+`staging` が開発の主軸（既定ブランチ）で、`master` が本番リリース用です。どちらも直接 push できないよう保護されているため、変更はプルリクエスト経由で入れます。GitHub Pages の公開元は「GitHub Actions」です。
+
+### プルリクエスト時の検証
+
+`.github/workflows/build-check.yml` が `staging` / `master` 宛のPRで動き、次を確認します。デプロイは行わず、Secrets も使いません。
+
+1. `astro check`（型・テンプレート）
+2. 本番と同じ設定でのビルド
+3. サブディレクトリ公開の設定（`BASE_PATH=/subdir/`）でのビルド
+4. `scripts/check-links.mjs` による内部リンク・アセット参照の検査
+
+3と4は、`base` を付けた公開でリンクが壊れていないかを見るためのものです。ローカルでも実行できます。
+
+```sh
+npm run build
+node scripts/check-links.mjs dist /
+
+SITE_URL=https://example.test BASE_PATH=/subdir/ NOINDEX=true npm run build
+node scripts/check-links.mjs dist /subdir/
+```
 
 ### 公開URLの階層（site / base）
 

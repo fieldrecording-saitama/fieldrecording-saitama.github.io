@@ -4,8 +4,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: ["master"]
-  pull_request:
-    branches: ["master"]
   workflow_dispatch:
 
 permissions:
@@ -53,10 +51,10 @@ jobs:
         with:
           path: ./dist
 
-  # master への push のときだけ公開する（PR はビルド確認のみ）
+  # master への push のときだけ公開する（PR の検証は build-check.yml）
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/master'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
