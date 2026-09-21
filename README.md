@@ -208,17 +208,17 @@ facts:                  # 詳細ページの「日時・集合・定員」など
 
 | ブランチ | 公開先 | ワークフロー |
 | --- | --- | --- |
-| `main` | GitHub Pages（本番） | `.github/workflows/deploy-production.yml` |
+| `master` | GitHub Pages（本番） | `.github/workflows/deploy-production.yml` |
 | `staging` | ロリポップ（SSH + rsync） | `.github/workflows/deploy-staging.yml` |
 
-本番は `main` への push で公開します。プルリクエストではビルド確認のみ行い、公開はしません。GitHub Pages の公開元は「GitHub Actions」です。
+本番は `master` への push で公開します。プルリクエストではビルド確認のみ行い、公開はしません。GitHub Pages の公開元は「GitHub Actions」です。
 
 ### 公開URLの階層（site / base）
 
 ステージングは本番とディレクトリ階層が異なるため、`astro.config.mjs` の `site` / `base` を環境変数で切り替えます。
 
 ```sh
-SITE_URL=https://example.com BASE_PATH=/staging/ npm run build
+SITE_URL=https://example.com BASE_PATH=/staging/ NOINDEX=true npm run build
 ```
 
 未指定の場合は本番の値（`https://fieldrecording-saitama.github.io` と `/`）を使います。サイト内のリンク・画像・`fetch` は `src/lib/url.ts` の `withBase()` を通しているため、`base` を変えるだけでサブディレクトリ公開に追随します。
@@ -235,6 +235,16 @@ SITE_URL=https://example.com BASE_PATH=/staging/ npm run build
 | `STAGING_BASE_PATH` | 公開ディレクトリ（例: `/staging/`。ドメイン直下なら `/`） |
 | `LOLIPOP_SSH_PORT` | 任意。未設定なら `2222` |
 | `LOLIPOP_KNOWN_HOSTS` | 任意。未設定時は `ssh-keyscan` で取得 |
+
+### 検索エンジン対策
+
+ステージングのビルドは `NOINDEX=true` で実行され、次の3点が本番と変わります。
+
+- 全ページの `<meta name="robots">` が `noindex, nofollow` になる
+- `robots.txt` が `Disallow: /` になる
+- サイトマップを生成せず、`<link rel="sitemap">` も出力しない
+
+`robots.txt` は `src/pages/robots.txt.ts` が公開先に応じて生成します。
 
 BASIC認証はロリポップの管理画面で設定する前提のため、ワークフロー側では設定しません。`rsync --delete` は `.htaccess` / `.htpasswd` / `.user.ini` / `.well-known/` を除外しているので、管理画面で作られた認証用ファイルは削除されません。
 

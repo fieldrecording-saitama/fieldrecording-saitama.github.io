@@ -13,6 +13,7 @@
 #
 # BASIC認証はロリポップの管理画面で設定する前提のため、ここでは何も行わない。
 # 認証用ファイルは rsync --delete の対象から除外している。
+# ビルドは NOINDEX=true で行うため、検索エンジンには載らない。
 name: Deploy to staging (Lolipop)
 
 on:
@@ -81,6 +82,9 @@ jobs:
           # 本番とは公開URLの階層が異なるため、ここで site / base を上書きする
           SITE_URL: ${{ secrets.STAGING_SITE_URL }}
           BASE_PATH: ${{ secrets.STAGING_BASE_PATH }}
+          # 検索結果に出さない（meta robots を noindex にし、
+          # robots.txt を Disallow、サイトマップを生成しない）
+          NOINDEX: "true"
         run: npm run build
 
       - name: Configure SSH

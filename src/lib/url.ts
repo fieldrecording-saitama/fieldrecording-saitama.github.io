@@ -11,6 +11,12 @@ const BASE_URL = import.meta.env.BASE_URL;
 /** 設定済みの site。JSON-LD や canonical の絶対URL生成に使う */
 export const SITE_URL = import.meta.env.SITE ?? "https://fieldrecording-saitama.github.io";
 
+/**
+ * 検索エンジンに載せたくないビルドで true。
+ * ステージングのワークフローが NOINDEX=true を渡す。
+ */
+export const NOINDEX = String(import.meta.env.NOINDEX) === "true";
+
 /** 外部URL・ハッシュ・スキーム付きはそのまま返す */
 function isExternal(path: string): boolean {
   return /^[a-z][a-z0-9+.-]*:/i.test(path) || path.startsWith("//") || path.startsWith("#");
