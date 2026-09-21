@@ -1,5 +1,6 @@
 ---
 import Prose from "./Prose.astro";
+import { withBase } from "../lib/url";
 
 interface Props {
   title: string;
@@ -22,7 +23,7 @@ const { title, kicker = "About", moreHref } = Astro.props;
     {
       moreHref && (
         <p class="about-more">
-          <a href={moreHref}>クラブについて詳しく見る</a>
+          <a href={withBase(moreHref)}>クラブについて詳しく見る</a>
         </p>
       )
     }

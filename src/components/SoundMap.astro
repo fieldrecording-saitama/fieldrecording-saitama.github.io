@@ -1,3 +1,7 @@
+---
+import { withBase } from "../lib/url";
+---
+
 <section id="sound-map" class="section sound-section" aria-labelledby="sound-map-title">
   <div class="section-heading compact">
     <p class="section-kicker">Sound Map</p>
@@ -10,7 +14,7 @@
       <p class="map-note">Map data © OpenStreetMap contributors / 録音地点はSoundCloudの表記から推定</p>
     </div>
     <aside class="sound-panel" aria-live="polite">
-      <img id="sound-photo" src="/assets/img/hero.jpg" alt="" loading="lazy">
+      <img id="sound-photo" src={withBase("/assets/img/hero.jpg")} alt="" loading="lazy">
       <div class="panel-body">
         <div id="sound-player" class="player-placeholder">
           <p>地点を選ぶとSoundCloudプレイヤーが表示されます。</p>

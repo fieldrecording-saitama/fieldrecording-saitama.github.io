@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { NAV } from "../lib/site";
+import { withBase } from "../lib/url";
 ---
 
 <BaseLayout title="ページが見つかりません" noindex>
@@ -13,8 +14,8 @@ import { NAV } from "../lib/site";
         </p>
       </SectionHeading>
       <div class="join-links">
-        <a class="button primary accent" href="/">トップへ戻る</a>
-        {NAV.map((item) => <a class="button" href={item.href}>{item.label}</a>)}
+        <a class="button primary accent" href={withBase("/")}>トップへ戻る</a>
+        {NAV.map((item) => <a class="button" href={withBase(item.href)}>{item.label}</a>)}
       </div>
     </section>
   </main>

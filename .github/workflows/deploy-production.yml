@@ -1,10 +1,11 @@
-# Astro でビルドした静的サイトを GitHub Pages に公開する
-name: Deploy site to Pages
+# 本番: main への push で Astro をビルドし、GitHub Pages へ公開する
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
   pull_request:
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -16,6 +17,11 @@ permissions:
 concurrency:
   group: "pages"
   cancel-in-progress: false
+
+env:
+  # 本番は GitHub Pages のユーザーサイト = ドメイン直下
+  SITE_URL: https://fieldrecording-saitama.github.io
+  BASE_PATH: /
 
 jobs:
   build:
@@ -47,10 +53,10 @@ jobs:
         with:
           path: ./dist
 
-  # master への push のときだけ公開する（PR はビルド確認のみ）
+  # main への push のときだけ公開する（PR はビルド確認のみ）
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

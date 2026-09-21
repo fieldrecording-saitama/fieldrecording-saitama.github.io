@@ -1,3 +1,5 @@
+import { withBase } from "../lib/url";
+
 async function initializeHeroSlides() {
   const container = document.querySelector(".hero-media");
 
@@ -6,7 +8,7 @@ async function initializeHeroSlides() {
   }
 
   try {
-    const response = await fetch("/data/hero-slides.json");
+    const response = await fetch(withBase("/data/hero-slides.json"));
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -48,7 +50,8 @@ async function initializeHeroSlides() {
     slides.forEach((slide, index) => {
       const element = document.createElement("span");
       element.className = "hero-slide";
-      element.style.backgroundImage = `url("${slide.image.replaceAll('"', '\\"')}")`;
+      const imageUrl = withBase(slide.image);
+      element.style.backgroundImage = `url("${imageUrl.replaceAll('"', '\\"')}")`;
       element.style.backgroundPosition =
         typeof slide.position === "string" && slide.position ? slide.position : "center";
 

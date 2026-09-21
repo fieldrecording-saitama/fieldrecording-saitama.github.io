@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { statusLabel } from "../lib/site";
+import { withBase } from "../lib/url";
 
 interface Props {
   event: CollectionEntry<"events">;
@@ -9,7 +10,7 @@ interface Props {
 }
 const { event, withDetails = true } = Astro.props;
 const data = event.data;
-const href = `/events/${event.id}/`;
+const href = withBase(`/events/${event.id}/`);
 const finished = data.status === "finished" || data.status === "closed";
 ---
 

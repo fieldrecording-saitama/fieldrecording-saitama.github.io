@@ -5,6 +5,7 @@ import EventFacts from "../../components/EventFacts.astro";
 import EventPoster from "../../components/EventPoster.astro";
 import Prose from "../../components/Prose.astro";
 import { SITE, schemaEventStatus, statusLabel } from "../../lib/site";
+import { absoluteUrl, withBase } from "../../lib/url";
 
 export const getStaticPaths = async () => {
   const events = await getCollection("events", ({ data }) => !data.draft);
@@ -14,7 +15,7 @@ export const getStaticPaths = async () => {
 const { event } = Astro.props;
 const data = event.data;
 const { Content } = await render(event);
-const url = new URL(`/events/${event.id}/`, SITE.url).href;
+const url = absoluteUrl(`/events/${event.id}/`);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -28,7 +29,7 @@ const jsonLd = {
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   url,
   inLanguage: "ja",
-  ...(data.image ? { image: [new URL(data.image, SITE.url).href] } : {}),
+  ...(data.image ? { image: [absoluteUrl(data.image)] } : {}),
   ...(data.capacity ? { maximumAttendeeCapacity: data.capacity } : {}),
   ...(data.place
     ? {
@@ -49,7 +50,7 @@ const jsonLd = {
         },
       }
     : {}),
-  organizer: { "@id": `${SITE.url}/#organization` },
+  organizer: { "@id": `${absoluteUrl("/")}#organization` },
   ...(data.performers.length > 0
     ? { performer: data.performers.map((p) => ({ "@type": p.type, name: p.name })) }
     : {}),
@@ -106,7 +107,7 @@ const finished = data.status === "finished" || data.status === "closed";
           )
         }
 
-        <p class="event-back"><a href="/events/">← 年間スケジュールに戻る</a></p>
+        <p class="event-back"><a href={withBase("/events/")}>← 年間スケジュールに戻る</a></p>
       </div>
     </section>
   </main>

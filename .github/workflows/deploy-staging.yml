@@ -1,0 +1,122 @@
+# ステージング: staging への push で Astro をビルドし、ロリポップへ rsync で配置する
+#
+# 必要な Secrets
+#   LOLIPOP_SSH_HOST     接続先ホスト（例: ssh.lolipop.jp）
+#   LOLIPOP_SSH_USER     SSHユーザー名
+#   LOLIPOP_SSH_KEY      SSH秘密鍵（OpenSSH形式・全文）
+#   LOLIPOP_DEPLOY_PATH  配置先の絶対パス（例: /home/users/0/xxx/web/staging）
+#   STAGING_SITE_URL     ステージングのオリジン（例: https://example.com）
+#   STAGING_BASE_PATH    公開ディレクトリ（例: /staging/。ドメイン直下なら /）
+# 任意の Secrets
+#   LOLIPOP_SSH_PORT     SSHポート（未設定なら 2222）
+#   LOLIPOP_KNOWN_HOSTS  ホスト鍵。未設定時は ssh-keyscan で取得する
+#
+# BASIC認証はロリポップの管理画面で設定する前提のため、ここでは何も行わない。
+# 認証用ファイルは rsync --delete の対象から除外している。
+name: Deploy to staging (Lolipop)
+
+on:
+  push:
+    branches: ["staging"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# ステージングへの配置は同時に1つだけ
+concurrency:
+  group: "staging"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required secrets
+        env:
+          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
+          SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
+          SSH_KEY: ${{ secrets.LOLIPOP_SSH_KEY }}
+          DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+          SITE_URL: ${{ secrets.STAGING_SITE_URL }}
+          BASE_PATH: ${{ secrets.STAGING_BASE_PATH }}
+        run: |
+          missing=""
+          for name in SSH_HOST SSH_USER SSH_KEY DEPLOY_PATH SITE_URL BASE_PATH; do
+            if [ -z "${!name}" ]; then
+              missing="$missing $name"
+            fi
+          done
+          if [ -n "$missing" ]; then
+            echo "次の Secrets が未設定です:$missing" >&2
+            exit 1
+          fi
+          # --delete を使うため、配置先が広すぎるパスでないことを確認する
+          case "$DEPLOY_PATH" in
+            "/"|""|"~"|"~/")
+              echo "LOLIPOP_DEPLOY_PATH が危険な値です: $DEPLOY_PATH" >&2
+              exit 1
+              ;;
+          esac
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run check
+
+      - name: Build
+        env:
+          # 本番とは公開URLの階層が異なるため、ここで site / base を上書きする
+          SITE_URL: ${{ secrets.STAGING_SITE_URL }}
+          BASE_PATH: ${{ secrets.STAGING_BASE_PATH }}
+        run: npm run build
+
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.LOLIPOP_SSH_KEY }}
+          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
+          SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
+          KNOWN_HOSTS: ${{ secrets.LOLIPOP_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          if [ -n "$KNOWN_HOSTS" ]; then
+            printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            echo "LOLIPOP_KNOWN_HOSTS が未設定のため ssh-keyscan で取得します" >&2
+            ssh-keyscan -p "${SSH_PORT:-2222}" -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          fi
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        env:
+          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
+          SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
+          SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
+          DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+        run: |
+          rsync -rlptvz --delete \
+            -e "ssh -i ~/.ssh/deploy_key -p ${SSH_PORT:-2222} -o StrictHostKeyChecking=yes" \
+            --exclude '.htaccess' \
+            --exclude '.htpasswd' \
+            --exclude '.user.ini' \
+            --exclude '.well-known/' \
+            dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
+
+      - name: Clean up SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

@@ -1,5 +1,6 @@
 ---
 import { SITE } from "../lib/site";
+import { withBase } from "../lib/url";
 
 interface Props {
   title?: string;
@@ -18,8 +19,9 @@ const {
 } = Astro.props;
 
 const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | ${SITE.tagline}`;
+// Astro.url.pathname は base を含んだパス。site と組み合わせて公開URLにする
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const image = new URL(ogImage, SITE.url).href;
+const image = new URL(withBase(ogImage), SITE.url).href;
 ---
 
 <meta charset="utf-8" />
@@ -46,5 +48,5 @@ const image = new URL(ogImage, SITE.url).href;
 <meta name="twitter:image" content={image} />
 <meta name="twitter:image:alt" content={`${SITE.name}公式HPのOGP画像`} />
 <meta name="theme-color" content={SITE.themeColor} />
-<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+<link rel="sitemap" type="application/xml" href={withBase("/sitemap-index.xml")} />
 <title>{pageTitle}</title>

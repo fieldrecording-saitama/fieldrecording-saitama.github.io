@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
+import { withBase } from "../../lib/url";
 
 const notes = (await getCollection("notes", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -28,7 +29,7 @@ const dateFormat = new Intl.DateTimeFormat("ja-JP", { dateStyle: "long" });
               <time datetime={note.data.date.toISOString().slice(0, 10)}>
                 {dateFormat.format(note.data.date)}
               </time>
-              <h3><a href={`/notes/${note.id}/`}>{note.data.title}</a></h3>
+              <h3><a href={withBase(`/notes/${note.id}/`)}>{note.data.title}</a></h3>
               <p>{note.data.excerpt}</p>
             </article>
           ))

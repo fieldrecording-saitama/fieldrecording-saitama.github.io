@@ -1,5 +1,6 @@
 ---
 import SectionHeading from "./SectionHeading.astro";
+import { withBase } from "../lib/url";
 ---
 
 <section class="section sound-teaser" aria-labelledby="sound-teaser-title">
@@ -10,7 +11,7 @@ import SectionHeading from "./SectionHeading.astro";
     </p>
   </SectionHeading>
   <p class="sound-teaser-actions">
-    <a class="button primary accent" href="/sound-map/">音地図を開く</a>
+    <a class="button primary accent" href={withBase("/sound-map/")}>音地図を開く</a>
   </p>
 </section>
 

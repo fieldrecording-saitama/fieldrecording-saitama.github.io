@@ -1,6 +1,7 @@
 import * as maplibregl from "maplibre-gl";
 import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { withBase } from "../lib/url";
 
 // MapLibre はワーカーの場所を import.meta.url から組み立てるため、バンドル後は
 // 解決に失敗する。Vite が書き出したワーカーの URL を明示的に渡す。
@@ -21,7 +22,7 @@ const fallbackFeature = {
     description: "地図上の録音地点を選ぶと、ここに説明と録音メモが表示されます。",
     note: "自動再生はしません。聴きたい地点を選んで、プレイヤーから再生してください。",
     soundcloudUrl: "",
-    photo: "/assets/img/hero.jpg",
+    photo: withBase("/assets/img/hero.jpg"),
     tags: ["archive", "soundmap"],
   },
   geometry: {
@@ -251,7 +252,7 @@ function renderPanel(feature, options = {}) {
   els.title.textContent = props.title;
   els.description.textContent = props.description;
   els.note.textContent = props.note;
-  els.photo.src = props.photo || "/assets/img/hero.jpg";
+  els.photo.src = props.photo || withBase("/assets/img/hero.jpg");
   els.photo.alt = `${props.place}の写真`;
   updateArtworkFallback();
 
@@ -335,7 +336,7 @@ let soundsPromise = null;
 async function loadSounds() {
   if (!soundsPromise) {
     soundsPromise = (async () => {
-      const response = await fetch("/data/sounds.geojson");
+      const response = await fetch(withBase("/data/sounds.geojson"));
       if (!response.ok) {
         throw new Error(`Failed to load sounds.geojson: ${response.status}`);
       }

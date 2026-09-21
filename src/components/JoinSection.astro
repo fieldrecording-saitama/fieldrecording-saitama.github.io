@@ -1,11 +1,15 @@
+---
+import { withBase } from "../lib/url";
+---
+
 <section id="join" class="section join-section">
   <div>
     <p class="section-kicker">Join</p>
     <h2>次の活動へ。さいたまの音を一緒に記録する。</h2>
   </div>
   <div class="join-links">
-    <a class="button primary accent" href="/events/workshop-001-encounters/">9月のワークショップ記録を見る</a>
-    <a class="button" href="/events/">年間スケジュールを見る</a>
+    <a class="button primary accent" href={withBase("/events/workshop-001-encounters/")}>9月のワークショップ記録を見る</a>
+    <a class="button" href={withBase("/events/")}>年間スケジュールを見る</a>
     <a class="button" href="https://www.instagram.com/fieldrecording_saitama" target="_blank" rel="noopener">Instagramを見る</a>
     <a class="button" href="https://www.facebook.com/groups/800702228957228/" target="_blank" rel="noopener">Facebookグループを見る</a>
   </div>

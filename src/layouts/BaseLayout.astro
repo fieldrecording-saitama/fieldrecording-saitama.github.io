@@ -8,6 +8,7 @@ import JsonLd from "../components/JsonLd.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { SITE } from "../lib/site";
+import { absoluteUrl } from "../lib/url";
 
 interface Props {
   title?: string;
@@ -24,23 +25,25 @@ interface Props {
 const { title, description, ogImage, ogType, noindex, jsonLd, transparentHeader = false } =
   Astro.props;
 
+const siteHome = absoluteUrl("/");
+
 const siteGraph = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": `${SITE.url}/#website`,
-      url: `${SITE.url}/`,
+      "@id": `${siteHome}#website`,
+      url: siteHome,
       name: SITE.name,
       inLanguage: "ja",
       description: "さいたまの音風景を記録し、展示やWebアーカイブとして発信する市民クラブのWebサイト。",
     },
     {
       "@type": "Organization",
-      "@id": `${SITE.url}/#organization`,
+      "@id": `${siteHome}#organization`,
       name: SITE.name,
       alternateName: SITE.alternateName,
-      url: `${SITE.url}/`,
+      url: siteHome,
       sameAs: [SITE.social.instagram, SITE.social.facebook],
     },
   ],

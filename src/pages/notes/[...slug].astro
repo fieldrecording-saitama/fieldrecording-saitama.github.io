@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
 import Prose from "../../components/Prose.astro";
+import { withBase } from "../../lib/url";
 
 export const getStaticPaths = async () => {
   const notes = await getCollection("notes", ({ data }) => !data.draft);
@@ -35,7 +36,7 @@ const dateFormat = new Intl.DateTimeFormat("ja-JP", { dateStyle: "long" });
           <Content />
         </Prose>
       </div>
-      <p class="note-back"><a href="/notes/">← 記録の一覧に戻る</a></p>
+      <p class="note-back"><a href={withBase("/notes/")}>← 記録の一覧に戻る</a></p>
     </section>
   </main>
 </BaseLayout>

@@ -204,9 +204,39 @@ facts:                  # 詳細ページの「日時・集合・定員」など
 
 ## デプロイ
 
-`master` への push で GitHub Actions（`.github/workflows/deploy.yml`）が `npm ci` → `astro check` → `astro build` を実行し、`dist/` を GitHub Pages に公開します。プルリクエストではビルド確認のみ行い、公開はしません。
+公開先は2系統あり、ブランチごとに別のワークフローが動きます。どちらも `npm ci` → `astro check` → `astro build` を実行します。
 
-GitHub Pages の公開元は「GitHub Actions」です。
+| ブランチ | 公開先 | ワークフロー |
+| --- | --- | --- |
+| `main` | GitHub Pages（本番） | `.github/workflows/deploy-production.yml` |
+| `staging` | ロリポップ（SSH + rsync） | `.github/workflows/deploy-staging.yml` |
+
+本番は `main` への push で公開します。プルリクエストではビルド確認のみ行い、公開はしません。GitHub Pages の公開元は「GitHub Actions」です。
+
+### 公開URLの階層（site / base）
+
+ステージングは本番とディレクトリ階層が異なるため、`astro.config.mjs` の `site` / `base` を環境変数で切り替えます。
+
+```sh
+SITE_URL=https://example.com BASE_PATH=/staging/ npm run build
+```
+
+未指定の場合は本番の値（`https://fieldrecording-saitama.github.io` と `/`）を使います。サイト内のリンク・画像・`fetch` は `src/lib/url.ts` の `withBase()` を通しているため、`base` を変えるだけでサブディレクトリ公開に追随します。
+
+### ステージングに必要な Secrets
+
+| 名前 | 内容 |
+| --- | --- |
+| `LOLIPOP_SSH_HOST` | 接続先ホスト（例: `ssh.lolipop.jp`） |
+| `LOLIPOP_SSH_USER` | SSHユーザー名 |
+| `LOLIPOP_SSH_KEY` | SSH秘密鍵（OpenSSH形式・全文） |
+| `LOLIPOP_DEPLOY_PATH` | 配置先の絶対パス（例: `/home/users/0/xxx/web/staging`） |
+| `STAGING_SITE_URL` | ステージングのオリジン（例: `https://example.com`） |
+| `STAGING_BASE_PATH` | 公開ディレクトリ（例: `/staging/`。ドメイン直下なら `/`） |
+| `LOLIPOP_SSH_PORT` | 任意。未設定なら `2222` |
+| `LOLIPOP_KNOWN_HOSTS` | 任意。未設定時は `ssh-keyscan` で取得 |
+
+BASIC認証はロリポップの管理画面で設定する前提のため、ワークフロー側では設定しません。`rsync --delete` は `.htaccess` / `.htpasswd` / `.user.ini` / `.well-known/` を除外しているので、管理画面で作られた認証用ファイルは削除されません。
 
 ## SoundCloudプレイリストデータの生成
 

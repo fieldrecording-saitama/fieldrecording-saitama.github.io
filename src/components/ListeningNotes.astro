@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import SectionHeading from "./SectionHeading.astro";
+import { withBase } from "../lib/url";
 
 interface Props {
   notes: CollectionEntry<"notes">[];
@@ -17,7 +18,7 @@ const { notes, moreHref } = Astro.props;
     {
       notes.map((note) => (
         <p>
-          <a href={`/notes/${note.id}/`}>{note.data.excerpt}</a>
+          <a href={withBase(`/notes/${note.id}/`)}>{note.data.excerpt}</a>
         </p>
       ))
     }
@@ -25,7 +26,7 @@ const { notes, moreHref } = Astro.props;
   {
     moreHref && (
       <p class="notes-more">
-        <a href={moreHref}>記録の一覧を見る</a>
+        <a href={withBase(moreHref)}>記録の一覧を見る</a>
       </p>
     )
   }

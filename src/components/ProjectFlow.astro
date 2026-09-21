@@ -1,3 +1,7 @@
+---
+import { withBase } from "../lib/url";
+---
+
 <section id="project" class="section muted">
   <div class="section-heading">
     <p class="section-kicker">Project</p>
@@ -32,7 +36,7 @@
       の採択事業です。
     </p>
     <a class="project-support-logo" href="https://artscouncil-saitama.jp/grants/information/r8joseikin/" target="_blank" rel="noopener" aria-label="アーツカウンシルさいたま公式サイト">
-      <img src="/assets/img/arts-council-saitama-logo.png" alt="アーツカウンシルさいたま" loading="lazy">
+      <img src={withBase("/assets/img/arts-council-saitama-logo.png")} alt="アーツカウンシルさいたま" loading="lazy">
     </a>
   </div>
 </section>

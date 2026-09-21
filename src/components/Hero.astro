@@ -1,3 +1,7 @@
+---
+import { withBase } from "../lib/url";
+---
+
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-media" aria-hidden="true"></div>
   <div class="hero-overlay" aria-hidden="true"></div>
@@ -16,12 +20,12 @@
       9月5日（土）・6日（日）、作曲家・サウンドアーティスト Paulo Dantasを迎え、まちを歩き、聴き、録音する2日間のワークショップを開催しました。記録は次の活動と成果展示へつないでいきます。
     </p>
     <div class="hero-actions" aria-label="ページ内リンク">
-      <a class="button primary accent" href="/events/">今後の活動を見る</a>
-      <a class="button" href="/sound-map/">音地図を聴く</a>
+      <a class="button primary accent" href={withBase("/events/")}>今後の活動を見る</a>
+      <a class="button" href={withBase("/sound-map/")}>音地図を聴く</a>
     </div>
     <p class="hero-apply-note">2026年9月5日（土）・6日（日）開催終了 / ご参加・ご関心をお寄せいただき、ありがとうございました。</p>
     <div class="hero-actions secondary" aria-label="補助リンク">
-      <a class="button ghost" href="/join/">活動をフォローする</a>
+      <a class="button ghost" href={withBase("/join/")}>活動をフォローする</a>
     </div>
   </div>
   <div class="hero-date-card hero-date-card-range" aria-label="2026年9月5日土曜日・6日日曜日の2日間に開催終了">

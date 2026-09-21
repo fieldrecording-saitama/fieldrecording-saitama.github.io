@@ -1,5 +1,6 @@
 ---
 import { NAV } from "../lib/site";
+import { withBase } from "../lib/url";
 
 interface Props {
   transparent?: boolean;
@@ -13,14 +14,14 @@ const isCurrent = (href: string) => here === href || (href !== "/" && here.start
   class:list={["site-header", { "site-header-solid": !transparent }]}
   aria-label="サイトヘッダー"
 >
-  <a class="brand" href="/" aria-label="フィールドレコーディングクラブさいたま ホーム">
+  <a class="brand" href={withBase("/")} aria-label="フィールドレコーディングクラブさいたま ホーム">
     <span class="brand-mark" aria-hidden="true"></span>
     <span>FRCS</span>
   </a>
   <nav class="site-nav" aria-label="主要ナビゲーション">
     {
       NAV.map((item) => (
-        <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+        <a href={withBase(item.href)} aria-current={isCurrent(item.href) ? "page" : undefined}>
           {item.label}
         </a>
       ))

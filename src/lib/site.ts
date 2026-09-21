@@ -1,5 +1,8 @@
+import { SITE_URL } from "./url";
+
 export const SITE = {
-  url: "https://fieldrecording-saitama.github.io",
+  /** astro.config.mjs の `site`（ワークフローの SITE_URL で切り替わる） */
+  url: SITE_URL,
   name: "フィールドレコーディングクラブさいたま",
   alternateName: "Field Recording Club Saitama",
   tagline: "さいたまの音風景",
@@ -12,7 +15,7 @@ export const SITE = {
     instagram: "https://www.instagram.com/fieldrecording_saitama",
     facebook: "https://www.facebook.com/groups/800702228957228/",
   },
-} as const;
+};
 
 export const NAV = [
   { href: "/about/", label: "About" },
