@@ -1,0 +1,266 @@
+---
+import { withBase } from "../lib/url";
+---
+
+<section id="sound-map" class="section sound-section" aria-labelledby="sound-map-title">
+  <div class="section-heading compact">
+    <p class="section-kicker">Sound Map</p>
+    <h2 id="sound-map-title">さいたまの音地図</h2>
+    <p>地図上の録音地点を選ぶと、Livingroom TapesのSoundCloud音源と録音メモが切り替わります。</p>
+  </div>
+  <div class="sound-map-shell">
+    <div class="map-wrap">
+      <div id="map" aria-label="さいたまの録音地点地図"></div>
+      <p class="map-note">Map data © OpenStreetMap contributors / 録音地点はSoundCloudの表記から推定</p>
+    </div>
+    <aside class="sound-panel" aria-live="polite">
+      <img id="sound-photo" src={withBase("/assets/img/hero.jpg")} alt="" loading="lazy">
+      <div class="panel-body">
+        <div id="sound-player" class="player-placeholder">
+          <p>地点を選ぶとSoundCloudプレイヤーが表示されます。</p>
+        </div>
+        <p id="sound-place" class="panel-place">地点を読み込み中</p>
+        <h3 id="sound-title">さいたまの音</h3>
+        <p id="sound-description"></p>
+        <blockquote id="sound-note"></blockquote>
+        <div id="sound-tags" class="tag-list" aria-label="タグ"></div>
+        <div class="player-controls" aria-label="音源再生オプション">
+          <button id="continuous-play" class="mode-button icon-button" type="button" aria-pressed="false" aria-label="連続再生を切り替える">
+            <span class="control-icon" aria-hidden="true">∞</span>
+            <span class="sr-only">連続再生</span>
+          </button>
+          <button id="prev-sound" class="mode-button icon-button" type="button" disabled aria-label="前の地点へ">
+            <span class="control-icon" aria-hidden="true">◀</span>
+            <span class="sr-only">前の地点へ</span>
+          </button>
+          <span id="sound-counter" class="sound-counter" aria-live="polite">- / -</span>
+          <button id="next-sound" class="mode-button icon-button" type="button" disabled aria-label="次の地点へ">
+            <span class="control-icon" aria-hidden="true">▶</span>
+            <span class="sr-only">次の地点へ</span>
+          </button>
+        </div>
+        <p class="rights-note">SoundCloudの表記をもとに地点情報を整理しています。座標は録音地点説明からの推定です。</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+.panel-place,
+.map-note {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sound-section {
+  padding-bottom: clamp(54px, 8vw, 96px);
+  background: var(--white);
+  border-block: 1px solid var(--line);
+}
+
+.sound-map-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.map-wrap,
+.sound-panel {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.map-wrap {
+  position: relative;
+  min-height: 460px;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+}
+
+.map-note {
+  position: absolute;
+  left: 14px;
+  bottom: 8px;
+  z-index: 1;
+  color: rgba(34, 35, 31, 0.56);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.sound-panel {
+  display: block;
+}
+
+.sound-panel img {
+  display: none;
+}
+
+.sound-panel.artwork-fallback img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  max-height: 440px;
+  object-fit: cover;
+  background: var(--paper-soft);
+}
+
+.panel-body {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 24px;
+}
+
+.panel-place {
+  color: var(--green-soft);
+}
+
+.panel-body h3 {
+  font-size: 1.55rem;
+}
+
+.panel-body p {
+  margin: 0;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#sound-tags {
+  display: flex;
+}
+
+:global(.tag-list span) {
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--green);
+  background: var(--paper);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.player-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.mode-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid rgba(36, 72, 62, 0.34);
+  border-radius: 999px;
+  color: var(--green);
+  background: var(--paper);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.icon-button {
+  width: 42px;
+  height: 42px;
+  min-height: 42px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.control-icon {
+  font-family: "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols", system-ui, sans-serif;
+  font-size: 1.12rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.sound-counter {
+  min-width: 58px;
+  color: var(--green);
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+}
+
+.mode-button[aria-pressed="true"] {
+  border-color: var(--neon);
+  color: var(--ink);
+  background: var(--neon);
+  box-shadow: 0 8px 22px rgba(237, 255, 53, 0.24);
+}
+
+.mode-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+:global(.soundcloud-frame) {
+  width: 100%;
+  height: 166px;
+  border: 0;
+}
+
+.player-placeholder {
+  min-height: 166px;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  border: 1px dashed var(--line);
+  color: var(--ink-muted);
+  background: var(--paper);
+  text-align: center;
+}
+
+:global(.maplibregl-popup-content) {
+  border-radius: 0;
+  color: var(--ink);
+  font-family: inherit;
+}
+
+@media (max-width: 980px) {
+  .sound-map-shell {
+    grid-template-columns: 1fr;
+
+  }
+
+  .map-wrap {
+    min-height: min(48svh, 420px);
+
+  }
+}
+
+@media (max-width: 720px) {
+  .panel-body p {
+    line-height: 1.75;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+
+  }
+}
+</style>
+
+<script is:inline src="https://w.soundcloud.com/player/api.js"></script>
+<script>
+  import "../scripts/sound-map.js";
+</script>

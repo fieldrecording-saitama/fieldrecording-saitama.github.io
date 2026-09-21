@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EventTimeline from "../../components/EventTimeline.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+
+const events = (await getCollection("events", ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf(),
+);
+---
+
+<BaseLayout
+  title="イベント"
+  description="フィールドレコーディングクラブさいたまの年間スケジュール。サウンドウォーク、録音ワークショップ、成果展示発表会の予定と記録を掲載しています。"
+>
+  <main class="page-main">
+    <section class="section">
+      <SectionHeading kicker="Events" title="今年度の予定">
+        <p>
+          さいたまの音風景をめぐる今年度の事業は、サウンドウォーク、録音ワークショップ、成果展示発表会、Webアーカイブ化の4つで構成しています。
+        </p>
+      </SectionHeading>
+    </section>
+
+    <section class="section muted">
+      <EventTimeline events={events} standalone={false} />
+    </section>
+  </main>
+</BaseLayout>

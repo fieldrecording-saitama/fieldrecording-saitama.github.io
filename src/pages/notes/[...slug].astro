@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import Prose from "../../components/Prose.astro";
+import { withBase } from "../../lib/url";
+
+export const getStaticPaths = async () => {
+  const notes = await getCollection("notes", ({ data }) => !data.draft);
+  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }));
+};
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const dateFormat = new Intl.DateTimeFormat("ja-JP", { dateStyle: "long" });
+---
+
+<BaseLayout
+  title={note.data.title}
+  description={note.data.excerpt}
+  ogImage={note.data.image}
+  ogType="article"
+>
+  <main class="page-main">
+    <section class="section">
+      <SectionHeading kicker="Listening Notes" title={note.data.title}>
+        <p class="note-meta">
+          <time datetime={note.data.date.toISOString().slice(0, 10)}>
+            {dateFormat.format(note.data.date)}
+          </time>
+          {note.data.place && <span>{note.data.place}</span>}
+        </p>
+      </SectionHeading>
+      <div class="prose">
+        <Prose>
+          <Content />
+        </Prose>
+      </div>
+      <p class="note-back"><a href={withBase("/notes/")}>← 記録の一覧に戻る</a></p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .note-meta {
+    display: flex;
+    gap: 14px;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    color: var(--amber);
+  }
+
+  .note-back {
+    margin-top: 40px;
+  }
+
+  .note-back a {
+    color: var(--green);
+    font-weight: 600;
+  }
+</style>

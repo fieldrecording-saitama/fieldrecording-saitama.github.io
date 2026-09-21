@@ -1,0 +1,64 @@
+---
+import Prose from "./Prose.astro";
+import { withBase } from "../lib/url";
+
+interface Props {
+  title: string;
+  kicker?: string;
+  /** 「詳しく見る」導線を出す（トップページ用） */
+  moreHref?: string;
+}
+const { title, kicker = "About", moreHref } = Astro.props;
+---
+
+<section id="about" class="section section-grid">
+  <div>
+    <p class="section-kicker">{kicker}</p>
+    <h2 set:html={title} />
+  </div>
+  <div class="prose">
+    <Prose>
+      <slot />
+    </Prose>
+    {
+      moreHref && (
+        <p class="about-more">
+          <a href={withBase(moreHref)}>クラブについて詳しく見る</a>
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+#about.section-grid {
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 5vw, 56px);
+}
+
+#about h2 {
+  width: 100%;
+  max-width: none;
+  font-size: clamp(1.8rem, 4vw, 3.25rem);
+  line-height: 1.28;
+}
+
+@media (max-width: 720px) {
+  #about h2 {
+    font-size: 2rem;
+    line-height: 1.18;
+
+  }
+}
+</style>
+
+<style>
+  .about-more {
+    margin-top: 18px;
+  }
+
+  .about-more a {
+    color: var(--green);
+    font-weight: 600;
+  }
+</style>

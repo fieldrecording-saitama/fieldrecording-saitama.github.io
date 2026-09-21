@@ -1,0 +1,180 @@
+.text-keep {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.eyebrow,
+.section-kicker,
+.rights-note {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  color: var(--neon);
+}
+
+.section-kicker {
+  color: var(--amber);
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid rgba(36, 72, 62, 0.35);
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.86);
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+  overflow-wrap: normal;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.button.primary {
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--white);
+}
+
+.button.accent {
+  border-color: var(--neon);
+  background: var(--neon);
+  color: var(--ink);
+  box-shadow: 0 10px 30px rgba(237, 255, 53, 0.24);
+}
+
+.button.ghost {
+  border-color: rgba(255, 253, 247, 0.48);
+  background: rgba(255, 253, 247, 0.12);
+  color: var(--white);
+}
+
+.button.disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.section {
+  padding: clamp(70px, 10vw, 126px) clamp(20px, 6vw, 86px);
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.9fr) minmax(460px, 1.1fr);
+  gap: clamp(56px, 8vw, 132px);
+  align-items: start;
+}
+
+.section-grid > * {
+  min-width: 0;
+}
+
+.section-heading {
+  width: min(1080px, 100%);
+  margin-bottom: 38px;
+}
+
+.section-heading.compact {
+  width: min(920px, 100%);
+}
+
+.section-heading p:last-child {
+  color: var(--ink-muted);
+}
+
+.prose {
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+}
+
+.prose p {
+  margin: 0 0 1.2em;
+}
+
+.muted {
+  background: rgba(235, 231, 220, 0.82);
+  border-block: 1px solid var(--line);
+}
+
+.inline-apply {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 14px;
+  color: var(--red);
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.inline-apply.disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+  text-decoration: none;
+}
+
+.rights-note {
+  color: var(--ink-muted);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 980px) {
+  .section-grid {
+    grid-template-columns: 1fr;
+
+  }
+}
+
+@media (max-width: 720px) {
+  .button {
+    width: 100%;
+
+  }
+
+  .section {
+    padding-inline: 20px;
+
+  }
+
+  .section-heading p,
+  .prose p {
+    line-height: 1.75;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+
+  }
+}
+
+/* 下層ページ：固定ヘッダーの下に本文が潜らないようにする */
+.page-main {
+  display: block;
+  padding-top: 82px;
+}
+
+@media (max-width: 720px) {
+  .page-main {
+    padding-top: 64px;
+  }
+}

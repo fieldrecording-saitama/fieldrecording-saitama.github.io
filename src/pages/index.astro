@@ -1,0 +1,43 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ProjectFlow from "../components/ProjectFlow.astro";
+import SoundMapTeaser from "../components/SoundMapTeaser.astro";
+import ListeningNotes from "../components/ListeningNotes.astro";
+import EventTimeline from "../components/EventTimeline.astro";
+import AboutSection from "../components/AboutSection.astro";
+import JoinSection from "../components/JoinSection.astro";
+import LegacyHashRedirect from "../components/LegacyHashRedirect.astro";
+
+const events = (await getCollection("events", ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf(),
+);
+const notes = (await getCollection("notes", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+
+const about = await getEntry("pages", "about");
+const { Content: AboutContent } = await render(about!);
+---
+
+<BaseLayout transparentHeader>
+  <LegacyHashRedirect />
+  <main id="top">
+    <Hero />
+
+    <ProjectFlow />
+
+    <SoundMapTeaser />
+
+    <ListeningNotes notes={notes} moreHref="/notes/" />
+
+    <EventTimeline events={events} />
+
+    <AboutSection title="フィールドレコーディング<br><span class='text-keep'>クラブさいたまとは</span>" moreHref="/about/">
+      <AboutContent />
+    </AboutSection>
+
+    <JoinSection />
+  </main>
+</BaseLayout>

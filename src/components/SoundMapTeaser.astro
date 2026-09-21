@@ -1,0 +1,40 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import { withBase } from "../lib/url";
+---
+
+<section class="section sound-teaser" aria-labelledby="sound-teaser-title">
+  <SectionHeading kicker="Sound Map" compact>
+    <h2 id="sound-teaser-title">さいたまの音地図</h2>
+    <p>
+      地図上の録音地点を選ぶと、Livingroom TapesのSoundCloud音源と録音メモが切り替わります。
+    </p>
+  </SectionHeading>
+  <p class="sound-teaser-actions">
+    <a class="button primary accent" href={withBase("/sound-map/")}>音地図を開く</a>
+  </p>
+</section>
+
+<style>
+  .sound-teaser {
+    display: grid;
+    gap: 18px;
+    background: var(--green);
+    color: var(--white);
+  }
+
+  .sound-teaser :global(.section-kicker) {
+    color: var(--neon);
+  }
+
+  /* utilities.css の .section-heading p:last-child より詳細度を上げる */
+  .sound-teaser :global(.section-heading h2),
+  .sound-teaser :global(.section-heading p:last-child),
+  .sound-teaser :global(p) {
+    color: var(--white);
+  }
+
+  .sound-teaser-actions {
+    margin: 0;
+  }
+</style>

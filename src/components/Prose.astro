@@ -1,0 +1,47 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={["markdown-body", className]}>
+  <slot />
+</div>
+
+<style>
+  /* Markdown から生成される要素は scoped では届かないため :global で指定する */
+  .markdown-body :global(h2) {
+    margin: 36px 0 14px;
+    font-size: clamp(1.24rem, 2.4vw, 1.5rem);
+    letter-spacing: 0.02em;
+  }
+
+  .markdown-body :global(h3) {
+    margin: 26px 0 8px;
+    font-size: 1.04rem;
+  }
+
+  .markdown-body :global(p) {
+    margin: 0 0 14px;
+    color: var(--ink-muted);
+    line-height: 1.85;
+  }
+
+  .markdown-body :global(ul) {
+    margin: 0 0 18px;
+    padding-left: 1.2em;
+    display: grid;
+    gap: 6px;
+    color: var(--ink-muted);
+  }
+
+  .markdown-body :global(li) {
+    line-height: 1.7;
+  }
+
+  .markdown-body :global(a) {
+    color: var(--green);
+    overflow-wrap: anywhere;
+  }
+</style>

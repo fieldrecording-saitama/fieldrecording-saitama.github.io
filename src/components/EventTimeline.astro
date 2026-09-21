@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from "astro:content";
+import EventCard from "./EventCard.astro";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  events: CollectionEntry<"events">[];
+  kicker?: string;
+  title?: string;
+  /** セクションとして囲むか（一覧ページでは false） */
+  standalone?: boolean;
+}
+const { events, kicker = "Program", title = "今年度の予定", standalone = true } = Astro.props;
+---
+
+{
+  standalone ? (
+    <section id="program" class="section muted">
+      <SectionHeading kicker={kicker} title={title} compact />
+      <div class="timeline">
+        {events.map((event) => (
+          <EventCard event={event} />
+        ))}
+      </div>
+    </section>
+  ) : (
+    <div class="timeline">
+      {events.map((event) => (
+        <EventCard event={event} />
+      ))}
+    </div>
+  )
+}
+
+<style>
+.timeline {
+  display: grid;
+  gap: 18px;
+  width: min(1080px, 100%);
+}
+</style>

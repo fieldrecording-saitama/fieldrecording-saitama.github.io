@@ -4,7 +4,7 @@
 
 ## 現状のサイト概要
 
-フィールドレコーディングクラブさいたまの活動紹介と、さいたまの音地図を中心にした静的なランディングページです。2026年9月5日・6日に開催した録音ワークショップの記録と、今後のワークショップ・成果展示を案内しています。
+フィールドレコーディングクラブさいたまの活動紹介と、さいたまの音地図を中心にした静的サイトです。Astroで構築し、GitHub Actions経由でGitHub Pagesに公開しています。2026年9月5日・6日に開催した録音ワークショップの記録と、今後のワークショップ・成果展示を案内しています。
 
 現在は以下の役割を持っています。
 
@@ -16,64 +16,27 @@
 - 今年度の活動予定の紹介
 - SoundCloud音源と連動した音地図アーカイブ
 
-## 現状のページ構成
+## ページ構成
 
-### Header
+2026年9月にAstroへ移行し、1ページ構成から以下の複数ページ構成に変更しました。
 
-- FRCSロゴ
-- About、Program、Joinへのページ内ナビゲーション
+| URL | 内容 |
+| --- | --- |
+| `/` | ヒーロー、今年度事業の流れ、音地図への導線、聴くための記録の抜粋、年間スケジュール、クラブ紹介、参加導線 |
+| `/about/` | フィールドレコーディングクラブさいたまの紹介と今年度事業 |
+| `/events/` | 年間スケジュール一覧 |
+| `/events/<slug>/` | イベント個別ページ（Markdownで管理） |
+| `/sound-map/` | MapLibre GL JSによる音地図 |
+| `/notes/` `/notes/<slug>/` | 聴くための短い記録 |
+| `/join/` | 参加方法、よくある質問、SNS導線 |
 
-### Hero
+1ページ構成だった頃のアンカー（`/#workshop`、`/#event`、`/#program`、`/#join` など）は、トップページのスクリプトで対応するページへ転送します。
 
-- メインコピー「耳をひらくと、さいたまは別の風景になる。」
-- 団体の短い紹介
-- 2026年9月5日・6日の録音ワークショップ終了案内
-- 今後の活動と音地図への導線
+### 共通要素
 
-### About
-
-- フィールドレコーディングクラブさいたまの活動紹介
-- さいたまの音風景を記録し、展示やWebアーカイブとして発信する方針を説明
-
-### Workshop / Event
-
-- 「出会い：聞き手、テクニック、場所」の開催記録
-- 「サウンド・コミュニケーション・ウォークさいたま2026」の詳細
-- 日時、集合場所、街歩きルート、定員、対象、参加費
-- ナビゲーター紹介
-
-### Project
-
-- 今年度事業の流れを4ステップで紹介
-- 世界リスニングデーイベント
-- 録音ワークショップ
-- 成果展示発表会
-- Webアーカイブ化
-
-### Sound Map
-
-- MapLibre GL JSを使った音地図機能
-- SoundCloudプレイリスト「Field Recording Club, Saitama - Archives」の表記をもとにした地点を表示
-- GeoJSONで録音地点を管理
-- 地点クリックで写真、説明、録音メモ、タグ、SoundCloudプレイヤーを切り替える想定
-
-### Listening Notes
-
-- 音風景に添える短い記録文
-- サイト全体の詩的なトーンを補うセクション
-
-### Program
-
-- 2026年7月18日・19日開催イベント（終了）
-- 2026年9月5日・6日の録音ワークショップ第1回（終了）
-- 日程調整中の録音ワークショップ第2回
-- 2026年度・冬頃開催予定の成果展示発表会
-
-### Join
-
-- 9月の録音ワークショップ記録と今後の活動への導線
-- 展示発表会情報への導線
-- Instagram、Facebookグループへの導線
+- ヘッダー：FRCSロゴと主要ナビゲーション（About / Events / Sound Map / Notes / Join）
+- フッター：Field Recording Club Saitama / Soundscape Archive
+- OGP・構造化データ：ページごとに `Seo.astro` と `JsonLd.astro` が生成
 
 ## 実装内容
 
@@ -82,6 +45,8 @@
 - MapLibre GL JSによる音地図
 - GeoJSONで管理する録音地点データ
 - SoundCloud埋め込みプレイヤー
+- Markdownで管理するイベント・記録コンテンツ
+- frontmatterから生成する構造化データ（schema.org Event）とサイトマップ
 
 ## 今後充実させたい項目
 
@@ -175,17 +140,163 @@ Webディレクター視点では、今後は「信頼」「参加動機」「�
 
 イベント告知サイトとしてだけでなく、「さいたまの音風景アーカイブ」として育てると、団体の存在意義がより伝わるサイトになります。
 
-## ローカル確認
+## 技術構成
+
+- [Astro](https://astro.build/) 7（静的出力）
+- Content Collections（Markdown + zodスキーマ）
+- MapLibre GL JS 6（npmパッケージ）
+- SoundCloud Widget API
+- npm / Node.js 22（`.node-version` で固定）
+
+## 開発
 
 ```sh
-python3 -m http.server 8000
+npm ci          # 依存のインストール
+npm run dev     # 開発サーバー（http://localhost:4321/）
+npm run build   # dist/ へ静的書き出し
+npm run preview # ビルド結果の確認
+npm run check   # 型・テンプレートの検査
 ```
 
-ブラウザで `http://localhost:8000/` を開きます。
+## ディレクトリ構成
+
+```
+public/            そのまま公開されるファイル（画像、data/*.geojson、robots.txt など）
+src/
+  components/      ヘッダー、ヒーロー、音地図、イベントカードなどのコンポーネント
+  content/         Markdownコンテンツ
+    events/        イベント（frontmatterが一覧・詳細・構造化データの元データ）
+    notes/         聴くための記録
+    pages/         About / Join の本文
+  content.config.ts  コレクションのスキーマ定義
+  layouts/         BaseLayout
+  lib/site.ts      サイト共通の定数、旧アンカーの転送表
+  pages/           ルーティング
+  scripts/         hero-slides.js（トップ）、sound-map.js（音地図ページ）
+  styles/          tokens / base / utilities / event の共通CSS
+scripts/           SoundCloudプレイリスト取得スクリプト
+```
+
+コンポーネント固有のCSSは各 `.astro` の `<style>` に置いています。`astro.config.mjs` で `scopedStyleStrategy: "where"` を指定しているため、スコープ付きスタイルは詳細度を上げません。JavaScriptが生成する要素（`.hero-slide`、タグ一覧、SoundCloudのiframeなど）は `:global()` で指定しています。
+
+## コンテンツの更新
+
+イベントを追加・変更する場合は `src/content/events/` にMarkdownファイルを置きます。frontmatterの内容が、年間スケジュール・イベント詳細ページ・構造化データ（schema.org Event）のすべてに反映されます。
+
+```yaml
+---
+title: イベント正式名称
+shortTitle: 一覧で使う短い名前
+startDate: 2027-02-01T14:00:00+09:00
+dateLabel: 2027年2月1日（月）14:00〜
+status: upcoming        # upcoming / open / closed / finished
+summary: 一覧とOGPに出る説明文
+place: 会場名
+facts:                  # 詳細ページの「日時・集合・定員」などの一覧
+  - term: 日時
+    detail: 2027年2月1日（月）14:00〜
+---
+
+本文をMarkdownで書きます。
+```
+
+本文中の改行はそのまま改行として表示されます。
+
+## デプロイ
+
+公開先は2系統あり、ブランチごとに別のワークフローが動きます。どちらも `npm ci` → `astro check` → `astro build` を実行します。
+
+| ブランチ | 公開先 | ワークフロー |
+| --- | --- | --- |
+| `master` | GitHub Pages（本番） | `.github/workflows/deploy-production.yml` |
+| `staging` | ロリポップ（SSH + rsync） | `.github/workflows/deploy-staging.yml` |
+
+`staging` が開発の主軸（既定ブランチ）で、`master` が本番リリース用です。どちらも直接 push できないよう保護されているため、変更はプルリクエスト経由で入れます。GitHub Pages の公開元は「GitHub Actions」です。
+
+### プルリクエスト時の検証
+
+`.github/workflows/build-check.yml` が `staging` / `master` 宛のPRで動き、次を確認します。デプロイは行わず、Secrets も使いません。
+
+1. `astro check`（型・テンプレート）
+2. 本番と同じ設定でのビルド
+3. サブディレクトリ公開の設定（`BASE_PATH=/subdir/`）でのビルド
+4. `scripts/check-links.mjs` による内部リンク・アセット参照の検査
+
+3と4は、`base` を付けた公開でリンクが壊れていないかを見るためのものです。ローカルでも実行できます。
+
+```sh
+npm run build
+node scripts/check-links.mjs dist /
+
+SITE_URL=https://example.test BASE_PATH=/subdir/ NOINDEX=true npm run build
+node scripts/check-links.mjs dist /subdir/
+```
+
+### 公開URLの階層（site / base）
+
+ステージングは本番とディレクトリ階層が異なるため、`astro.config.mjs` の `site` / `base` を環境変数で切り替えます。
+
+```sh
+SITE_URL=https://example.com BASE_PATH=/staging/ NOINDEX=true npm run build
+```
+
+未指定の場合は本番の値（`https://fieldrecording-saitama.github.io` と `/`）を使います。サイト内のリンク・画像・`fetch` は `src/lib/url.ts` の `withBase()` を通しているため、`base` を変えるだけでサブディレクトリ公開に追随します。
+
+### ステージングに必要な Secrets
+
+| 名前 | 内容 |
+| --- | --- |
+| `LOLIPOP_SSH_HOST` | 接続先ホスト（例: `ssh.lolipop.jp`） |
+| `LOLIPOP_SSH_USER` | SSHユーザー名 |
+| `LOLIPOP_SSH_PASSWORD` | ロリポップのSSHパスワード |
+| `LOLIPOP_DEPLOY_PATH` | 配置先の絶対パス（例: `/home/users/0/xxx/web/staging`） |
+| `STAGING_SITE_URL` | ステージングのオリジン（例: `https://example.com`） |
+| `STAGING_BASE_PATH` | 公開ディレクトリ（例: `/staging/`。ドメイン直下なら `/`） |
+| `LOLIPOP_SSH_PORT` | 任意。未設定なら `2222` |
+| `LOLIPOP_KNOWN_HOSTS` | 任意。未設定時は `ssh-keyscan` で取得 |
+
+接続はロリポップのSSHパスワードで行います（`sshpass` 経由。パスワードは環境変数 `SSHPASS` で渡すため、プロセス一覧やログには残りません）。ホスト鍵は `LOLIPOP_KNOWN_HOSTS` を設定すると固定でき、未設定時は実行のたびに `ssh-keyscan` で取得します。
+
+### 配置先の準備（必須）
+
+`rsync --delete` は配置先にあってビルド結果に無いファイルを削除します。**共用のディレクトリを指定すると、そこにある他サイトのファイルまで消えます。**
+
+そのため、デプロイ専用のディレクトリを用意し、目印ファイルを置いてください。これが無いとワークフローは配置を行わずに停止します。
+
+```sh
+# サーバー側で1回だけ実行する
+mkdir -p ~/web/example.com/staging
+touch ~/web/example.com/staging/.deploy-target
+```
+
+`LOLIPOP_DEPLOY_PATH` には、この**専用ディレクトリの絶対パス**を設定します。ホームディレクトリや `web/` 直下を指定してはいけません。
+
+### --delete の安全装置
+
+配置の前に2つの関門を通ります。どちらかで止まった場合、サーバー上のファイルは変更されません。
+
+| 関門 | 内容 | 失敗時 |
+| --- | --- | --- |
+| Verify deploy target | 配置先に `.deploy-target` があるか確認 | 中断（転送なし） |
+| Preview deletions | `--dry-run` で削除予定を数え、先頭50件を表示 | `MAX_DELETIONS`（既定200件）超で中断 |
+
+意図的に大量削除する場合は、ワークフローの `MAX_DELETIONS` を一時的に引き上げてください。`.deploy-target` 自体と、BASIC認証関連ファイルは削除対象から除外しています。
+
+### 検索エンジン対策
+
+ステージングのビルドは `NOINDEX=true` で実行され、次の3点が本番と変わります。
+
+- 全ページの `<meta name="robots">` が `noindex, nofollow` になる
+- `robots.txt` が `Disallow: /` になる
+- サイトマップを生成せず、`<link rel="sitemap">` も出力しない
+
+`robots.txt` は `src/pages/robots.txt.ts` が公開先に応じて生成します。
+
+BASIC認証はロリポップの管理画面で設定する前提のため、ワークフロー側では設定しません。`rsync --delete` は `.htaccess` / `.htpasswd` / `.user.ini` / `.well-known/` を除外しているので、管理画面で作られた認証用ファイルは削除されません。
 
 ## SoundCloudプレイリストデータの生成
 
-SoundCloudプレイリストからトラック一覧のJSONとCSVを生成します。Python標準ライブラリのみで動くため、ローカルとGitHub Actionsのどちらでも同じコマンドを使えます。
+SoundCloudプレイリストからトラック一覧のJSONとCSVを生成します。Python標準ライブラリのみで動きます。
 
 ```sh
 python3 scripts/scrape_soundcloud_playlist.py
@@ -193,22 +304,14 @@ python3 scripts/scrape_soundcloud_playlist.py
 
 デフォルトでは以下を生成します。
 
-- `data/soundcloud-playlist.json`
-- `data/soundcloud-playlist.csv`
+- `public/data/soundcloud-playlist.json`
+- `public/data/soundcloud-playlist.csv`
 
 対象URLや出力先を変える場合:
 
 ```sh
 python3 scripts/scrape_soundcloud_playlist.py \
   --url "https://soundcloud.com/livingroom-tapes/sets/field-recording-club-saitama" \
-  --json data/soundcloud-playlist.json \
-  --csv data/soundcloud-playlist.csv
+  --json public/data/soundcloud-playlist.json \
+  --csv public/data/soundcloud-playlist.csv
 ```
-
-## 主なファイル
-
-- `index.html`
-- `assets/css/style.css`
-- `assets/js/main.js`
-- `data/sounds.geojson`
-- `scripts/scrape_soundcloud_playlist.py`
