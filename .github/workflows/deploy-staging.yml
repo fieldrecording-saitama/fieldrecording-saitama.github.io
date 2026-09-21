@@ -106,10 +106,39 @@ jobs:
           NOINDEX: "true"
         run: npm run build
 
+      # Secrets の値に混じりがちな前後の空白・改行を落とす。
+      # Web UI から登録すると末尾に改行が入ることがあり、パスが壊れる。
+      - name: Normalise connection settings
+        env:
+          RAW_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
+          RAW_USER: ${{ secrets.LOLIPOP_SSH_USER }}
+          RAW_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
+          RAW_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+        run: |
+          trim() { printf '%s' "$1" | tr -d '\r\n' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'; }
+          host=$(trim "$RAW_HOST")
+          user=$(trim "$RAW_USER")
+          port=$(trim "$RAW_PORT")
+          path=$(trim "$RAW_PATH")
+
+          # 整形後の値も必ずマスクしてからログの外へ出す
+          for value in "$host" "$user" "$path"; do
+            [ -n "$value" ] && echo "::add-mask::$value"
+          done
+
+          if [ "$path" != "$RAW_PATH" ]; then
+            echo "LOLIPOP_DEPLOY_PATH の前後にある空白・改行を取り除きました"
+          fi
+
+          {
+            echo "SSH_HOST=$host"
+            echo "SSH_USER=$user"
+            echo "SSH_PORT=${port:-2222}"
+            echo "DEPLOY_PATH=$path"
+          } >> "$GITHUB_ENV"
+
       - name: Configure SSH
         env:
-          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
-          SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
           KNOWN_HOSTS: ${{ secrets.LOLIPOP_KNOWN_HOSTS }}
         run: |
           # パスワード認証を非対話で行うために sshpass を使う
@@ -123,7 +152,7 @@ jobs:
             printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
           else
             echo "LOLIPOP_KNOWN_HOSTS が未設定のため ssh-keyscan で取得します"
-            ssh-keyscan -p "${SSH_PORT:-2222}" -H "$SSH_HOST" >> ~/.ssh/known_hosts
+            ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts
           fi
           chmod 600 ~/.ssh/known_hosts
 
@@ -132,20 +161,17 @@ jobs:
       # 参照には ssh ではなく rsync のリスト機能を使い、認証経路を本番と揃える。
       - name: Verify deploy target
         env:
-          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
-          SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
-          SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
-          DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+          # sshpass -e はこの環境変数からパスワードを読む。
+          # コマンドライン引数に置かないため、プロセス一覧に残らない。
           SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
         run: |
-          if ! listing=$(sshpass -e rsync -s -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
+          if ! listing=$(sshpass -e rsync -s -e "ssh $SSH_OPTS -p $SSH_PORT" \
                "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/" 2>&1); then
             echo "::error::配置先を参照できませんでした。パスが存在するか確認してください"
             echo "--- rsync の出力（全文） ---"
             printf '%s\n' "$listing"
             echo "--- ここまで ---"
-            echo "LOLIPOP_DEPLOY_PATH の文字数: $(printf '%s' "$DEPLOY_PATH" | wc -c)"
-            echo "末尾の改行・空白の有無: $(printf '%s' "$DEPLOY_PATH" | od -c | tail -2)"
+            echo "配置先パスの文字数: $(printf '%s' "$DEPLOY_PATH" | wc -c)"
             exit 1
           fi
 
@@ -162,14 +188,12 @@ jobs:
       # 実際に消えるものを事前に確認する。想定外の件数なら配置先の設定ミスとみなす。
       - name: Preview deletions (dry run)
         env:
-          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
-          SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
-          SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
-          DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+          # sshpass -e はこの環境変数からパスワードを読む。
+          # コマンドライン引数に置かないため、プロセス一覧に残らない。
           SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
         run: |
           sshpass -e rsync -rlptvz -s --delete --dry-run \
-            -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
+            -e "ssh $SSH_OPTS -p $SSH_PORT" \
             $RSYNC_EXCLUDES \
             dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/" > /tmp/rsync-dry.log
 
@@ -191,16 +215,12 @@ jobs:
         # 手動実行の既定は確認のみ。配置するときは dry_run のチェックを外す
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run == false }}
         env:
-          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
-          SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
-          SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
-          DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
           # sshpass -e はこの環境変数からパスワードを読む。
           # コマンドライン引数に置かないため、プロセス一覧に残らない。
           SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
         run: |
           sshpass -e rsync -rlptvz -s --delete \
-            -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
+            -e "ssh $SSH_OPTS -p $SSH_PORT" \
             $RSYNC_EXCLUDES \
             dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
 
