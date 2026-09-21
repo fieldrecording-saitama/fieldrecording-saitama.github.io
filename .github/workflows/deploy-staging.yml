@@ -25,6 +25,11 @@ on:
   push:
     branches: ["staging"]
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "確認のみ（配置先と削除予定を見るだけで、サーバーには書き込まない）"
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -179,6 +184,8 @@ jobs:
           fi
 
       - name: Deploy with rsync
+        # 手動実行の既定は確認のみ。配置するときは dry_run のチェックを外す
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run == false }}
         env:
           SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
           SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
@@ -192,3 +199,9 @@ jobs:
             -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
             $RSYNC_EXCLUDES \
             dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
+
+      - name: Summarise dry run
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
+        run: |
+          echo "確認のみで終了しました。サーバーには書き込んでいません。"
+          echo "配置するには、この画面の Run workflow から dry_run のチェックを外して再実行してください。"
