@@ -138,10 +138,14 @@ jobs:
           DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
           SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
         run: |
-          if ! listing=$(sshpass -e rsync -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
+          if ! listing=$(sshpass -e rsync -s -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
                "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/" 2>&1); then
             echo "::error::配置先を参照できませんでした。パスが存在するか確認してください"
-            printf '%s\n' "$listing" | tail -5
+            echo "--- rsync の出力（全文） ---"
+            printf '%s\n' "$listing"
+            echo "--- ここまで ---"
+            echo "LOLIPOP_DEPLOY_PATH の文字数: $(printf '%s' "$DEPLOY_PATH" | wc -c)"
+            echo "末尾の改行・空白の有無: $(printf '%s' "$DEPLOY_PATH" | od -c | tail -2)"
             exit 1
           fi
 
@@ -164,7 +168,7 @@ jobs:
           DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
           SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
         run: |
-          sshpass -e rsync -rlptvz --delete --dry-run \
+          sshpass -e rsync -rlptvz -s --delete --dry-run \
             -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
             $RSYNC_EXCLUDES \
             dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/" > /tmp/rsync-dry.log
@@ -195,7 +199,7 @@ jobs:
           # コマンドライン引数に置かないため、プロセス一覧に残らない。
           SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
         run: |
-          sshpass -e rsync -rlptvz --delete \
+          sshpass -e rsync -rlptvz -s --delete \
             -e "ssh $SSH_OPTS -p ${SSH_PORT:-2222}" \
             $RSYNC_EXCLUDES \
             dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
