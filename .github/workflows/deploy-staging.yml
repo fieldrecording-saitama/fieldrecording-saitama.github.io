@@ -3,7 +3,7 @@
 # 必要な Secrets
 #   LOLIPOP_SSH_HOST     接続先ホスト（例: ssh.lolipop.jp）
 #   LOLIPOP_SSH_USER     SSHユーザー名
-#   LOLIPOP_SSH_KEY      SSH秘密鍵（OpenSSH形式・全文）
+#   LOLIPOP_SSH_PASSWORD ロリポップのSSHパスワード
 #   LOLIPOP_DEPLOY_PATH  配置先の絶対パス（例: /home/users/0/xxx/web/staging）
 #   STAGING_SITE_URL     ステージングのオリジン（例: https://example.com）
 #   STAGING_BASE_PATH    公開ディレクトリ（例: /staging/。ドメイン直下なら /）
@@ -42,13 +42,13 @@ jobs:
         env:
           SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
           SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
-          SSH_KEY: ${{ secrets.LOLIPOP_SSH_KEY }}
+          SSH_PASSWORD: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
           DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
           SITE_URL: ${{ secrets.STAGING_SITE_URL }}
           BASE_PATH: ${{ secrets.STAGING_BASE_PATH }}
         run: |
           missing=""
-          for name in SSH_HOST SSH_USER SSH_KEY DEPLOY_PATH SITE_URL BASE_PATH; do
+          for name in SSH_HOST SSH_USER SSH_PASSWORD DEPLOY_PATH SITE_URL BASE_PATH; do
             if [ -z "${!name}" ]; then
               missing="$missing $name"
             fi
@@ -89,15 +89,17 @@ jobs:
 
       - name: Configure SSH
         env:
-          SSH_KEY: ${{ secrets.LOLIPOP_SSH_KEY }}
           SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
           SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
           KNOWN_HOSTS: ${{ secrets.LOLIPOP_KNOWN_HOSTS }}
         run: |
+          # パスワード認証を非対話で行うために sshpass を使う
+          if ! command -v sshpass >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq sshpass
+          fi
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
           if [ -n "$KNOWN_HOSTS" ]; then
             printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
           else
@@ -112,15 +114,14 @@ jobs:
           SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
           SSH_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
           DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+          # sshpass -e はこの環境変数からパスワードを読む。
+          # コマンドライン引数に置かないため、プロセス一覧に残らない。
+          SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
         run: |
-          rsync -rlptvz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p ${SSH_PORT:-2222} -o StrictHostKeyChecking=yes" \
+          sshpass -e rsync -rlptvz --delete \
+            -e "ssh -p ${SSH_PORT:-2222} -o StrictHostKeyChecking=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password -o NumberOfPasswordPrompts=1" \
             --exclude '.htaccess' \
             --exclude '.htpasswd' \
             --exclude '.user.ini' \
             --exclude '.well-known/' \
             dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
-
-      - name: Clean up SSH key
-        if: always()
-        run: rm -f ~/.ssh/deploy_key

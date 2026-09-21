@@ -229,12 +229,14 @@ SITE_URL=https://example.com BASE_PATH=/staging/ NOINDEX=true npm run build
 | --- | --- |
 | `LOLIPOP_SSH_HOST` | 接続先ホスト（例: `ssh.lolipop.jp`） |
 | `LOLIPOP_SSH_USER` | SSHユーザー名 |
-| `LOLIPOP_SSH_KEY` | SSH秘密鍵（OpenSSH形式・全文） |
+| `LOLIPOP_SSH_PASSWORD` | ロリポップのSSHパスワード |
 | `LOLIPOP_DEPLOY_PATH` | 配置先の絶対パス（例: `/home/users/0/xxx/web/staging`） |
 | `STAGING_SITE_URL` | ステージングのオリジン（例: `https://example.com`） |
 | `STAGING_BASE_PATH` | 公開ディレクトリ（例: `/staging/`。ドメイン直下なら `/`） |
 | `LOLIPOP_SSH_PORT` | 任意。未設定なら `2222` |
 | `LOLIPOP_KNOWN_HOSTS` | 任意。未設定時は `ssh-keyscan` で取得 |
+
+接続はロリポップのSSHパスワードで行います（`sshpass` 経由。パスワードは環境変数 `SSHPASS` で渡すため、プロセス一覧やログには残りません）。ホスト鍵は `LOLIPOP_KNOWN_HOSTS` を設定すると固定でき、未設定時は実行のたびに `ssh-keyscan` で取得します。
 
 ### 検索エンジン対策
 
