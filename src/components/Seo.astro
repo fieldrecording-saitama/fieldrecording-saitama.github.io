@@ -1,0 +1,54 @@
+---
+import { SITE } from "../lib/site";
+import { NOINDEX, withBase } from "../lib/url";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  ogImage = SITE.ogImage,
+  ogType = "website",
+  noindex = false,
+} = Astro.props;
+
+// ステージングなどのビルドは、ページ側の指定にかかわらず noindex にする
+const blockIndexing = NOINDEX || noindex;
+const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | ${SITE.tagline}`;
+// Astro.url.pathname は base を含んだパス。site と組み合わせて公開URLにする
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const image = new URL(withBase(ogImage), SITE.url).href;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content={description} />
+<meta
+  name="robots"
+  content={blockIndexing ? "noindex, nofollow" : "index, follow, max-image-preview:large"}
+/>
+<link rel="canonical" href={canonical} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={title ?? SITE.name} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={image} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${SITE.name}公式HPのOGP画像`} />
+<meta property="og:locale" content="ja_JP" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title ?? SITE.name} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<meta name="twitter:image:alt" content={`${SITE.name}公式HPのOGP画像`} />
+<meta name="theme-color" content={SITE.themeColor} />
+{!NOINDEX && <link rel="sitemap" type="application/xml" href={withBase("/sitemap-index.xml")} />}
+<title>{pageTitle}</title>

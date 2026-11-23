@@ -1,0 +1,37 @@
+{
+  "intervalSeconds": 8,
+  "slides": [
+    {
+      "image": "assets/img/soundwalk-leaflet.webp",
+      "position": "center 46%"
+    },
+    {
+      "image": "assets/img/soundwalk-listening-tube.webp",
+      "position": "center"
+    },
+    {
+      "image": "assets/img/soundwalk-fence-listening.webp",
+      "position": "center 42%"
+    },
+    {
+      "image": "assets/img/workshop-hikawa-walk.webp",
+      "position": "center 45%"
+    },
+    {
+      "image": "assets/img/hero-slide-recording-stand.webp",
+      "position": "center"
+    },
+    {
+      "image": "assets/img/hero-slide-race-stadium.webp",
+      "position": "center"
+    },
+    {
+      "image": "assets/img/hero-slide-field-recorder.webp",
+      "position": "center"
+    },
+    {
+      "image": "assets/img/hero-slide-night-park.webp",
+      "position": "center"
+    }
+  ]
+}

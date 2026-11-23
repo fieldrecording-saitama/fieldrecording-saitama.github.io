@@ -1,0 +1,73 @@
+---
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/utilities.css";
+import "../styles/event.css";
+import Seo from "../components/Seo.astro";
+import JsonLd from "../components/JsonLd.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { SITE } from "../lib/site";
+import { absoluteUrl } from "../lib/url";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  noindex?: boolean;
+  /** ページ固有の構造化データ */
+  jsonLd?: unknown;
+  /** ヘッダーを透過させる（ヒーローのあるページ用） */
+  transparentHeader?: boolean;
+}
+
+const { title, description, ogImage, ogType, noindex, jsonLd, transparentHeader = false } =
+  Astro.props;
+
+const siteHome = absoluteUrl("/");
+
+const siteGraph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteHome}#website`,
+      url: siteHome,
+      name: SITE.name,
+      inLanguage: "ja",
+      description: "さいたまの音風景を記録し、展示やWebアーカイブとして発信する市民クラブのWebサイト。",
+    },
+    {
+      "@type": "Organization",
+      "@id": `${siteHome}#organization`,
+      name: SITE.name,
+      alternateName: SITE.alternateName,
+      url: siteHome,
+      sameAs: [SITE.social.instagram, SITE.social.facebook],
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <Seo
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+    />
+    <JsonLd data={siteGraph} />
+    {jsonLd && <JsonLd data={jsonLd} />}
+  </head>
+  <body>
+    <SiteHeader transparent={transparentHeader} />
+
+    <slot />
+
+    <SiteFooter />
+  </body>
+</html>

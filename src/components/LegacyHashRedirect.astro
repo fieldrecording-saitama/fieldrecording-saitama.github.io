@@ -1,0 +1,22 @@
+---
+import { LEGACY_HASH_REDIRECTS } from "../lib/site";
+import { withBase } from "../lib/url";
+
+// 転送先は公開先のサブディレクトリを含める必要がある
+const map = JSON.stringify(
+  Object.fromEntries(
+    Object.entries(LEGACY_HASH_REDIRECTS).map(([hash, path]) => [hash, withBase(path)]),
+  ),
+);
+---
+
+<!-- 1ページ構成だった頃のアンカー（/#workshop など）を、分割後のページへ送る -->
+<script is:inline define:vars={{ map }}>
+  (function () {
+    var table = JSON.parse(map);
+    var target = table[window.location.hash];
+    if (target) {
+      window.location.replace(target);
+    }
+  })();
+</script>

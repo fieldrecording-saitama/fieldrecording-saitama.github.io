@@ -1,0 +1,50 @@
+# PR 時のビルド検証。デプロイは行わず、Secrets も使わない。
+# master / staging はこのチェックの成功を必須にしている。
+name: Build check
+
+on:
+  pull_request:
+    branches: ["staging", "master"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "build-check-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run check
+
+      - name: Build (本番と同じ設定)
+        run: npm run build
+
+      - name: Build (サブディレクトリ公開の設定)
+        # ステージングは base 付きで公開するため、リンクや fetch が
+        # 基準パスに追随しているかをこの構成でも確かめる
+        env:
+          SITE_URL: https://example.test
+          BASE_PATH: /subdir/
+          NOINDEX: "true"
+        run: npm run build
+
+      - name: Check internal links
+        # 直前のビルド（base 付き）の出力を対象に、内部リンクと
+        # アセット参照がすべて解決するか確認する
+        run: node scripts/check-links.mjs dist /subdir/

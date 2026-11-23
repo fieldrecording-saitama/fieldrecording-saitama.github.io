@@ -1,0 +1,16 @@
+:root {
+  --paper: #f5f2e9;
+  --paper-soft: #ebe7dc;
+  --ink: #22231f;
+  --ink-muted: #60625b;
+  --line: #d1cbc0;
+  --green: #24483e;
+  --green-soft: #6e9187;
+  --water: #8db3b6;
+  --amber: #c26c3a;
+  --red: #b44735;
+  --neon: #edff35;
+  --banner-gray: #d6d6d2;
+  --white: #fffdf7;
+  --shadow: 0 18px 60px rgba(35, 33, 27, 0.14);
+}

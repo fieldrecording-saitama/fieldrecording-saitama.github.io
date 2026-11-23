@@ -1,0 +1,80 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { statusLabel } from "../lib/site";
+import { withBase } from "../lib/url";
+
+interface Props {
+  event: CollectionEntry<"events">;
+  /** 補足行（年間スケジュール）を出すか */
+  withDetails?: boolean;
+}
+const { event, withDetails = true } = Astro.props;
+const data = event.data;
+const href = withBase(`/events/${event.id}/`);
+const finished = data.status === "finished" || data.status === "closed";
+---
+
+<article>
+  <time datetime={data.startDate.toISOString().slice(0, 10)}>{data.dateLabel}</time>
+  <h3><a href={href}>{data.shortTitle ?? data.title}</a></h3>
+  <p>{data.summary}</p>
+  {
+    finished ? (
+      <span class="inline-apply disabled" aria-disabled="true">
+        {statusLabel(data.status, data.statusLabel)}
+      </span>
+    ) : (
+      <a class="inline-apply" href={data.ticketUrl ?? href}>
+        {statusLabel(data.status, data.statusLabel)}
+      </a>
+    )
+  }
+  {
+    withDetails && data.timelineDetails.length > 0 && (
+      <div class="program-detail">
+        {data.timelineDetails.map((line) => (
+          <p set:html={line} />
+        ))}
+      </div>
+    )
+  }
+</article>
+
+<style>
+  /* article を描画するのはこのコンポーネントなので、祖先の .timeline を介さず
+     要素セレクタで指定する（スコープ付きスタイルは祖先側の要素には届かない） */
+  article {
+    display: grid;
+    grid-template-columns: minmax(50%, 1fr) minmax(0, 2fr);
+    gap: 22px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  article p {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  time {
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  h3 a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(34, 35, 31, 0.28);
+  }
+
+  h3 a:hover {
+    border-bottom-color: var(--amber);
+  }
+
+  @media (max-width: 720px) {
+    article {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

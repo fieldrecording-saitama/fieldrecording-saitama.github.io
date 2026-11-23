@@ -1,0 +1,507 @@
+---
+import { withBase } from "../lib/url";
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-media" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-ornaments" aria-hidden="true">
+    <span>35.906 N / 139.624 E</span>
+    <span>OMIYA - HIKAWA - MINUMA</span>
+  </div>
+  <div class="hero-content">
+    <p class="eyebrow">Field Recording Club Saitama</p>
+    <div class="hero-event" aria-label="フィールドレコーディングワークショップ「出会い：聞き手、テクニック、場所」は終了しました">
+      <span>9月5日・6日の開催は終了しました</span>
+      <strong>Encounters: Listener, Technique, Location<br>「出会い：聞き手、テクニック、場所」</strong>
+    </div>
+    <h1 id="hero-title">耳をひらくと、<br>さいたまは<br>別の風景になる。</h1>
+    <p class="hero-copy">
+      9月5日（土）・6日（日）、作曲家・サウンドアーティスト Paulo Dantasを迎え、まちを歩き、聴き、録音する2日間のワークショップを開催しました。記録は次の活動と成果展示へつないでいきます。
+    </p>
+    <div class="hero-actions" aria-label="ページ内リンク">
+      <a class="button primary accent" href={withBase("/events/")}>今後の活動を見る</a>
+      <a class="button" href={withBase("/sound-map/")}>音地図を聴く</a>
+    </div>
+    <p class="hero-apply-note">2026年9月5日（土）・6日（日）開催終了 / ご参加・ご関心をお寄せいただき、ありがとうございました。</p>
+    <div class="hero-actions secondary" aria-label="補助リンク">
+      <a class="button ghost" href={withBase("/join/")}>活動をフォローする</a>
+    </div>
+  </div>
+  <div class="hero-date-card hero-date-card-range" aria-label="2026年9月5日土曜日・6日日曜日の2日間に開催終了">
+    <span>フィールドレコーディング・<br>ワークショップ #001</span>
+    <em>2026</em>
+    <div class="hero-date-days" aria-hidden="true">
+      <div class="hero-date-day">
+        <strong>9.05</strong>
+        <b>SAT</b>
+      </div>
+      <div class="hero-date-day">
+        <strong>9.06</strong>
+        <b>SUN</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.hero {
+  position: relative;
+  min-height: 92svh;
+  display: grid;
+  grid-template-columns: minmax(520px, 1.08fr) minmax(360px, 0.92fr);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: end;
+  padding: 118px clamp(20px, 6vw, 86px) 76px;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.hero-media,
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-media {
+  overflow: hidden;
+  transform: scale(1.02);
+  filter: saturate(1.18) contrast(1.12) brightness(0.96);
+}
+
+:global(.hero-slide) {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  will-change: opacity;
+}
+
+.hero-overlay {
+  background:
+  linear-gradient(90deg, rgba(214, 214, 210, 0), rgba(214, 214, 210, 0.22) 66%, rgba(214, 214, 210, 0.42)),
+  linear-gradient(90deg, rgba(18, 26, 22, 0.82), rgba(24, 30, 25, 0.42) 46%, rgba(24, 30, 25, 0.04)),
+  linear-gradient(0deg, rgba(18, 19, 16, 0.58), transparent 42%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  left: max(-130px, -8vw);
+  top: 72px;
+  z-index: 1;
+  width: min(360px, 52vw);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 253, 247, 0.42);
+  border-radius: 50%;
+  box-shadow:
+  18px 0 0 -17px rgba(255, 253, 247, 0.42),
+  36px 0 0 -35px rgba(255, 253, 247, 0.42),
+  54px 0 0 -53px rgba(255, 253, 247, 0.42),
+  72px 0 0 -71px rgba(255, 253, 247, 0.42),
+  90px 0 0 -89px rgba(255, 253, 247, 0.42);
+  opacity: 0.8;
+}
+
+.hero-ornaments {
+  position: absolute;
+  inset: auto clamp(20px, 5vw, 70px) 18px auto;
+  display: flex;
+  gap: 22px;
+  color: rgba(255, 253, 247, 0.64);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(740px, 100%);
+}
+
+.hero-date-card {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  justify-self: end;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: clamp(14px, 2vw, 24px);
+  width: min(520px, 100%);
+  padding: clamp(22px, 4vw, 42px);
+  color: var(--neon);
+  background: rgba(20, 25, 22, 0.54);
+  border: 1px solid rgba(242, 255, 55, 0.32);
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 247, 0.08);
+  text-transform: uppercase;
+  backdrop-filter: blur(7px);
+  animation: revealHeroPhoto 8s ease-in-out infinite;
+}
+
+@keyframes revealHeroPhoto {
+  0%,
+  15%,
+  100% {
+  opacity: 1;
+  }
+
+  22.5%,
+  28.5% {
+  opacity: 0.28;
+  }
+
+  40.5% {
+  opacity: 1;
+  }
+}
+
+.hero-date-card span {
+  grid-column: 1 / -1;
+  color: rgba(255, 253, 247, 0.86);
+  font-size: clamp(1.15rem, 2.6vw, 2.7rem);
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: 0.04em;
+}
+
+.hero-date-card-range {
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+  "label label"
+  "year days";
+  align-items: end;
+  column-gap: clamp(18px, 3vw, 34px);
+  row-gap: clamp(18px, 2.4vw, 28px);
+  width: min(520px, 100%);
+  margin-bottom: clamp(36px, 6vh, 64px);
+  padding: clamp(24px, 4vw, 40px);
+  transform: translateY(-42px);
+}
+
+.hero-date-card-range span {
+  grid-area: label;
+  max-width: 100%;
+  font-size: clamp(1.55rem, 2.7vw, 2.55rem);
+  line-height: 0.9;
+}
+
+.hero-date-card em {
+  grid-column: 1;
+  margin-top: 24px;
+  font-size: clamp(2rem, 4.8vw, 4.2rem);
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.hero-date-card-range em {
+  grid-area: year;
+  margin-top: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: clamp(2.2rem, 4.4vw, 4.8rem);
+  line-height: 0.82;
+}
+
+.hero-date-card strong {
+  grid-column: 1;
+  font-size: clamp(5.6rem, 12vw, 12rem);
+  font-weight: 900;
+  line-height: 0.86;
+}
+
+.hero-date-card b {
+  grid-column: 2;
+  grid-row: 2 / 4;
+  align-self: end;
+  justify-self: end;
+  writing-mode: vertical-rl;
+  font-size: clamp(3.8rem, 8vw, 8rem);
+  font-weight: 900;
+  line-height: 0.84;
+  color: rgba(242, 255, 55, 0.9);
+}
+
+.hero-date-days {
+  grid-area: days;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  align-self: stretch;
+  height: clamp(7.2rem, 14.6vw, 15.8rem);
+  gap: clamp(8px, 1.2vw, 16px);
+  min-width: 0;
+}
+
+.hero-date-day {
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  min-width: 0;
+  padding-top: clamp(8px, 1.2vw, 14px);
+  border-top: 2px solid rgba(242, 255, 55, 0.72);
+}
+
+.hero-date-card-range strong {
+  grid-column: auto;
+  font-size: clamp(3rem, 5.1vw, 5.65rem);
+  line-height: 0.88;
+  white-space: nowrap;
+}
+
+.hero-date-card-range b {
+  grid-column: auto;
+  grid-row: auto;
+  align-self: auto;
+  justify-self: start;
+  writing-mode: horizontal-tb;
+  font-size: clamp(1.05rem, 1.7vw, 1.55rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
+}
+
+.hero-copy {
+  width: min(640px, 100%);
+  margin: 0;
+  color: rgba(255, 253, 247, 0.9);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+}
+
+.hero-event {
+  display: inline-grid;
+  gap: 2px;
+  max-width: min(560px, 100%);
+  margin-top: 18px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 253, 247, 0.34);
+  background: rgba(255, 253, 247, 0.14);
+  color: var(--white);
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+}
+
+.hero-event > span {
+  color: #f0b27e;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.hero-event strong {
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  line-height: 1.45;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.hero-actions.secondary {
+  margin-top: 12px;
+}
+
+.hero-apply-note {
+  width: min(560px, 100%);
+  margin: 10px 0 0;
+  color: rgba(255, 253, 247, 0.7);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(.hero-slide) {
+    animation: none;
+
+  }
+
+  :global(.hero-slide):first-child {
+    opacity: 1;
+
+  }
+
+  .hero-date-card {
+    animation: none;
+
+  }
+}
+
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+
+  }
+
+  .hero-date-card {
+    justify-self: start;
+    width: min(720px, 100%);
+
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    min-height: 100svh;
+    align-content: end;
+    align-items: end;
+    gap: 18px;
+    padding: 104px 20px 34px;
+
+  }
+
+  .hero::before {
+    display: none;
+
+  }
+
+  .hero-ornaments {
+    display: none;
+
+  }
+
+  .hero-overlay {
+    background:
+    linear-gradient(180deg, rgba(18, 26, 22, 0.22), rgba(18, 26, 22, 0.62) 48%, rgba(18, 26, 22, 0.88)),
+    linear-gradient(90deg, rgba(18, 26, 22, 0.66), rgba(18, 26, 22, 0.14));
+
+  }
+
+  .hero-event {
+    max-width: 100%;
+    margin-top: 10px;
+    padding: 10px 12px;
+
+  }
+
+  .hero-copy {
+    font-size: 0.92rem;
+
+  }
+
+  .hero-date-card {
+    justify-self: start;
+    padding: 10px 16px 12px;
+    background: rgba(20, 25, 22, 0.68);
+
+  }
+
+  .hero-date-card-range {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "label"
+    "year"
+    "days";
+    width: 100%;
+    margin-bottom: 0;
+    row-gap: 14px;
+    transform: none;
+
+  }
+
+  .hero-date-card span {
+    font-size: 1.08rem;
+    line-height: 0.98;
+    letter-spacing: 0.06em;
+
+  }
+
+  .hero-date-card em {
+    margin-top: 10px;
+    font-size: 1.18rem;
+
+  }
+
+  .hero-date-card-range em {
+    margin-top: 0;
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+
+  }
+
+  .hero-date-card strong {
+    font-size: 3.35rem;
+
+  }
+
+  .hero-date-card-range strong {
+    font-size: clamp(2rem, 10vw, 3.2rem);
+
+  }
+
+  .hero-date-card strong br {
+    display: none;
+
+  }
+
+  .hero-date-card b {
+    font-size: 2.15rem;
+
+  }
+
+  .hero-date-card-range b {
+    justify-self: end;
+    font-size: 0.82rem;
+
+  }
+
+  .hero-date-days {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 1fr;
+    height: auto;
+    min-width: 0;
+    gap: 10px;
+
+  }
+
+  .hero-date-day {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 5px;
+    padding-top: 8px;
+
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+
+  }
+
+  .hero-actions {
+    gap: 8px;
+    margin-top: 18px;
+
+  }
+
+  .hero-actions.secondary {
+    display: none;
+
+  }
+
+  .hero-apply-note {
+    margin-top: 8px;
+    font-size: 0.76rem;
+
+  }
+
+  .hero-copy {
+    line-height: 1.75;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+
+  }
+}
+</style>
+
+<script>
+  import "../scripts/hero-slides.js";
+</script>

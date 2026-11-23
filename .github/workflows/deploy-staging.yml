@@ -1,0 +1,231 @@
+# ステージング: staging への push で Astro をビルドし、ロリポップへ rsync で配置する
+#
+# 必要な Secrets
+#   LOLIPOP_SSH_HOST     接続先ホスト（例: ssh.lolipop.jp）
+#   LOLIPOP_SSH_USER     SSHユーザー名
+#   LOLIPOP_SSH_PASSWORD ロリポップのSSHパスワード
+#   LOLIPOP_DEPLOY_PATH  配置先の絶対パス（デプロイ専用のディレクトリ）
+#   STAGING_SITE_URL     ステージングのオリジン（例: https://example.com）
+#   STAGING_BASE_PATH    公開ディレクトリ（例: /staging/。ドメイン直下なら /）
+# 任意の Secrets
+#   LOLIPOP_SSH_PORT     SSHポート（未設定なら 2222）
+#   LOLIPOP_KNOWN_HOSTS  ホスト鍵。未設定時は ssh-keyscan で取得する
+#
+# --delete による事故を防ぐため、配置先には目印ファイル（.deploy-target）が
+# 必要。ホームディレクトリなど共用の場所を指定しても実行されない。
+# 初回は配置先で次を実行しておくこと:
+#   mkdir -p <配置先> && touch <配置先>/.deploy-target
+#
+# BASIC認証はロリポップの管理画面で設定する前提のため、ここでは何も行わない。
+# 認証用ファイルは rsync --delete の対象から除外している。
+# ビルドは NOINDEX=true で行うため、検索エンジンには載らない。
+name: Deploy to staging (Lolipop)
+
+on:
+  push:
+    branches: ["staging"]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "確認のみ（配置先と削除予定を見るだけで、サーバーには書き込まない）"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+# ステージングへの配置は同時に1つだけ
+concurrency:
+  group: "staging"
+  cancel-in-progress: false
+
+env:
+  # 配置先がデプロイ専用であることを示す目印ファイル。手動で作成する
+  DEPLOY_MARKER: .deploy-target
+  # dry run でこの件数を超える削除が出たら中断する
+  MAX_DELETIONS: "200"
+  # 管理画面が作るBASIC認証ファイルと目印ファイルは削除しない
+  RSYNC_EXCLUDES: "--exclude=.htaccess --exclude=.htpasswd --exclude=.user.ini --exclude=.well-known/ --exclude=.deploy-target"
+  SSH_OPTS: "-o StrictHostKeyChecking=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password -o NumberOfPasswordPrompts=1 -o BatchMode=no"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required secrets
+        env:
+          SSH_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
+          SSH_USER: ${{ secrets.LOLIPOP_SSH_USER }}
+          SSH_PASSWORD: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
+          DEPLOY_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+          SITE_URL: ${{ secrets.STAGING_SITE_URL }}
+          BASE_PATH: ${{ secrets.STAGING_BASE_PATH }}
+        run: |
+          missing=""
+          for name in SSH_HOST SSH_USER SSH_PASSWORD DEPLOY_PATH SITE_URL BASE_PATH; do
+            if [ -z "${!name}" ]; then
+              missing="$missing $name"
+            fi
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::次の Secrets が未設定です:$missing"
+            exit 1
+          fi
+          # 明らかに広すぎるパスはここで弾く（実在確認は後段で行う）
+          case "$DEPLOY_PATH" in
+            "/"|"~"|"~/"|"/home"|"/home/"|"/var/www"|"/var/www/")
+              echo "::error::LOLIPOP_DEPLOY_PATH が広すぎます。デプロイ専用のディレクトリを指定してください"
+              exit 1
+              ;;
+          esac
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run check
+
+      - name: Build
+        env:
+          # 本番とは公開URLの階層が異なるため、ここで site / base を上書きする
+          SITE_URL: ${{ secrets.STAGING_SITE_URL }}
+          BASE_PATH: ${{ secrets.STAGING_BASE_PATH }}
+          # 検索結果に出さない（meta robots を noindex にし、
+          # robots.txt を Disallow、サイトマップを生成しない）
+          NOINDEX: "true"
+        run: npm run build
+
+      # Secrets の値に混じりがちな前後の空白・改行を落とす。
+      # Web UI から登録すると末尾に改行が入ることがあり、パスが壊れる。
+      - name: Normalise connection settings
+        env:
+          RAW_HOST: ${{ secrets.LOLIPOP_SSH_HOST }}
+          RAW_USER: ${{ secrets.LOLIPOP_SSH_USER }}
+          RAW_PORT: ${{ secrets.LOLIPOP_SSH_PORT }}
+          RAW_PATH: ${{ secrets.LOLIPOP_DEPLOY_PATH }}
+        run: |
+          trim() { printf '%s' "$1" | tr -d '\r\n' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'; }
+          host=$(trim "$RAW_HOST")
+          user=$(trim "$RAW_USER")
+          port=$(trim "$RAW_PORT")
+          path=$(trim "$RAW_PATH")
+
+          # 整形後の値も必ずマスクしてからログの外へ出す
+          for value in "$host" "$user" "$path"; do
+            [ -n "$value" ] && echo "::add-mask::$value"
+          done
+
+          if [ "$path" != "$RAW_PATH" ]; then
+            echo "LOLIPOP_DEPLOY_PATH の前後にある空白・改行を取り除きました"
+          fi
+
+          {
+            echo "SSH_HOST=$host"
+            echo "SSH_USER=$user"
+            echo "SSH_PORT=${port:-2222}"
+            echo "DEPLOY_PATH=$path"
+          } >> "$GITHUB_ENV"
+
+      - name: Configure SSH
+        env:
+          KNOWN_HOSTS: ${{ secrets.LOLIPOP_KNOWN_HOSTS }}
+        run: |
+          # パスワード認証を非対話で行うために sshpass を使う
+          if ! command -v sshpass >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq sshpass
+          fi
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          if [ -n "$KNOWN_HOSTS" ]; then
+            printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            echo "LOLIPOP_KNOWN_HOSTS が未設定のため ssh-keyscan で取得します"
+            ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          fi
+          chmod 600 ~/.ssh/known_hosts
+
+      # --delete でアカウント全体を消さないための関門。
+      # 配置先に目印ファイルが無ければ、そこはデプロイ専用ではないとみなして止める。
+      # 参照には ssh ではなく rsync のリスト機能を使い、認証経路を本番と揃える。
+      - name: Verify deploy target
+        env:
+          # sshpass -e はこの環境変数からパスワードを読む。
+          # コマンドライン引数に置かないため、プロセス一覧に残らない。
+          SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
+        run: |
+          if ! listing=$(sshpass -e rsync -s -e "ssh $SSH_OPTS -p $SSH_PORT" \
+               "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/" 2>&1); then
+            echo "::error::配置先を参照できませんでした。パスが存在するか確認してください"
+            echo "--- rsync の出力（全文） ---"
+            printf '%s\n' "$listing"
+            echo "--- ここまで ---"
+            echo "配置先パスの文字数: $(printf '%s' "$DEPLOY_PATH" | wc -c)"
+            exit 1
+          fi
+
+          if printf '%s\n' "$listing" | awk '{print $NF}' | grep -qx -- "$DEPLOY_MARKER"; then
+            echo "配置先の確認が取れました（$DEPLOY_MARKER あり）"
+          else
+            echo "::error::目印ファイル $DEPLOY_MARKER がありません。ここはデプロイ専用ディレクトリではない可能性があります"
+            echo "意図した配置先であれば、サーバー上で次を実行してください: touch <配置先>/$DEPLOY_MARKER"
+            echo "--- 配置先の内容（先頭30件） ---"
+            printf '%s\n' "$listing" | head -30
+            exit 1
+          fi
+
+      # 実際に消えるものを事前に確認する。想定外の件数なら配置先の設定ミスとみなす。
+      - name: Preview deletions (dry run)
+        env:
+          # sshpass -e はこの環境変数からパスワードを読む。
+          # コマンドライン引数に置かないため、プロセス一覧に残らない。
+          SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
+        run: |
+          sshpass -e rsync -rlptvz -s --delete --dry-run \
+            -e "ssh $SSH_OPTS -p $SSH_PORT" \
+            $RSYNC_EXCLUDES \
+            dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/" > /tmp/rsync-dry.log
+
+          deletions=$(grep -c '^deleting ' /tmp/rsync-dry.log || true)
+          deletions=${deletions:-0}
+          echo "削除予定: ${deletions} 件（上限 ${MAX_DELETIONS} 件）"
+
+          if [ "$deletions" -gt 0 ]; then
+            echo "--- 削除されるファイル（先頭50件） ---"
+            grep '^deleting ' /tmp/rsync-dry.log | head -50
+          fi
+
+          if [ "$deletions" -gt "$MAX_DELETIONS" ]; then
+            echo "::error::削除予定が上限を超えました（${deletions} 件）。配置先が正しいか確認してください。意図した変更なら MAX_DELETIONS を引き上げてください"
+            exit 1
+          fi
+
+      - name: Deploy with rsync
+        # 手動実行の既定は確認のみ。配置するときは dry_run のチェックを外す
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run == false }}
+        env:
+          # sshpass -e はこの環境変数からパスワードを読む。
+          # コマンドライン引数に置かないため、プロセス一覧に残らない。
+          SSHPASS: ${{ secrets.LOLIPOP_SSH_PASSWORD }}
+        run: |
+          sshpass -e rsync -rlptvz -s --delete \
+            -e "ssh $SSH_OPTS -p $SSH_PORT" \
+            $RSYNC_EXCLUDES \
+            dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
+
+      - name: Summarise dry run
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
+        run: |
+          echo "確認のみで終了しました。サーバーには書き込んでいません。"
+          echo "配置するには、この画面の Run workflow から dry_run のチェックを外して再実行してください。"
