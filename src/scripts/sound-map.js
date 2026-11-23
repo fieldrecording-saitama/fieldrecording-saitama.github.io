@@ -22,7 +22,7 @@ const fallbackFeature = {
     description: "地図上の録音地点を選ぶと、ここに説明と録音メモが表示されます。",
     note: "自動再生はしません。聴きたい地点を選んで、プレイヤーから再生してください。",
     soundcloudUrl: "",
-    photo: withBase("/assets/img/hero.jpg"),
+    photo: withBase("/assets/img/hero.webp"),
     tags: ["archive", "soundmap"],
   },
   geometry: {
@@ -252,7 +252,7 @@ function renderPanel(feature, options = {}) {
   els.title.textContent = props.title;
   els.description.textContent = props.description;
   els.note.textContent = props.note;
-  els.photo.src = props.photo || withBase("/assets/img/hero.jpg");
+  els.photo.src = props.photo || withBase("/assets/img/hero.webp");
   els.photo.alt = `${props.place}の写真`;
   updateArtworkFallback();
 
