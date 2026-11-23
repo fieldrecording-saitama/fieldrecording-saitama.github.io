@@ -21,7 +21,7 @@ from urllib.parse import quote, urljoin
 from urllib.request import Request, urlopen
 
 
-DEFAULT_PLAYLIST_URL = "https://soundcloud.com/livingroom-tapes/sets/field-recording-club-saitama"
+DEFAULT_PLAYLIST_URL = "https://soundcloud.com/eeuuggnn/sets/field-recording-club-saitama"
 DEFAULT_JSON_PATH = Path("data/soundcloud-playlist.json")
 DEFAULT_CSV_PATH = Path("data/soundcloud-playlist.csv")
 USER_AGENT = "fieldrecording-saitama-soundcloud-export/1.0"
