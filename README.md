@@ -200,7 +200,7 @@ python3 scripts/scrape_soundcloud_playlist.py
 
 ```sh
 python3 scripts/scrape_soundcloud_playlist.py \
-  --url "https://soundcloud.com/livingroom-tapes/sets/field-recording-club-saitama" \
+  --url "https://soundcloud.com/eeuuggnn/sets/field-recording-club-saitama" \
   --json data/soundcloud-playlist.json \
   --csv data/soundcloud-playlist.csv
 ```
